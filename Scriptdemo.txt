@@ -41,13 +41,24 @@ AddButton(Tab1o, {
         loadstring(game:HttpGet("https://raw.githubusercontent.com/AhmadV99/Speed-Hub-X/main/Speed%20Hub%20X.lua", true))()
     end
 })
-
+AddButton(tab2, {
+    Name = "Thunder Z :)", 
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/ThundeZ/GrowAGardenScript/refs/heads/main/ThunderZHub.lua"))()
+    end
+})
+AddButton(tag3, {
+    Name = "no lag 😀", 
+    Callback = function()
+        loadstring(game:HttpGet("https://pastebin.com/raw/q9mKqvUC"))()
+    end
+})
 ------ Tab 2
 local Tab2o = MakeTab({Name = "99 đêm"})
 
 AddButton(Tab2o, {
-    Name = "chưa có",
+    Name = "H4X ngon đó 🤩",
     Callback = function()
-        print("Chưa có script ở đây 😅")
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/H4xScripts/Loader/refs/heads/main/loader.lua", true))()
     end
 })
