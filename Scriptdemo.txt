@@ -1,25 +1,28 @@
+--// UI Library
 loadstring(game:HttpGet("https://raw.githubusercontent.com/daucobonhi/Ui-Redz-V2/main/UiREDzV2.lua"))()
 
+--// Main Window
 local Window = MakeWindow({
     Hub = {
-        Title = "téo 🍎",
-        Animation = "Youtube: téo🍎 scr vn"
+        Title = "téo 🍎", -- 👈 Tên hub
+        Animation = "Youtube: téo🍎 scr vn" -- 👈 Dòng phụ
     },
     Key = {
-        KeySystem = true,
-        Title = "get key đeeeee",
-        Description = "",
-        KeyLink = "https://link4sub.com/3St7",
-        Keys = {"bố dz"},
+        KeySystem = true, -- 👈 Bật hệ thống key
+        Title = "🔑 Nhập key để dùng",
+        Description = "Lấy key tại: https://link4sub.com/3St7", -- 👈 Link key của bạn
+        KeyLink = "https://link4sub.com/3St7", -- 👈 Link mở key
+        Keys = {"bố dz"}, -- 👈 Key cố định
         Notifi = {
             Notifications = true,
-            CorrectKey = "đúng rồi nhá chạy circus đây 🏃‍♀️",
-            Incorrectkey = "sai roi kìa làm lại đi😒",
-            CopyKeyLink = "copy rồi nhá 😀"
+            CorrectKey = "✅ Key đúng rồi, chạy circus đây 🏃‍♀️",
+            Incorrectkey = "❌ Sai key rồi, thử lại 😒",
+            CopyKeyLink = "📋 Copy link thành công!"
         }
     }
 })
 
+--// Nút thu nhỏ
 MinimizeButton({
     Image = "http://www.roblox.com/asset/?id=96392217298536",
     Size = {60, 60},
@@ -29,17 +32,22 @@ MinimizeButton({
     StrokeColor = Color3.fromRGB(255, 0, 0)
 })
 
------- Tab
-local Tab1o = MakeTab({Name = "script farm 💎 99 đêm 🤑"})
+------ Tab 1
+local Tab1o = MakeTab({Name = "grow a gaden"})
 
-------- BUTTON
 AddButton(Tab1o, {
-    Name = "auto farm 💎1",
+    Name = "script speed hub x",
     Callback = function()
-        local Settings = {
-            JoinTeam = "Pirates"; -- Pirates/Marines
-            Translator = true; -- true/false
-        }
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/teoscrvn/T-ng-h-p-/main/Scriptdemo.txt"))()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/AhmadV99/Speed-Hub-X/main/Speed%20Hub%20X.lua", true))()
+    end
+})
+
+------ Tab 2
+local Tab2o = MakeTab({Name = "99 đêm"})
+
+AddButton(Tab2o, {
+    Name = "chưa có",
+    Callback = function()
+        print("Chưa có script ở đây 😅")
     end
 })
