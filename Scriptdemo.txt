@@ -1,0 +1,45 @@
+loadstring(game:HttpGet(("https://raw.githubusercontent.com/daucobonhi/Ui-Redz-V2/refs/heads/main/UiREDzV2.lua")))()
+
+       local Window = MakeWindow({
+         Hub = {
+         Title = " téo 🍎",
+         Animation = "Youtube: téo🍎 scr vn"
+         },
+        Key = {
+        KeySystem = true,
+        Title = "get key đeeeee",
+        Description = "",
+        KeyLink = "https://link4sub.com/3St7",
+        Keys = {"bố dz"},
+        Notifi = {
+        Notifications = true,
+        CorrectKey = "đúng rồi nhá chạy circus đây 🏃‍♀️",
+       Incorrectkey = "sai roi kìa làm lại đi😒",
+       CopyKeyLink = "copy rồi nhá 😀"
+      }
+    }
+  })
+
+       MinimizeButton({
+       Image = "http://www.roblox.com/asset/?id=96392217298536",
+       Size = {60, 60},
+       Color = Color3.fromRGB(10, 10, 10),
+       Corner = true,
+       Stroke = false,
+       StrokeColor = Color3.fromRGB(255, 0, 0)
+      })
+      
+------ Tab
+     local Tab1o = MakeTab({Name = "script farm 💎 99 đêm 🤑"})
+     
+------- BUTTON
+    
+    AddButton(Tab1o, {
+     Name = "auto farm 💎1",
+    Callback = function()
+	  local Settings = {
+  JoinTeam = "Pirates"; -- Pirates/Marines
+  Translator = true; -- true/false
+}
+
+loadstring(game:HttpGet("https://pastefy.app/UTq45GC2/raw"))()
