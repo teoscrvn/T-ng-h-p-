@@ -40,6 +40,6 @@ AddButton(Tab1o, {
             JoinTeam = "Pirates"; -- Pirates/Marines
             Translator = true; -- true/false
         }
-        loadstring(game:HttpGet("https://pastefy.app/UTq45GC2/raw"))()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/teoscrvn/T-ng-h-p-/main/Scriptdemo.txt"))()
     end
 })
