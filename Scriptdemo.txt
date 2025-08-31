@@ -35,19 +35,24 @@ MinimizeButton({
 ------ Tab 1
 local Tab1o = MakeTab({Name = "grow a gaden"})
 
+-- Nút 1
 AddButton(Tab1o, {
     Name = "script speed hub x",
     Callback = function()
         loadstring(game:HttpGet("https://raw.githubusercontent.com/AhmadV99/Speed-Hub-X/main/Speed%20Hub%20X.lua", true))()
     end
 })
-AddButton(tab2, {
+
+-- Nút 2
+AddButton(Tab1o, {
     Name = "Thunder Z :)", 
     Callback = function()
         loadstring(game:HttpGet("https://raw.githubusercontent.com/ThundeZ/GrowAGardenScript/refs/heads/main/ThunderZHub.lua"))()
     end
 })
-AddButton(tag3, {
+
+-- Nút 3
+AddButton(Tab1o, {
     Name = "no lag 😀", 
     Callback = function()
         loadstring(game:HttpGet("https://pastebin.com/raw/q9mKqvUC"))()
