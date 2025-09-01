@@ -4,19 +4,18 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/daucobonhi/Ui-Redz-V2
 --// Main Window
 local Window = MakeWindow({
     Hub = {
-        Title = "téo 🍎", 
+        Title = "téo 🍎 Hub",
         Animation = "Youtube: téo🍎 scr vn"
     },
     Key = {
-        KeySystem = true, -- Bật key
+        KeySystem = true,
         Title = "🔑 Nhập key để dùng",
-        Description = "Key cố định: tdzko",
+        Description = "Nhập key: tdzko",
         Keys = {"tdzko"},
         Notifi = {
             Notifications = true,
-            CorrectKey = "✅ Key đúng! GUI mở ra",
-            Incorrectkey = "❌ Sai key, thử lại 😒",
-            CopyKeyLink = "📋 Key copy rồi"
+            CorrectKey = "✅ Key đúng rồi! GUI mở ra!",
+            Incorrectkey = "❌ Sai key, thử lại 😒"
         }
     }
 })
@@ -34,15 +33,19 @@ MinimizeButton({
 ------ Tab 1
 local Tab1o = MakeTab({Name = "99 đêm Fake"})
 
--- Kill Aura toggle
+--// Kill Aura toggle
 local KillAuraEnabled = false
-local Range = 15 -- phạm vi tấn công
+local Range = 15
+local SelectedNPCs = {} -- NPC được chọn để kill
+local Player = game.Players.LocalPlayer
 
-AddButton(Tab1o, {
-    Name = "🗡 Kill Aura",
-    Callback = function()
-        KillAuraEnabled = not KillAuraEnabled
-        if KillAuraEnabled then
+-- Toggle Kill Aura
+AddToggle(Tab1o, {
+    Name = "🗡 Bật Kill Aura",
+    StartingState = false,
+    Callback = function(state)
+        KillAuraEnabled = state
+        if state then
             print("Kill Aura BẬT!")
         else
             print("Kill Aura TẮT!")
@@ -50,40 +53,61 @@ AddButton(Tab1o, {
     end
 })
 
--- Auto Farm Gỗ toggle
+-- Slider chỉnh phạm vi Kill Aura
+AddSlider(Tab1o, {
+    Name = "🎯 Phạm vi Kill",
+    Min = 5,
+    Max = 50,
+    StartingValue = 15,
+    Callback = function(value)
+        Range = value
+        print("Phạm vi Kill Aura: "..Range)
+    end
+})
+
+-- Chọn NPC cần kill (có thể thêm danh sách từ wiki game)
+AddDropdown(Tab1o, {
+    Name = "Chọn sinh vật",
+    Options = {"Rabbit", "Wolf", "Bear"}, -- ví dụ, thay bằng tên thực tế
+    Callback = function(option)
+        SelectedNPCs = {option} -- lưu NPC cần kill
+        print("Đã chọn sinh vật: "..option)
+    end
+})
+
+-- Auto Farm Gỗ
 local AutoFarmEnabled = false
-AddButton(Tab1o, {
-    Name = "🌲 Auto Farm Gỗ",
-    Callback = function()
-        AutoFarmEnabled = not AutoFarmEnabled
-        if AutoFarmEnabled then
-            print("Auto Farm BẬT!")
+AddToggle(Tab1o, {
+    Name = "🌲 Bật Auto Farm Gỗ",
+    StartingState = false,
+    Callback = function(state)
+        AutoFarmEnabled = state
+        if state then
+            print("Auto Farm Gỗ BẬT!")
         else
-            print("Auto Farm TẮT!")
+            print("Auto Farm Gỗ TẮT!")
         end
     end
 })
 
--- Loop Kill Aura & Auto Farm
+--// Loop Kill Aura
 spawn(function()
     while true do
-        -- Kill Aura
-        if KillAuraEnabled then
+        if KillAuraEnabled and Player.Character and Player.Character:FindFirstChild("HumanoidRootPart") then
             local npcs = workspace:FindFirstChild("NPCs") and workspace.NPCs:GetChildren() or {}
             for _, npc in pairs(npcs) do
                 if npc:FindFirstChild("Humanoid") and npc:FindFirstChild("HumanoidRootPart") then
-                    local dist = (npc.HumanoidRootPart.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).Magnitude
-                    if dist <= Range then
-                        if game:GetService("ReplicatedStorage"):FindFirstChild("Events") and game.ReplicatedStorage.Events:FindFirstChild("Attack") then
+                    local dist = (npc.HumanoidRootPart.Position - Player.Character.HumanoidRootPart.Position).Magnitude
+                    if dist <= Range and (table.find(SelectedNPCs, npc.Name) or #SelectedNPCs == 0) then
+                        if game.ReplicatedStorage:FindFirstChild("Events") and game.ReplicatedStorage.Events:FindFirstChild("Attack") then
                             game.ReplicatedStorage.Events.Attack:FireServer(npc.Humanoid)
                         end
                     end
                 end
             end
         end
-        -- Auto Farm Gỗ
         if AutoFarmEnabled then
-            -- Ví dụ: giả lập farm gỗ (cần chỉnh theo game thật)
+            -- Auto farm gỗ giả lập (tùy game thật thay code)
             print("Đang farm gỗ...")
         end
         wait(0.1)
