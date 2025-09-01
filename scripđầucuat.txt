@@ -40,31 +40,45 @@ AddButton(Tab1o, {
     Name = "script speed hub x",
     Callback = function()
         loadstring(game:HttpGet("https://raw.githubusercontent.com/AhmadV99/Speed-Hub-X/main/Speed%20Hub%20X.lua", true))()
-    end
+    end,
+    Color = Color3.fromRGB(60, 120, 200),
+    Stroke = true,
+    StrokeColor = Color3.fromRGB(0, 150, 255)
 })
 
 -- Nút 2
 AddButton(Tab1o, {
-    Name = "Thunder Z :)", 
+    Name = "Thunder Z :)",
     Callback = function()
         loadstring(game:HttpGet("https://raw.githubusercontent.com/ThundeZ/GrowAGardenScript/refs/heads/main/ThunderZHub.lua"))()
-    end
+    end,
+    Color = Color3.fromRGB(60, 120, 200),
+    Stroke = true,
+    StrokeColor = Color3.fromRGB(0, 150, 255)
 })
 
 -- Nút 3
 AddButton(Tab1o, {
-    Name = "no lag 😀", 
+    Name = "no lag 😀",
     Callback = function()
         loadstring(game:HttpGet("https://pastebin.com/raw/q9mKqvUC"))()
-    end
+    end,
+    Color = Color3.fromRGB(60, 120, 200),
+    Stroke = true,
+    StrokeColor = Color3.fromRGB(0, 150, 255)
 })
+
 -- Nút 4
 AddButton(Tab1o, {
-    Name = "nathub", 
+    Name = "nathub",
     Callback = function()
         loadstring(game:HttpGet("https://get.nathub.xyz/loader"))()
-    end
+    end,
+    Color = Color3.fromRGB(60, 120, 200),
+    Stroke = true,
+    StrokeColor = Color3.fromRGB(0, 150, 255)
 })
+
 ------ Tab 2
 local Tab2o = MakeTab({Name = "99 đêm"})
 
@@ -72,8 +86,12 @@ AddButton(Tab2o, {
     Name = "H4X ngon đó 🤩",
     Callback = function()
         loadstring(game:HttpGet("https://raw.githubusercontent.com/H4xScripts/Loader/refs/heads/main/loader.lua", true))()
-    end
+    end,
+    Color = Color3.fromRGB(60, 120, 200),
+    Stroke = true,
+    StrokeColor = Color3.fromRGB(0, 150, 255)
 })
+
 ------ Tab 3
 local Tab3o = MakeTab({Name = "blox fruit🍎"})
 
@@ -81,3 +99,21 @@ AddButton(Tab3o, {
     Name = "blueX",
     Callback = function()
         loadstring(game:HttpGet("https://raw.githubusercontent.com/Dev-BlueX/BlueX-Hub/refs/heads/main/Main.lua"))()
+    end,
+    Color = Color3.fromRGB(60, 120, 200),
+    Stroke = true,
+    StrokeColor = Color3.fromRGB(0, 150, 255)
+})
+
+------ Tab 4
+local Tab4o = MakeTab({Name = "cuớp1 bran r 💩"})
+
+AddButton(Tab4o, {
+    Name = "v4",
+    Callback = function()
+        loadstring(game:HttpGet("https://api.luarmor.net/files/v4/loaders/a3e13a4a85ac4c2da17a6baab051ee1b.lua"))()
+    end,
+    Color = Color3.fromRGB(60, 120, 200),
+    Stroke = true,
+    StrokeColor = Color3.fromRGB(0, 150, 255)
+})
