@@ -9,14 +9,10 @@ local Window = MakeWindow({
     },
     Key = {
         KeySystem = true,
-        Title = "🔑 Nhập key để dùng",
-        Description = "Nhập key: tdzko",
-        Keys = {"tdzko"},
-        Notifi = {
-            Notifications = true,
-            CorrectKey = "✅ Key đúng rồi! GUI mở ra!",
-            Incorrectkey = "❌ Sai key, thử lại 😒"
-        }
+        Title = "Nhập Key",
+        Description = "Key để mở Hub",
+        KeyLink = "https://pastebin.com/raw/tdzko", -- bạn có thể thay link nếu muốn
+        Keys = {"tdzko"} -- Key hợp lệ
     }
 })
 
@@ -26,90 +22,77 @@ MinimizeButton({
     Size = {60, 60},
     Color = Color3.fromRGB(10, 10, 10),
     Corner = true,
-    Stroke = true,
-    StrokeColor = Color3.fromRGB(0, 170, 255)
+    Stroke = false,
+    StrokeColor = Color3.fromRGB(0, 255, 0)
 })
 
------- Tab 1
+--// Tab 1
 local Tab1o = MakeTab({Name = "99 đêm Fake"})
 
---// Kill Aura toggle
+-- Biến điều khiển
 local KillAuraEnabled = false
-local Range = 15
-local SelectedNPCs = {} -- NPC được chọn để kill
-local Player = game.Players.LocalPlayer
+local Range = 20
+local TargetMobs = {}
 
 -- Toggle Kill Aura
 AddToggle(Tab1o, {
     Name = "🗡 Bật Kill Aura",
-    StartingState = false,
+    Default = false,
     Callback = function(state)
         KillAuraEnabled = state
-        if state then
-            print("Kill Aura BẬT!")
-        else
-            print("Kill Aura TẮT!")
-        end
+        print("Kill Aura: ", state and "BẬT" or "TẮT")
     end
 })
 
--- Slider chỉnh phạm vi Kill Aura
+-- Slider chỉnh phạm vi
 AddSlider(Tab1o, {
-    Name = "🎯 Phạm vi Kill",
+    Name = "📏 Phạm vi",
     Min = 5,
-    Max = 50,
-    StartingValue = 15,
-    Callback = function(value)
-        Range = value
-        print("Phạm vi Kill Aura: "..Range)
+    Max = 100,
+    Default = 20,
+    Callback = function(val)
+        Range = val
+        print("Phạm vi Kill Aura: " .. val)
     end
 })
 
--- Chọn NPC cần kill (có thể thêm danh sách từ wiki game)
+-- Dropdown chọn sinh vật
 AddDropdown(Tab1o, {
-    Name = "Chọn sinh vật",
-    Options = {"Rabbit", "Wolf", "Bear"}, -- ví dụ, thay bằng tên thực tế
-    Callback = function(option)
-        SelectedNPCs = {option} -- lưu NPC cần kill
-        print("Đã chọn sinh vật: "..option)
+    Name = "🎯 Chọn sinh vật",
+    Options = {"Bunny", "Wolf", "Alpha Wolf", "Bear"},
+    Callback = function(opt)
+        TargetMobs = {opt}
+        print("Đang chọn: " .. opt)
     end
 })
 
--- Auto Farm Gỗ
-local AutoFarmEnabled = false
-AddToggle(Tab1o, {
-    Name = "🌲 Bật Auto Farm Gỗ",
-    StartingState = false,
-    Callback = function(state)
-        AutoFarmEnabled = state
-        if state then
-            print("Auto Farm Gỗ BẬT!")
-        else
-            print("Auto Farm Gỗ TẮT!")
-        end
-    end
-})
-
---// Loop Kill Aura
-spawn(function()
-    while true do
-        if KillAuraEnabled and Player.Character and Player.Character:FindFirstChild("HumanoidRootPart") then
-            local npcs = workspace:FindFirstChild("NPCs") and workspace.NPCs:GetChildren() or {}
-            for _, npc in pairs(npcs) do
-                if npc:FindFirstChild("Humanoid") and npc:FindFirstChild("HumanoidRootPart") then
-                    local dist = (npc.HumanoidRootPart.Position - Player.Character.HumanoidRootPart.Position).Magnitude
-                    if dist <= Range and (table.find(SelectedNPCs, npc.Name) or #SelectedNPCs == 0) then
-                        if game.ReplicatedStorage:FindFirstChild("Events") and game.ReplicatedStorage.Events:FindFirstChild("Attack") then
-                            game.ReplicatedStorage.Events.Attack:FireServer(npc.Humanoid)
+-- Kill Aura loop
+task.spawn(function()
+    while task.wait(0.2) do
+        if KillAuraEnabled and #TargetMobs > 0 then
+            local char = game.Players.LocalPlayer.Character
+            if char and char:FindFirstChild("HumanoidRootPart") then
+                local hrp = char.HumanoidRootPart
+                local tool = char:FindFirstChildOfClass("Tool")
+                if tool then -- phải cầm vũ khí
+                    for _, mob in pairs(workspace:GetDescendants()) do
+                        if mob:IsA("Model") and table.find(TargetMobs, mob.Name) then
+                            local mobhrp = mob:FindFirstChild("HumanoidRootPart")
+                            local hum = mob:FindFirstChild("Humanoid")
+                            if mobhrp and hum and hum.Health > 0 then
+                                local dist = (mobhrp.Position - hrp.Position).Magnitude
+                                if dist <= Range then
+                                    -- 👇 Thay event tấn công cho đúng game
+                                    if game.ReplicatedStorage:FindFirstChild("Events") 
+                                    and game.ReplicatedStorage.Events:FindFirstChild("Attack") then
+                                        game.ReplicatedStorage.Events.Attack:FireServer(hum)
+                                    end
+                                end
+                            end
                         end
                     end
                 end
             end
         end
-        if AutoFarmEnabled then
-            -- Auto farm gỗ giả lập (tùy game thật thay code)
-            print("Đang farm gỗ...")
-        end
-        wait(0.1)
     end
 end)
