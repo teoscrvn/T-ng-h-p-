@@ -1,0 +1,119 @@
+--// UI Library
+loadstring(game:HttpGet("https://raw.githubusercontent.com/daucobonhi/Ui-Redz-V2/main/UiREDzV2.lua"))()
+
+--// Main Window
+local Window = MakeWindow({
+    Hub = {
+        Title = "téo 🍎", -- 👈 Tên hub
+        Animation = "Youtube: téo🍎 scr vn" -- 👈 Dòng phụ
+    },
+    Key = {
+        KeySystem = true, -- 👈 Bật hệ thống key
+        Title = "🔑 Nhập key để dùng",
+        Description = "Lấy key tại: https://link4sub.com/3St7", -- 👈 Link key của bạn
+        KeyLink = "https://link4sub.com/3St7", -- 👈 Link mở key
+        Keys = {"bố dz"}, -- 👈 Key cố định
+        Notifi = {
+            Notifications = true,
+            CorrectKey = "✅ Key đúng rồi, chạy circus đây 🏃‍♀️",
+            Incorrectkey = "❌ Sai key rồi, thử lại 😒",
+            CopyKeyLink = "📋 Copy link thành công!"
+        }
+    }
+})
+
+--// Nút thu nhỏ
+MinimizeButton({
+    Image = "http://www.roblox.com/asset/?id=96392217298536",
+    Size = {60, 60},
+    Color = Color3.fromRGB(10, 10, 10),
+    Corner = true,
+    Stroke = false,
+    StrokeColor = Color3.fromRGB(255, 0, 0)
+})
+
+------ Tab 1
+local Tab1o = MakeTab({Name = "grow a gaden"})
+
+-- Nút 1
+AddButton(Tab1o, {
+    Name = "script speed hub x",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/AhmadV99/Speed-Hub-X/main/Speed%20Hub%20X.lua", true))()
+    end,
+    Color = Color3.fromRGB(60, 120, 200),
+    Stroke = true,
+    StrokeColor = Color3.fromRGB(0, 150, 255)
+})
+
+-- Nút 2
+AddButton(Tab1o, {
+    Name = "Thunder Z :)",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/ThundeZ/GrowAGardenScript/refs/heads/main/ThunderZHub.lua"))()
+    end,
+    Color = Color3.fromRGB(60, 120, 200),
+    Stroke = true,
+    StrokeColor = Color3.fromRGB(0, 150, 255)
+})
+
+-- Nút 3
+AddButton(Tab1o, {
+    Name = "no lag 😀",
+    Callback = function()
+        loadstring(game:HttpGet("https://pastebin.com/raw/q9mKqvUC"))()
+    end,
+    Color = Color3.fromRGB(60, 120, 200),
+    Stroke = true,
+    StrokeColor = Color3.fromRGB(0, 150, 255)
+})
+
+-- Nút 4
+AddButton(Tab1o, {
+    Name = "nathub",
+    Callback = function()
+        loadstring(game:HttpGet("https://get.nathub.xyz/loader"))()
+    end,
+    Color = Color3.fromRGB(60, 120, 200),
+    Stroke = true,
+    StrokeColor = Color3.fromRGB(0, 150, 255)
+})
+
+------ Tab 2
+local Tab2o = MakeTab({Name = "99 đêm"})
+
+AddButton(Tab2o, {
+    Name = "H4X ngon đó 🤩",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/H4xScripts/Loader/refs/heads/main/loader.lua", true))()
+    end,
+    Color = Color3.fromRGB(60, 120, 200),
+    Stroke = true,
+    StrokeColor = Color3.fromRGB(0, 150, 255)
+})
+
+------ Tab 3
+local Tab3o = MakeTab({Name = "blox fruit🍎"})
+
+AddButton(Tab3o, {
+    Name = "blueX",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/Dev-BlueX/BlueX-Hub/refs/heads/main/Main.lua"))()
+    end,
+    Color = Color3.fromRGB(60, 120, 200),
+    Stroke = true,
+    StrokeColor = Color3.fromRGB(0, 150, 255)
+})
+
+------ Tab 4
+local Tab4o = MakeTab({Name = "cuớp1 bran r 💩"})
+
+AddButton(Tab4o, {
+    Name = "v4",
+    Callback = function()
+        loadstring(game:HttpGet("https://api.luarmor.net/files/v4/loaders/a3e13a4a85ac4c2da17a6baab051ee1b.lua"))()
+    end,
+    Color = Color3.fromRGB(60, 120, 200),
+    Stroke = true,
+    StrokeColor = Color3.fromRGB(0, 150, 255)
+})
