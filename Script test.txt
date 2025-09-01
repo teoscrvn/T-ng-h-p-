@@ -4,11 +4,20 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/daucobonhi/Ui-Redz-V2
 --// Main Window
 local Window = MakeWindow({
     Hub = {
-        Title = "téo 🍎", -- Tên hub
-        Animation = "Youtube: téo🍎 scr vn" -- Dòng phụ
+        Title = "téo 🍎", 
+        Animation = "Youtube: téo🍎 scr vn"
     },
     Key = {
-        KeySystem = false, -- Không cần key
+        KeySystem = true, -- Bật key
+        Title = "🔑 Nhập key để dùng",
+        Description = "Key cố định: tdzko",
+        Keys = {"tdzko"},
+        Notifi = {
+            Notifications = true,
+            CorrectKey = "✅ Key đúng! GUI mở ra",
+            Incorrectkey = "❌ Sai key, thử lại 😒",
+            CopyKeyLink = "📋 Key copy rồi"
+        }
     }
 })
 
@@ -18,58 +27,64 @@ MinimizeButton({
     Size = {60, 60},
     Color = Color3.fromRGB(10, 10, 10),
     Corner = true,
-    Stroke = false,
-    StrokeColor = Color3.fromRGB(255, 0, 0)
+    Stroke = true,
+    StrokeColor = Color3.fromRGB(0, 170, 255)
 })
 
 ------ Tab 1
 local Tab1o = MakeTab({Name = "99 đêm Fake"})
 
--- Kill Aura TP toggle
+-- Kill Aura toggle
 local KillAuraEnabled = false
-local Range = 50 -- phạm vi phát hiện NPC
+local Range = 15 -- phạm vi tấn công
 
 AddButton(Tab1o, {
-    Name = "🗡 Kill Aura TP",
+    Name = "🗡 Kill Aura",
     Callback = function()
         KillAuraEnabled = not KillAuraEnabled
         if KillAuraEnabled then
-            print("Kill Aura TP BẬT!")
+            print("Kill Aura BẬT!")
         else
-            print("Kill Aura TP TẮT!")
+            print("Kill Aura TẮT!")
         end
     end
 })
 
--- Loop Kill Aura TP
+-- Auto Farm Gỗ toggle
+local AutoFarmEnabled = false
+AddButton(Tab1o, {
+    Name = "🌲 Auto Farm Gỗ",
+    Callback = function()
+        AutoFarmEnabled = not AutoFarmEnabled
+        if AutoFarmEnabled then
+            print("Auto Farm BẬT!")
+        else
+            print("Auto Farm TẮT!")
+        end
+    end
+})
+
+-- Loop Kill Aura & Auto Farm
 spawn(function()
     while true do
+        -- Kill Aura
         if KillAuraEnabled then
-            local player = game.Players.LocalPlayer
-            local character = player.Character
-            if character and character:FindFirstChild("HumanoidRootPart") then
-                local npcsFolder = workspace:FindFirstChild("NPCs") -- Thay đúng folder NPC
-                if npcsFolder then
-                    for _, npc in pairs(npcsFolder:GetChildren()) do
-                        if npc:FindFirstChild("Humanoid") and npc:FindFirstChild("HumanoidRootPart") then
-                            local npcHRP = npc.HumanoidRootPart
-                            local dist = (npcHRP.Position - character.HumanoidRootPart.Position).Magnitude
-                            if dist <= Range then
-                                -- TP đến NPC
-                                character.HumanoidRootPart.CFrame = npcHRP.CFrame * CFrame.new(0, 3, 0)
-                                wait(0.1)
-                                -- Tấn công NPC
-                                local attackEvent = game:GetService("ReplicatedStorage"):FindFirstChild("Events") 
-                                                and game.ReplicatedStorage.Events:FindFirstChild("Attack")
-                                if attackEvent then
-                                    attackEvent:FireServer(npc.Humanoid)
-                                end
-                                wait(0.2)
-                            end
+            local npcs = workspace:FindFirstChild("NPCs") and workspace.NPCs:GetChildren() or {}
+            for _, npc in pairs(npcs) do
+                if npc:FindFirstChild("Humanoid") and npc:FindFirstChild("HumanoidRootPart") then
+                    local dist = (npc.HumanoidRootPart.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).Magnitude
+                    if dist <= Range then
+                        if game:GetService("ReplicatedStorage"):FindFirstChild("Events") and game.ReplicatedStorage.Events:FindFirstChild("Attack") then
+                            game.ReplicatedStorage.Events.Attack:FireServer(npc.Humanoid)
                         end
                     end
                 end
             end
+        end
+        -- Auto Farm Gỗ
+        if AutoFarmEnabled then
+            -- Ví dụ: giả lập farm gỗ (cần chỉnh theo game thật)
+            print("Đang farm gỗ...")
         end
         wait(0.1)
     end
