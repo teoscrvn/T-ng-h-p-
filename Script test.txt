@@ -1,0 +1,63 @@
+--// UI Library
+loadstring(game:HttpGet("https://raw.githubusercontent.com/daucobonhi/Ui-Redz-V2/main/UiREDzV2.lua"))()
+
+--// Main Window
+local Window = MakeWindow({
+    Hub = {
+        Title = "téo 🍎", -- 👈 Tên hub
+        Animation = "Youtube: téo🍎 scr vn" -- 👈 Dòng phụ
+    },
+    Key = {
+        KeySystem = false, -- 👈 Không cần key
+    }
+})
+
+--// Nút thu nhỏ
+MinimizeButton({
+    Image = "http://www.roblox.com/asset/?id=96392217298536",
+    Size = {60, 60},
+    Color = Color3.fromRGB(10, 10, 10),
+    Corner = true,
+    Stroke = false,
+    StrokeColor = Color3.fromRGB(255, 0, 0)
+})
+
+------ Tab 1
+local Tab1o = MakeTab({Name = "99 đêm Fake"})
+
+-- Kill Aura toggle
+local KillAuraEnabled = false
+local Range = 15 -- phạm vi tấn công
+
+AddButton(Tab1o, {
+    Name = "🗡 Kill Aura",
+    Callback = function()
+        KillAuraEnabled = not KillAuraEnabled
+        if KillAuraEnabled then
+            print("Kill Aura BẬT!")
+        else
+            print("Kill Aura TẮT!")
+        end
+    end
+})
+
+-- Loop Kill Aura
+spawn(function()
+    while true do
+        if KillAuraEnabled then
+            -- 👇 Thay workspace.NPCs bằng folder chứa NPC thật game
+            for _, npc in pairs(workspace:FindFirstChild("NPCs") and workspace.NPCs:GetChildren() or {}) do
+                if npc:FindFirstChild("Humanoid") and npc:FindFirstChild("HumanoidRootPart") then
+                    local dist = (npc.HumanoidRootPart.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).Magnitude
+                    if dist <= Range then
+                        -- 👇 Thay ReplicatedStorage.Events.Attack bằng event tấn công game
+                        if game:GetService("ReplicatedStorage"):FindFirstChild("Events") and game.ReplicatedStorage.Events:FindFirstChild("Attack") then
+                            game.ReplicatedStorage.Events.Attack:FireServer(npc.Humanoid)
+                        end
+                    end
+                end
+            end
+        end
+        wait(0.1)
+    end
+end)
