@@ -216,7 +216,7 @@ AddButton(Tab1o, {
 AddButton(Tab1o, {
     Name = "airflow",
     Callback = function()
-        loadstring(game:HttpGet("https://api.luarmor.net/files/v3/loaders/255ac567ced3dcb9e69aa7e44c423f19.lua"))(
+        loadstring(game:HttpGet("https://api.luarmor.net/files/v3/loaders/255ac567ced3dcb9e69aa7e44c423f19.lua"))( )
     end,
     Color = Color3.fromRGB(60, 120, 200),
     Stroke = true,
@@ -553,7 +553,7 @@ local Tab5o = Window:MakeTab({Name = "lucky block"})
 AddButton(Tab5o, {
     Name = "lucky block1:)",
     Callback = function()
-        loadstring(game:HttpGet("https://api.luarmor.net/files/v3/loaders/255ac567ced3dcb9e69aa7e44c423f19.lua"))(
+        loadstring(game:HttpGet("https://api.luarmor.net/files/v3/loaders/255ac567ced3dcb9e69aa7e44c423f19.lua"))( )
     end,
     Color = Color3.fromRGB(60, 120, 200),
     Stroke = true,
