@@ -1,5 +1,5 @@
 --// UI Library
-loadstring(game:HttpGet("https://raw.githubusercontent.com/daucobonhi/Ui-Redz-V2/main/UiREDzV2.lua"))()
+local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/daucobonhi/Ui-Redz-V2/main/UiREDzV2.lua"))()
 
 --// Main Window
 local Window = MakeWindow({
@@ -141,7 +141,7 @@ AddButton(Tab1o, {
     Stroke = true,
     StrokeColor = Color3.fromRGB(0, 150, 255)
 })
-AddButton(Tab2o, {
+AddButton(Tab1o, {
     Name = "vxeze",
     Callback = function()
         loadstring(game:HttpGet("https://raw.githubusercontent.com/Dex-Bear/Vxezehub/refs/heads/main/VxezeHubMain"))()
