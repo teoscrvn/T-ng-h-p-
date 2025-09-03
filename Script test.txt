@@ -4,15 +4,21 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/daucobonhi/Ui-Redz-V2
 --// Main Window
 local Window = MakeWindow({
     Hub = {
-        Title = "téo 🍎 Hub",
+        Title = "téo 🍎",
         Animation = "Youtube: téo🍎 scr vn"
     },
     Key = {
         KeySystem = true,
-        Title = "Nhập Key",
-        Description = "Key để mở Hub",
-        KeyLink = "https://pastebin.com/raw/tdzko", -- bạn có thể thay link nếu muốn
-        Keys = {"tdzko"} -- Key hợp lệ
+        Title = "🔑 Nhập key để dùng",
+        Description = "Lấy key tại: https://link4sub.com/3St7",
+        KeyLink = "https://link4sub.com/3St7",
+        Keys = {"bố dz"},
+        Notifi = {
+            Notifications = true,
+            CorrectKey = "✅ Key đúng rồi!",
+            Incorrectkey = "❌ Sai key rồi!",
+            CopyKeyLink = "📋 Copy link thành công!"
+        }
     }
 })
 
@@ -23,76 +29,110 @@ MinimizeButton({
     Color = Color3.fromRGB(10, 10, 10),
     Corner = true,
     Stroke = false,
-    StrokeColor = Color3.fromRGB(0, 255, 0)
+    StrokeColor = Color3.fromRGB(255, 0, 0)
 })
 
---// Tab 1
-local Tab1o = MakeTab({Name = "99 đêm Fake"})
+------ Tab Kill Aura
+local TabKA = MakeTab({Name = "🔥 Kill Aura"})
 
--- Biến điều khiển
+-- Biến chính
 local KillAuraEnabled = false
-local Range = 20
+local Range = 15
 local TargetMobs = {}
 
+-- Danh sách entity (ví dụ, bạn thêm vào theo game thật)
+local MobList = {"Rabbit", "Wolf", "Alpha Wolf", "Bear", "Deer"}
+
+-- Hàm log popup
+local function ShowLog(msg, color)
+    local ScreenGui = game.CoreGui:FindFirstChild("AuraLogGui") or Instance.new("ScreenGui", game.CoreGui)
+    ScreenGui.Name = "AuraLogGui"
+
+    local InfoLabel = Instance.new("TextLabel")
+    InfoLabel.Size = UDim2.new(0, 400, 0, 30)
+    InfoLabel.Position = UDim2.new(0.5, -200, 0.85, 0)
+    InfoLabel.BackgroundTransparency = 0.3
+    InfoLabel.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+    InfoLabel.TextColor3 = color or Color3.fromRGB(0, 255, 0)
+    InfoLabel.TextScaled = true
+    InfoLabel.Text = msg
+    InfoLabel.Parent = ScreenGui
+
+    game:GetService("TweenService"):Create(InfoLabel, TweenInfo.new(0.5), {TextTransparency = 1, BackgroundTransparency = 1}):Play()
+    game:GetService("Debris"):AddItem(InfoLabel, 1)
+end
+
 -- Toggle Kill Aura
-AddToggle(Tab1o, {
+AddToggle(TabKA, {
     Name = "🗡 Bật Kill Aura",
     Default = false,
-    Callback = function(state)
-        KillAuraEnabled = state
-        print("Kill Aura: ", state and "BẬT" or "TẮT")
+    Callback = function(v)
+        KillAuraEnabled = v
+        if v then
+            ShowLog("⚔️ Kill Aura ON", Color3.fromRGB(0,255,0))
+        else
+            ShowLog("🛑 Kill Aura OFF", Color3.fromRGB(200,200,200))
+        end
     end
 })
 
--- Slider chỉnh phạm vi
-AddSlider(Tab1o, {
+-- Slider phạm vi
+AddSlider(TabKA, {
     Name = "📏 Phạm vi",
     Min = 5,
     Max = 100,
-    Default = 20,
-    Callback = function(val)
-        Range = val
-        print("Phạm vi Kill Aura: " .. val)
+    Default = 15,
+    Callback = function(v)
+        Range = v
+        ShowLog("📐 Phạm vi = "..v, Color3.fromRGB(0,150,255))
     end
 })
 
--- Dropdown chọn sinh vật
-AddDropdown(Tab1o, {
-    Name = "🎯 Chọn sinh vật",
-    Options = {"Bunny", "Wolf", "Alpha Wolf", "Bear"},
-    Callback = function(opt)
-        TargetMobs = {opt}
-        print("Đang chọn: " .. opt)
-    end
-})
+-- Chọn mob cần kill
+for _, mob in ipairs(MobList) do
+    AddToggle(TabKA, {
+        Name = "🎯 "..mob,
+        Default = true,
+        Callback = function(v)
+            TargetMobs[mob] = v
+            ShowLog((v and "✅ Bật " or "❌ Tắt ")..mob, Color3.fromRGB(255,200,0))
+        end
+    })
+end
 
--- Kill Aura loop
-task.spawn(function()
-    while task.wait(0.2) do
-        if KillAuraEnabled and #TargetMobs > 0 then
-            local char = game.Players.LocalPlayer.Character
+-- Loop Kill Aura
+spawn(function()
+    while true do
+        if KillAuraEnabled then
+            local player = game.Players.LocalPlayer
+            local char = player.Character
             if char and char:FindFirstChild("HumanoidRootPart") then
-                local hrp = char.HumanoidRootPart
-                local tool = char:FindFirstChildOfClass("Tool")
-                if tool then -- phải cầm vũ khí
-                    for _, mob in pairs(workspace:GetDescendants()) do
-                        if mob:IsA("Model") and table.find(TargetMobs, mob.Name) then
-                            local mobhrp = mob:FindFirstChild("HumanoidRootPart")
-                            local hum = mob:FindFirstChild("Humanoid")
-                            if mobhrp and hum and hum.Health > 0 then
-                                local dist = (mobhrp.Position - hrp.Position).Magnitude
+                local hasTool = char:FindFirstChildWhichIsA("Tool")
+                if hasTool then
+                    local found = false
+                    for _, npc in pairs(workspace:GetDescendants()) do
+                        if npc:IsA("Model") and TargetMobs[npc.Name] then
+                            local hum = npc:FindFirstChild("Humanoid")
+                            local root = npc:FindFirstChild("HumanoidRootPart")
+                            if hum and root and hum.Health > 0 then
+                                local dist = (root.Position - char.HumanoidRootPart.Position).Magnitude
                                 if dist <= Range then
-                                    -- 👇 Thay event tấn công cho đúng game
-                                    if game.ReplicatedStorage:FindFirstChild("Events") 
-                                    and game.ReplicatedStorage.Events:FindFirstChild("Attack") then
-                                        game.ReplicatedStorage.Events.Attack:FireServer(hum)
-                                    end
+                                    found = true
+                                    ShowLog("⚔️ Đang đánh "..npc.Name.." ("..math.floor(dist).."m)", Color3.fromRGB(0,255,0))
+                                    -- 👇 Đây bạn phải chỉnh theo event attack game thật
+                                    game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("Attack"):FireServer(hum)
                                 end
                             end
                         end
                     end
+                    if not found then
+                        ShowLog("🔍 Không thấy mục tiêu", Color3.fromRGB(255,255,0))
+                    end
+                else
+                    ShowLog("⚠️ Cần cầm vũ khí", Color3.fromRGB(255,0,0))
                 end
             end
         end
+        wait(0.5)
     end
 end)
