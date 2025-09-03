@@ -61,7 +61,7 @@ AddButton(Tab1o, {
 AddButton(Tab1o, {
     Name = "no lag 😀",
     Callback = function()
-        loadstring(game:HttpGet("https://pastebin.com/raw/q9mKqvUC"))()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/greywaterstill/GAG/refs/heads/main/nathub.lua"))()
     end,
     Color = Color3.fromRGB(60, 120, 200),
     Stroke = true,
@@ -118,6 +118,105 @@ AddButton(Tab1o, {
     Name = "lion",
     Callback = function()
         loadstring(game:HttpGet("https://api.luarmor.net/files/v3/loaders/e0c7fcf6c077fc23475cf4ce4db58e42.lua"))()
+    end,
+    Color = Color3.fromRGB(60, 120, 200),
+    Stroke = true,
+    StrokeColor = Color3.fromRGB(0, 150, 255)
+})
+AddButton(Tab1o, {
+    Name = "rifton",
+    Callback = function()
+        loadstring(game:HttpGet("https://rifton.top/loader.lua"))()
+    end,
+    Color = Color3.fromRGB(60, 120, 200),
+    Stroke = true,
+    StrokeColor = Color3.fromRGB(0, 150, 255)
+})
+AddButton(Tab1o, {
+    Name = "blue",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/tesghg/Grow-a-Garden/main/ameicaa_Grow_A_Garden.lua"))()
+    end,
+    Color = Color3.fromRGB(60, 120, 200),
+    Stroke = true,
+    StrokeColor = Color3.fromRGB(0, 150, 255)
+})
+AddButton(Tab2o, {
+    Name = "vxeze",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/Dex-Bear/Vxezehub/refs/heads/main/VxezeHubMain"))()
+    end,
+    Color = Color3.fromRGB(60, 120, 200),
+    Stroke = true,
+    StrokeColor = Color3.fromRGB(0, 150, 255)
+})
+AddButton(Tab1o, {
+    Name = "solix",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/debunked69/Solixreworkkeysystem/refs/heads/main/solix%20new%20keyui.lua"))()
+    end,
+    Color = Color3.fromRGB(60, 120, 200),
+    Stroke = true,
+    StrokeColor = Color3.fromRGB(0, 150, 255)
+})
+AddButton(Tab1o, {
+    Name = "lunor",
+    Callback = function()
+        loadstring(game:HttpGet("https://lunor.dev/loader"))()
+    end,
+    Color = Color3.fromRGB(60, 120, 200),
+    Stroke = true,
+    StrokeColor = Color3.fromRGB(0, 150, 255)
+})
+AddButton(Tab1o, {
+    Name = "forge",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/Skzuppy/forge-hub/main/loader.lua"))()
+    end,
+    Color = Color3.fromRGB(60, 120, 200),
+    Stroke = true,
+    StrokeColor = Color3.fromRGB(0, 150, 255)
+})
+AddButton(Tab1o, {
+    Name = "drrox",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/BrySadW/GrowAGarden/refs/heads/main/GrowAGarden.lua"))()
+    end,
+    Color = Color3.fromRGB(60, 120, 200),
+    Stroke = true,
+    StrokeColor = Color3.fromRGB(0, 150, 255)
+})
+AddButton(Tab1o, {
+    Name = "doggo",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/doggoman230/growagarden/refs/heads/main/script"))()
+    end,
+    Color = Color3.fromRGB(60, 120, 200),
+    Stroke = true,
+    StrokeColor = Color3.fromRGB(0, 150, 255)
+})
+AddButton(Tab1o, {
+    Name = "fryzer",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/FryzerHub/loading-Gui/refs/heads/main/grow%20a%20garden%20v1"))()
+    end,
+    Color = Color3.fromRGB(60, 120, 200),
+    Stroke = true,
+    StrokeColor = Color3.fromRGB(0, 150, 255)
+})
+AddButton(Tab1o, {
+    Name = "koronis",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/nf-36/Koronis/refs/heads/main/Scripts/Loader.lua"))()
+    end,
+    Color = Color3.fromRGB(60, 120, 200),
+    Stroke = true,
+    StrokeColor = Color3.fromRGB(0, 150, 255)
+})
+AddButton(Tab1o, {
+    Name = "airflow",
+    Callback = function()
+        loadstring(game:HttpGet("https://api.luarmor.net/files/v3/loaders/255ac567ced3dcb9e69aa7e44c423f19.lua"))(
     end,
     Color = Color3.fromRGB(60, 120, 200),
     Stroke = true,
@@ -247,7 +346,97 @@ AddButton(Tab3o, {
     Stroke = true,
     StrokeColor = Color3.fromRGB(0, 150, 255)
 })
-
+AddButton(Tab3o, {
+    Name = "andepzai🤣",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/AnDepZaiHub/AnDepZaiHubBeta/refs/heads/main/AnDepZaiHubNewUpdated.lua"))()
+    end,
+    Color = Color3.fromRGB(60, 120, 200),
+    Stroke = true,
+    StrokeColor = Color3.fromRGB(0, 150, 255)
+})
+AddButton(Tab3o, {
+    Name = "Fix lag",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/1f0yt/community/master/Script/Remove_Lag.lua"))()
+    end,
+    Color = Color3.fromRGB(60, 120, 200),
+    Stroke = true,
+    StrokeColor = Color3.fromRGB(0, 150, 255)
+})
+AddButton(Tab3o, {
+    Name = "Rubu",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/RubxyXyz/rubu/refs/heads/main/RubuHubFree"))()
+    end,
+    Color = Color3.fromRGB(60, 120, 200),
+    Stroke = true,
+    StrokeColor = Color3.fromRGB(0, 150, 255)
+})
+AddButton(Tab3o, {
+    Name = "HOHO",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/acsu123/HOHO_H/main/Loading_UI"))()
+    end,
+    Color = Color3.fromRGB(60, 120, 200),
+    Stroke = true,
+    StrokeColor = Color3.fromRGB(0, 150, 255)
+})
+AddButton(Tab3o, {
+    Name = "Fasdraco",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/trongnguyenhubbloxfruit/Trongdeptraifastdraco/refs/heads/main/trongnguyenbeoauradraco"))()
+    end,
+    Color = Color3.fromRGB(60, 120, 200),
+    Stroke = true,
+    StrokeColor = Color3.fromRGB(0, 150, 255)
+})
+AddButton(Tab3o, {
+    Name = "Maru hub",
+    Callback = function()
+        getgenv().Team = "Marines"
+loadstring(game:HttpGet("https://raw.githubusercontent.com/LuaCrack/KimP/refs/heads/main/MaruHub"))()
+    end,
+    Color = Color3.fromRGB(60, 120, 200),
+    Stroke = true,
+    StrokeColor = Color3.fromRGB(0, 150, 255)
+})
+AddButton(Tab3o, {
+    Name = "min",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/Nghia11n/MIN/main/minscript.lua"))()
+    end,
+    Color = Color3.fromRGB(60, 120, 200),
+    Stroke = true,
+    StrokeColor = Color3.fromRGB(0, 150, 255)
+})
+AddButton(Tab3o, {
+    Name = "Min2",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/Zunes-Bypassed/NOPE/main/Min.lua"))()
+    end,
+    Color = Color3.fromRGB(60, 120, 200),
+    Stroke = true,
+    StrokeColor = Color3.fromRGB(0, 150, 255)
+})
+AddButton(Tab3o, {
+    Name = "Rise",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/TrashLua/BloxFruits/main/FreeScripts.lua"))()
+    end,
+    Color = Color3.fromRGB(60, 120, 200),
+    Stroke = true,
+    StrokeColor = Color3.fromRGB(0, 150, 255)
+})
+AddButton(Tab3o, {
+    Name = "teddymain",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/TeddyEpicCode/TeddyHubFree/main/Script.lua"))()
+    end,
+    Color = Color3.fromRGB(60, 120, 200),
+    Stroke = true,
+    StrokeColor = Color3.fromRGB(0, 150, 255)
+})
 ------ Tab 4
 local Tab4o = MakeTab({Name = "cuớp1 bran rot 💩"})
 
@@ -354,6 +543,17 @@ AddButton(Tab4o, {
     Name = "airhub",
     Callback = function()
         loadstring(game:HttpGet("https://raw.githubusercontent.com/og2xn/AirHubs/refs/heads/main/Protected_3429231241525986.lua"))()
+    end,
+    Color = Color3.fromRGB(60, 120, 200),
+    Stroke = true,
+    StrokeColor = Color3.fromRGB(0, 150, 255)
+})
+------ Tab 5
+local Tab5o = MakeTab({Name = "lucky block"})
+AddButton(Tab5o, {
+    Name = "lucky block1:)",
+    Callback = function()
+        loadstring(game:HttpGet("https://api.luarmor.net/files/v3/loaders/255ac567ced3dcb9e69aa7e44c423f19.lua"))(
     end,
     Color = Color3.fromRGB(60, 120, 200),
     Stroke = true,
