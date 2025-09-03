@@ -204,24 +204,6 @@ AddButton(Tab1o, {
     Stroke = true,
     StrokeColor = Color3.fromRGB(0, 150, 255)
 })
-AddButton(Tab1o, {
-    Name = "koronis",
-    Callback = function()
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/nf-36/Koronis/refs/heads/main/Scripts/Loader.lua"))()
-    end,
-    Color = Color3.fromRGB(60, 120, 200),
-    Stroke = true,
-    StrokeColor = Color3.fromRGB(0, 150, 255)
-})
-AddButton(Tab1o, {
-    Name = "airflow",
-    Callback = function()
-        loadstring(game:HttpGet("https://api.luarmor.net/files/v3/loaders/255ac567ced3dcb9e69aa7e44c423f19.lua"))( )
-    end,
-    Color = Color3.fromRGB(60, 120, 200),
-    Stroke = true,
-    StrokeColor = Color3.fromRGB(0, 150, 255)
-})
 ------ Tab 2
 local Tab2o = Window:MakeTab({Name = "99 đêm"})
 
@@ -347,15 +329,6 @@ AddButton(Tab3o, {
     StrokeColor = Color3.fromRGB(0, 150, 255)
 })
 AddButton(Tab3o, {
-    Name = "andepzai🤣",
-    Callback = function()
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/AnDepZaiHub/AnDepZaiHubBeta/refs/heads/main/AnDepZaiHubNewUpdated.lua"))()
-    end,
-    Color = Color3.fromRGB(60, 120, 200),
-    Stroke = true,
-    StrokeColor = Color3.fromRGB(0, 150, 255)
-})
-AddButton(Tab3o, {
     Name = "Fix lag",
     Callback = function()
         loadstring(game:HttpGet("https://raw.githubusercontent.com/1f0yt/community/master/Script/Remove_Lag.lua"))()
@@ -470,17 +443,6 @@ AddButton(Tab4o, {
     Name = "airhub",
     Callback = function()
         loadstring(game:HttpGet("https://raw.githubusercontent.com/og2xn/AirHubs/refs/heads/main/Protected_3429231241525986.lua"))()
-    end,
-    Color = Color3.fromRGB(60, 120, 200),
-    Stroke = true,
-    StrokeColor = Color3.fromRGB(0, 150, 255)
-})
------- Tab 5
-local Tab5o = Window:MakeTab({Name = "lucky block"})
-AddButton(Tab5o, {
-    Name = "lucky block1:)",
-    Callback = function()
-        loadstring(game:HttpGet("https://api.luarmor.net/files/v3/loaders/255ac567ced3dcb9e69aa7e44c423f19.lua"))( )
     end,
     Color = Color3.fromRGB(60, 120, 200),
     Stroke = true,
