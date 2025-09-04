@@ -33,7 +33,7 @@ MinimizeButton({
 })
 
 ------ Tab 1
-local Tab1o = Window:MakeTab({Name = "grow a gaden"})
+local Tab1o =MakeTab({Name = "grow a gaden"})
 
 -- Nút 1
 AddButton(Tab1o, {
