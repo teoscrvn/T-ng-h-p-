@@ -1,22 +1,22 @@
 --// UI Library
-local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/daucobonhi/Ui-Redz-V2/main/UiREDzV2.lua"))()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/daucobonhi/Ui-Redz-V2/main/UiREDzV2.lua"))()
 
 --// Main Window
-local Window = Library:MakeWindow({
+local Window = MakeWindow({
     Hub = {
-        Title = "téo 🍎", -- 👈 Tên hub
-        Animation = "Youtube: téo🍎 scr vn" -- 👈 Dòng phụ
+        Title = "téo 🍎",
+        Animation = "Youtube: téo🍎 scr vn"
     },
     Key = {
-        KeySystem = true, -- 👈 Bật hệ thống key
+        KeySystem = true,
         Title = "🔑 Nhập key để dùng",
-        Description = "Lấy key tại: https://link4sub.com/3St7", -- 👈 Link key của bạn
-        KeyLink = "https://link4sub.com/3St7", -- 👈 Link mở key
-        Keys = {"bố dz"}, -- 👈 Key cố định
+        Description = "Lấy key tại: https://link4sub.com/3St7",
+        KeyLink = "https://link4sub.com/3St7",
+        Keys = {"bố dz"},
         Notifi = {
             Notifications = true,
-            CorrectKey = "✅ Key đúng rồi, chạy circus đây 🏃‍♀️",
-            Incorrectkey = "❌ Sai key rồi, thử lại 😒",
+            CorrectKey = "✅ Key đúng rồi!",
+            Incorrectkey = "❌ Sai key rồi!",
             CopyKeyLink = "📋 Copy link thành công!"
         }
     }
