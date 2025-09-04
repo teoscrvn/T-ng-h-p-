@@ -33,7 +33,7 @@ MinimizeButton({
 })
 
 ------ Tab 1
-local Tab1o =MakeTab({Name = "grow a gaden"})
+local Tab1o =MakeTab({Name = "grow a gaden🌱🌲🌴🌵"})
 
 -- Nút 1
 AddButton(Tab1o, {
@@ -223,7 +223,7 @@ AddButton(Tab1o, {
     StrokeColor = Color3.fromRGB(0, 150, 255)
 })
 ------ Tab 2
-local Tab2o =MakeTab({Name = "99 đêm"})
+local Tab2o =MakeTab({Name = "99 đêm🌑🌓🌒"})
 
 AddButton(Tab2o, {
     Name = "H4X ngon đó 🤩",
@@ -549,7 +549,7 @@ AddButton(Tab4o, {
     StrokeColor = Color3.fromRGB(0, 150, 255)
 })
 ------ Tab 5
-local Tab5o =MakeTab({Name = "lucky block"})
+local Tab5o =MakeTab({Name = "lucky block🍀"})
 AddButton(Tab5o, {
     Name = "lucky block1:)",
     Callback = function()
@@ -560,7 +560,7 @@ AddButton(Tab5o, {
     StrokeColor = Color3.fromRGB(0, 150, 255)
 })
 ------ Tab 6
-local Tab6o =MakeTab({Name = "Mm2"})
+local Tab6o =MakeTab({Name = "Mm2👮🕵‍♀️🥷"})
 AddButton(Tab6o, {
     Name = "echelon",
     Callback = function()
@@ -646,6 +646,89 @@ AddButton(Tab6o, {
     Name = "ent",
     Callback = function()
         loadstring(game:HttpGet("https://raw.githubusercontent.com/Snowt-Team/SNT-HUB/refs/heads/main/MurderMystery2.txt"))()
+    end,
+    Color = Color3.fromRGB(60, 120, 200),
+    Stroke = true,
+    StrokeColor = Color3.fromRGB(0, 150, 255)
+})
+------ Tab 7
+local Tab7o =MakeTab({Name = "Muscle legends💪🦾🦿"})
+AddButton(Tab7o, {
+    Name = "SLH",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/EncryptedV10/Cracked-Scripts/refs/heads/main/Slh%20random%20shit/Useless%20garbage.lua"))()
+    end,
+    Color = Color3.fromRGB(60, 120, 200),
+    Stroke = true,
+    StrokeColor = Color3.fromRGB(0, 150, 255)
+})
+AddButton(Tab7o, {
+    Name = "silence",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/ztxpublic/crack/refs/heads/main/Silence%20full%20version%20Cracked"))()
+    end,
+    Color = Color3.fromRGB(60, 120, 200),
+    Stroke = true,
+    StrokeColor = Color3.fromRGB(0, 150, 255)
+})
+AddButton(Tab7o, {
+    Name = "OMEGA HUB (key:ruruisop)",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/DangBroLMAO/Omega/refs/heads/main/Omega.lua"))()
+    end,
+    Color = Color3.fromRGB(60, 120, 200),
+    Stroke = true,
+    StrokeColor = Color3.fromRGB(0, 150, 255)
+})
+AddButton(Tab7o, {
+    Name = "BEAMED (key:benlovesul)",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/ben1x1x1x1x/V2/refs/heads/main/BeamedV2FreeLoader"))()
+    end,
+    Color = Color3.fromRGB(60, 120, 200),
+    Stroke = true,
+    StrokeColor = Color3.fromRGB(0, 150, 255)
+})
+AddButton(Tab7o, {
+    Name = "LUNA HUB",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/ImHenne/cracking/main/LunaHub.lua"))()
+    end,
+    Color = Color3.fromRGB(60, 120, 200),
+    Stroke = true,
+    StrokeColor = Color3.fromRGB(0, 150, 255)
+})
+AddButton(Tab7o, {
+    Name = "ENDCHATED HUB (key:iblameaabis) ",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/iblameaabis/Enchanted/refs/heads/main/Enchanted%20Hub%20On%20Top"))()
+    end,
+    Color = Color3.fromRGB(60, 120, 200),
+    Stroke = true,
+    StrokeColor = Color3.fromRGB(0, 150, 255)
+})
+AddButton(Tab7o, {
+    Name = "SILENCE (key( byhenne)",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/imhenne187/Silence/refs/heads/main/Loader.lua"))()
+    end,
+    Color = Color3.fromRGB(60, 120, 200),
+    Stroke = true,
+    StrokeColor = Color3.fromRGB(0, 150, 255)
+})
+AddButton(Tab7o, {
+    Name = "Speed Hub",
+    Callback = function()
+        loadstring(game:HttpGet("https://rawscripts.net/raw/Universal-Script-Speed-Hub-X-14461"))()
+    end,
+    Color = Color3.fromRGB(60, 120, 200),
+    Stroke = true,
+    StrokeColor = Color3.fromRGB(0, 150, 255)
+})
+AddButton(Tab7o, {
+    Name = "Lunar Hub ( key: HavocBestFr)",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/LunarXHub/Lurnai-Hub/refs/heads/main/Lurnai/Games/Muscle%20Legends.luaaa"))()
     end,
     Color = Color3.fromRGB(60, 120, 200),
     Stroke = true,
