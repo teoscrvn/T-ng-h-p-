@@ -32,40 +32,6 @@ MinimizeButton({
     StrokeColor = Color3.fromRGB(255, 0, 0)
 })
 
---// UI Library
-local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/daucobonhi/Ui-Redz-V2/main/UiREDzV2.lua"))()
-
---// Main Window
-local Window = Library:MakeWindow({
-    Hub = {
-        Title = "téo 🍎", -- 👈 Tên hub
-        Animation = "Youtube: téo🍎 scr vn" -- 👈 Dòng phụ
-    },
-    Key = {
-        KeySystem = true, -- 👈 Bật hệ thống key
-        Title = "🔑 Nhập key để dùng",
-        Description = "Lấy key tại: https://link4sub.com/3St7", -- 👈 Link key của bạn
-        KeyLink = "https://link4sub.com/3St7", -- 👈 Link mở key
-        Keys = {"bố dz"}, -- 👈 Key cố định
-        Notifi = {
-            Notifications = true,
-            CorrectKey = "✅ Key đúng rồi, chạy circus đây 🏃‍♀️",
-            Incorrectkey = "❌ Sai key rồi, thử lại 😒",
-            CopyKeyLink = "📋 Copy link thành công!"
-        }
-    }
-})
-
---// Nút thu nhỏ
-MinimizeButton({
-    Image = "http://www.roblox.com/asset/?id=96392217298536",
-    Size = {60, 60},
-    Color = Color3.fromRGB(10, 10, 10),
-    Corner = true,
-    Stroke = false,
-    StrokeColor = Color3.fromRGB(255, 0, 0)
-})
-
 ------ Tab 1
 local Tab1o =MakeTab({Name = "grow a gaden"})
 
