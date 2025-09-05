@@ -441,6 +441,24 @@ AddButton(Tab3o, {
 local Tab4o =MakeTab({Name = "cuớp1 bran rot 💩"})
 
 AddButton(Tab4o, {
+    Name = "LEMON HUB🍋🍋",
+    Callback = function()
+        loadstring(game:HttpGet("https://pastefy.app/NU4lqGZe/raw"))()
+    end,
+    Color = Color3.fromRGB(60, 120, 200),
+    Stroke = true,
+    StrokeColor = Color3.fromRGB(0, 150, 255)
+})
+AddButton(Tab4o, {
+    Name = "Lemon",
+    Callback = function()
+        loadstring(game:HttpGet("https://api.luarmor.net/files/v3/loaders/ffdfeadf0af798741806ea404682a938.lua"))()
+    end,
+    Color = Color3.fromRGB(60, 120, 200),
+    Stroke = true,
+    StrokeColor = Color3.fromRGB(0, 150, 255)
+})
+AddButton(Tab4o, {
     Name = "v4",
     Callback = function()
         loadstring(game:HttpGet("https://api.luarmor.net/files/v4/loaders/a3e13a4a85ac4c2da17a6baab051ee1b.lua"))()
