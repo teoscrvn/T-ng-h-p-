@@ -1,6 +1,36 @@
 --// UI Library
-local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/daucobonhi/Ui-Redz-V2/main/UiREDzV2.lua"))()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/daucobonhi/Ui-Redz-V2/main/UiREDzV2.lua"))()
 
+--// Main Window
+local Window = MakeWindow({
+    Hub = {
+        Title = "téo 🍎",
+        Animation = "Youtube: téo🍎 scr vn"
+    },
+    Key = {
+        KeySystem = true,
+        Title = "🔑 Nhập key để dùng",
+        Description = "Lấy key tại: https://link4sub.com/3St7",
+        KeyLink = "https://link4sub.com/3St7",
+        Keys = {"bố dz"},
+        Notifi = {
+            Notifications = true,
+            CorrectKey = "✅ Key đúng rồi!",
+            Incorrectkey = "❌ Sai key rồi!",
+            CopyKeyLink = "📋 Copy link thành công!"
+        }
+    }
+})
+
+--// Nút thu nhỏ
+MinimizeButton({
+    Image = "http://www.roblox.com/asset/?id=96392217298536",
+    Size = {60, 60},
+    Color = Color3.fromRGB(10, 10, 10),
+    Corner = true,
+    Stroke = false,
+    StrokeColor = Color3.fromRGB(255, 0, 0)
+})
 --// Quảng Cáo Window
 local PromoWin = Library:MakeWindow({
     Hub = {
@@ -9,10 +39,10 @@ local PromoWin = Library:MakeWindow({
     }
 })
 
---// Tạo tab
+--// Tab TikTok
 local PromoTab = PromoWin:MakeTab({Name = "TikTok"})
 
--- Label tiêu đề
+-- Label
 PromoTab:AddLabel("👉 Follow TikTok: @hacbachvietsub")
 
 -- Nút copy link
@@ -38,10 +68,14 @@ PromoTab:AddButton({
 
 --// Trang trí cho cửa sổ quảng cáo
 task.spawn(function()
-    task.wait(1) -- đợi UI tạo xong
+    task.wait(1)
     for _, gui in pairs(game:GetService("CoreGui"):GetDescendants()) do
-        if gui:IsA("Frame") and gui.Parent:IsA("ScrollingFrame") and gui.Parent.Parent:FindFirstChildOfClass("TextLabel") and gui.Parent.Parent:FindFirstChildOfClass("TextLabel").Text:find("📢 Quảng Cáo") then
-            -- Thêm viền đỏ
+        if gui:IsA("Frame") 
+        and gui.Parent:IsA("ScrollingFrame") 
+        and gui.Parent.Parent:FindFirstChildOfClass("TextLabel") 
+        and gui.Parent.Parent:FindFirstChildOfClass("TextLabel").Text:find("📢 Quảng Cáo") then
+            
+            -- Viền đỏ nhạt
             local stroke = Instance.new("UIStroke")
             stroke.Color = Color3.fromRGB(255, 100, 100)
             stroke.Thickness = 2
