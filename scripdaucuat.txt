@@ -31,6 +31,7 @@ MinimizeButton({
     Stroke = false,
     StrokeColor = Color3.fromRGB(255, 0, 0)
 })
+
 ------ Tab 1
 local Tab1o =MakeTab({Name = "grow a gaden🌱🌲🌴🌵"})
 
