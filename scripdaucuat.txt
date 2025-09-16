@@ -1,164 +1,72 @@
 --// UI Library
-loadstring(game:HttpGet("https://raw.githubusercontent.com/daucobonhi/Ui-Redz-V2/main/UiREDzV2.lua"))()
--- Trang trí khung chính
-local MainWindow = Library:MakeWindow({
-    Hub = {
-        Title = "🐯 Script Hub",
-        Animation = "Hắc Bạch Vietsub"
-    },
-    Design = {
-        BackgroundColor = Color3.fromRGB(35, 35, 35), -- nền xám
-        BorderColor = Color3.fromRGB(255, 100, 100), -- viền đỏ nhạt
-        BorderSize = 2,
-        CornerRadius = UDim.new(0, 15), -- bo tròn góc
-        Shadow = true -- đổ bóng
-    }
-})
+local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/daucobonhi/Ui-Redz-V2/main/UiREDzV2.lua"))()
 
--- Trang trí nút
-local function StyledButton(tab, name, callback)
-    tab:AddButton({
-        Name = name,
-        Callback = callback,
-        Style = {
-            BackgroundColor = Color3.fromRGB(50, 50, 50),
-            BorderColor = Color3.fromRGB(255, 120, 120),
-            CornerRadius = UDim.new(0, 10)
-        }
-    })
-end
-
--- Popup quảng cáo
+--// Quảng Cáo Window
 local PromoWin = Library:MakeWindow({
     Hub = {
         Title = "📢 Quảng Cáo",
         Animation = "Follow TikTok để biết nhiều script hơn!"
-    },
-    Design = {
-        BackgroundColor = Color3.fromRGB(40, 40, 40),
-        BorderColor = Color3.fromRGB(255, 100, 100),
-        BorderSize = 2,
-        CornerRadius = UDim.new(0, 15),
-        Shadow = true
     }
 })
 
+--// Tạo tab
 local PromoTab = PromoWin:MakeTab({Name = "TikTok"})
 
+-- Label tiêu đề
 PromoTab:AddLabel("👉 Follow TikTok: @hacbachvietsub")
 
-StyledButton(PromoTab, "📋 Copy link TikTok", function()
-    setclipboard("https://www.tiktok.com/@hacbachvietsub?_t=ZS-8zm35LUt1JY&_r=1")
-end)
-
-StyledButton(PromoTab, "❌ Đóng quảng cáo", function()
-    PromoWin:Destroy()
-end)
---// Main Window
-local Window = MakeWindow({
-    Hub = {
-        Title = "téo 🍎",
-        Animation = "Youtube: téo🍎 scr vn"
-    },
-    Key = {
-        KeySystem = true,
-        Title = "🔑 Nhập key để dùng",
-        Description = "Lấy key tại: https://link4sub.com/3St7",
-        KeyLink = "https://link4sub.com/3St7",
-        Keys = {"bố dz"},
-        Notifi = {
-            Notifications = true,
-            CorrectKey = "✅ Key đúng rồi!",
-            Incorrectkey = "❌ Sai key rồi!",
-            CopyKeyLink = "📋 Copy link thành công!"
-        }
-    }
+-- Nút copy link
+PromoTab:AddButton({
+    Name = "📋 Copy link TikTok",
+    Callback = function()
+        setclipboard("https://www.tiktok.com/@hacbachvietsub?_t=ZS-8zm35LUt1JY&_r=1")
+        game.StarterGui:SetCore("SendNotification", {
+            Title = "✅ Copy thành công",
+            Text = "Link TikTok đã được copy!",
+            Duration = 4
+        })
+    end
 })
 
---// Nút thu nhỏ
-MinimizeButton({
-    Image = "http://www.roblox.com/asset/?id=96392217298536",
-    Size = {60, 60},
-    Color = Color3.fromRGB(10, 10, 10),
-    Corner = true,
-    Stroke = false,
-    StrokeColor = Color3.fromRGB(255, 0, 0)
+-- Nút đóng quảng cáo
+PromoTab:AddButton({
+    Name = "❌ Đóng quảng cáo",
+    Callback = function()
+        PromoWin:Destroy()
+    end
 })
-<!-- Quảng cáo Script -->
-<div id="adWindow">
-  <div id="adHeader">📢 Quảng cáo</div>
-  <p>Follow TikTok để biết nhiều script hơn!</p>
-  <input type="text" value="https://link4sub.com/2KjP" id="adLink" readonly>
-  <button onclick="copyLink()">📋 Copy Link</button>
-  <button onclick="closeAd()">❌ Đóng</button>
-</div>
 
-<style>
-  #adWindow {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    width: 280px;
-    padding: 15px;
-    background: #fff;
-    border: 2px solid #ff4d4d;
-    border-radius: 15px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-    font-family: Arial, sans-serif;
-    z-index: 9999;
-  }
-  #adHeader {
-    font-size: 18px;
-    font-weight: bold;
-    text-align: center;
-    margin-bottom: 10px;
-    color: #ff3333;
-  }
-  #adWindow p {
-    font-size: 14px;
-    margin: 5px 0 10px 0;
-    color: #444;
-    text-align: center;
-  }
-  #adLink {
-    width: 100%;
-    padding: 8px;
-    border: 1px solid #aaa;
-    border-radius: 8px;
-    margin-bottom: 10px;
-    text-align: center;
-  }
-  #adWindow button {
-    width: 48%;
-    padding: 8px;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    font-weight: bold;
-  }
-  #adWindow button:first-of-type {
-    background: #4CAF50;
-    color: #fff;
-    margin-right: 4%;
-  }
-  #adWindow button:last-of-type {
-    background: #ff4d4d;
-    color: #fff;
-  }
-</style>
+--// Trang trí cho cửa sổ quảng cáo
+task.spawn(function()
+    task.wait(1) -- đợi UI tạo xong
+    for _, gui in pairs(game:GetService("CoreGui"):GetDescendants()) do
+        if gui:IsA("Frame") and gui.Parent:IsA("ScrollingFrame") and gui.Parent.Parent:FindFirstChildOfClass("TextLabel") and gui.Parent.Parent:FindFirstChildOfClass("TextLabel").Text:find("📢 Quảng Cáo") then
+            -- Thêm viền đỏ
+            local stroke = Instance.new("UIStroke")
+            stroke.Color = Color3.fromRGB(255, 100, 100)
+            stroke.Thickness = 2
+            stroke.Parent = gui
 
-<script>
-  function copyLink() {
-    var copyText = document.getElementById("adLink");
-    copyText.select();
-    copyText.setSelectionRange(0, 99999); 
-    document.execCommand("copy");
-    alert("✅ Link đã được copy: " + copyText.value);
-  }
-  function closeAd() {
-    document.getElementById("adWindow").style.display = "none";
-  }
-</script>
+            -- Bo góc
+            local corner = Instance.new("UICorner")
+            corner.CornerRadius = UDim.new(0, 15)
+            corner.Parent = gui
+
+            -- Shadow
+            local shadow = Instance.new("ImageLabel")
+            shadow.Name = "Shadow"
+            shadow.BackgroundTransparency = 1
+            shadow.BorderSizePixel = 0
+            shadow.AnchorPoint = Vector2.new(0.5, 0.5)
+            shadow.Position = UDim2.new(0.5, 0, 0.5, 0)
+            shadow.Size = UDim2.new(1, 40, 1, 40)
+            shadow.Image = "rbxassetid://1316045217"
+            shadow.ImageTransparency = 0.5
+            shadow.ZIndex = -1
+            shadow.Parent = gui
+        end
+    end
+end)
 ------ Tab 1
 local Tab1o =MakeTab({Name = "grow a gaden🌱🌲🌴🌵"})
 
