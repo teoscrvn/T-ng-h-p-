@@ -15,7 +15,7 @@ local Window = MakeWindow({
         Keys = {"X9A7B2QK5M1Z"}, -- 👈 Key cố định
         Notifi = {
             Notifications = true,
-            CorrectKey = "✅ Key đúng rồi, chạy circus đây 🏃‍♀️",
+            CorrectKey = "✅ Key đúng rồi, chạy script đây 🏃‍♀️",
             Incorrectkey = "❌ Sai key rồi, thử lại 😒",
             CopyKeyLink = "📋 Copy link thành công!"
         }
