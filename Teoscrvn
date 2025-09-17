@@ -1,40 +1,37 @@
---// UI Library
-local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/daucobonhi/Ui-Redz-V2/main/UiREDzV2.lua"))()
+loadstring(game:HttpGet(("https://raw.githubusercontent.com/daucobonhi/Ui-Redz-V2/refs/heads/main/UiREDzV2.lua")))()
 
---// Main Window
-local Window = Library:MakeWindow({
-    Hub = {
-        Title = "téo 🍎", -- 👈 Tên hub
-        Animation = "Youtube: téo🍎 scr vn" -- 👈 Dòng phụ
-    },
-    Key = {
-        KeySystem = true, -- 👈 Bật hệ thống key
-        Title = "🔑 Nhập key để dùng",
-        Description = "Lấy key tại: https://link4sub.com/3St7", -- 👈 Link key của bạn
-        KeyLink = "https://link4sub.com/3St7", -- 👈 Link mở key
-        Keys = {"X9A7B2QK5M1Z"}, -- 👈 Key cố định
+       local Window = MakeWindow({
+         Hub = {
+         Title = "téo🍎scrvn",
+         Animation = "Youtube: téo scr vn🍎🍎🍎"
+         },
+        Key = {
+        KeySystem = false,
+        Title = "Key System",
+        Description = "",
+        KeyLink = "",
+        Keys = {"1234"},
         Notifi = {
-            Notifications = true,
-            CorrectKey = "✅ Key đúng rồi, chạy circus đây 🏃‍♀️",
-            Incorrectkey = "❌ Sai key rồi, thử lại 😒",
-            CopyKeyLink = "📋 Copy link thành công!"
-        }
+        Notifications = true,
+        CorrectKey = "Running the Script...",
+       Incorrectkey = "The key is incorrect",
+       CopyKeyLink = "Copied to Clipboard"
+      }
     }
-})
+  })
 
---// Nút thu nhỏ
-Library:MinimizeButton({
-    Image = "http://www.roblox.com/asset/?id=96392217298536",
-    Size = {60, 60},
-    Color = Color3.fromRGB(10, 10, 10),
-    Corner = true,
-    Stroke = false,
-    StrokeColor = Color3.fromRGB(255, 0, 0)
-})
+       MinimizeButton({
+       Image = "",
+       Size = {90, 90},
+       Color = Color3.fromRGB(15, 15, 15),
+       Corner = true,
+       Stroke = false,
+       StrokeColor = Color3.fromRGB(255, 0, 0)
+      })
 
 ------ Tab 1
--- Ví dụ tạo tab
-local Tab1 = Window:MakeTab({Name = "grow a garden 🌱"})
+local Tab1o =MakeTab({Name = "grow a gaden🌱🌲🌴🌵"})
+
 -- Nút 1
 AddButton(Tab1o, {
     Name = "script speed hub x",
@@ -67,6 +64,15 @@ AddButton(Tab1o, {
     Stroke = true,
     StrokeColor = Color3.fromRGB(0, 150, 255)
 })
+AddButton(Tab1o, {
+    Name = "zysume🥷",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/ZusumeHub/ZusumeHub/refs/heads/main/UpdateZysume"))()
+    end,
+    Color = Color3.fromRGB(60, 120, 200),
+    Stroke = true,
+    StrokeColor = Color3.fromRGB(0, 150, 255)
+})
 -- Nút 4
 AddButton(Tab1o, {
     Name = "nathub",
@@ -90,6 +96,15 @@ AddButton(Tab1o, {
     Name = "av",
     Callback = function()
         loadstring(game:HttpGet("https://raw.githubusercontent.com/Ayvathion/AV-On-Top/refs/heads/main/Loader.lua"))()
+    end,
+    Color = Color3.fromRGB(60, 120, 200),
+    Stroke = true,
+    StrokeColor = Color3.fromRGB(0, 150, 255)
+})
+AddButton(Tab1o, {
+    Name = "14",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/nootmaus/GrowAAGarden/refs/heads/main/mauscripts"))()
     end,
     Color = Color3.fromRGB(60, 120, 200),
     Stroke = true,
