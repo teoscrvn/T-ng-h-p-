@@ -209,9 +209,9 @@ AddButton(Tab1o, {
     Stroke = true,
     StrokeColor = Color3.fromRGB(0, 150, 255)
 })
------- Tab 4
+------ Tab2
 local Tab4o =MakeTab({Name = "cuớp1 bran rot 💩"})
-AddButton(Tab4o, {
+AddButton(Tab2o, {
     Name = "inkxsteal💎🤗",
     Callback = function()
         loadstring(game:HttpGet("https://raw.githubusercontent.com/GuizzyisbackV2LOL/Inkxsteal/refs/heads/main/.lua"))()
@@ -220,7 +220,7 @@ AddButton(Tab4o, {
     Stroke = true,
     StrokeColor = Color3.fromRGB(0, 150, 255)
 })
-AddButton(Tab4o, {
+AddButton(Tab2o, {
     Name = "...",
     Callback = function()
         loadstring(game:HttpGet("https://raw.githubusercontent.com/NoLagHub3/StealABrainrot/refs/heads/main/Auto/Steal"))()
@@ -229,7 +229,7 @@ AddButton(Tab4o, {
     Stroke = true,
     StrokeColor = Color3.fromRGB(0, 150, 255)
 })
-AddButton(Tab4o, {
+AddButton(Tab2o, {
     Name = "LEMON HUB🍋🍋",
     Callback = function()
         loadstring(game:HttpGet("https://pastefy.app/NU4lqGZe/raw"))()
@@ -238,7 +238,7 @@ AddButton(Tab4o, {
     Stroke = true,
     StrokeColor = Color3.fromRGB(0, 150, 255)
 })
-AddButton(Tab4o, {
+AddButton(Tab2o, {
     Name = "v4",
     Callback = function()
         loadstring(game:HttpGet("https://api.luarmor.net/files/v4/loaders/a3e13a4a85ac4c2da17a6baab051ee1b.lua"))()
@@ -247,7 +247,7 @@ AddButton(Tab4o, {
     Stroke = true,
     StrokeColor = Color3.fromRGB(0, 150, 255)
 })
-AddButton(Tab4o, {
+AddButton(Tab2o, {
     Name = "Arbixhub",
     Callback = function()
         loadstring(game:HttpGet("https://raw.githubusercontent.com/Youifpg/Steal-a-Brainrot-op/refs/heads/main/Arbixhub-obfuscated.lua"))()
@@ -256,7 +256,7 @@ AddButton(Tab4o, {
     Stroke = true,
     StrokeColor = Color3.fromRGB(0, 150, 255)
 })
-AddButton(Tab4o, {
+AddButton(Tab2o, {
     Name = "chillhub",
     Callback = function()
         loadstring(game:HttpGet("https://raw.githubusercontent.com/tienkhanh1/spicy/main/Chilli.lua"))()
@@ -265,7 +265,7 @@ AddButton(Tab4o, {
     Stroke = true,
     StrokeColor = Color3.fromRGB(0, 150, 255)
 })
-AddButton(Tab4o, {
+AddButton(Tab2o, {
     Name = "moondiety",
     Callback = function()
         loadstring(game:HttpGet('https://raw.githubusercontent.com/m00ndiety/Moondiety/refs/heads/main/Loader'))()
