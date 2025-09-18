@@ -210,7 +210,7 @@ AddButton(Tab1o, {
     StrokeColor = Color3.fromRGB(0, 150, 255)
 })
 ------ Tab2
-local Tab4o =MakeTab({Name = "cuớp1 bran rot 💩"})
+local Tab2o =MakeTab({Name = "cuớp1 bran rot 💩"})
 AddButton(Tab2o, {
     Name = "inkxsteal💎🤗",
     Callback = function()
