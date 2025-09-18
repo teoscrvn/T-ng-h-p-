@@ -209,14 +209,3 @@ AddButton(Tab1o, {
     Stroke = true,
     StrokeColor = Color3.fromRGB(0, 150, 255)
 })
------- Tab 4
-local Tab4o =MakeTab({Name = "cuớp1 bran rot 💩"})
-AddButton(Tab4o, {
-    Name = "inkxsteal💎🤗",
-    Callback = function()
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/GuizzyisbackV2LOL/Inkxsteal/refs/heads/main/.lua"))()
-    end,
-    Color = Color3.fromRGB(60, 120, 200),
-    Stroke = true,
-    StrokeColor = Color3.fromRGB(0, 150, 255)
-})
