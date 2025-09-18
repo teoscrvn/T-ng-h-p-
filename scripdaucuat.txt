@@ -218,5 +218,3 @@ AddButton(Tab1o, {
     Stroke = true,
     StrokeColor = Color3.fromRGB(0, 150, 255)
 })
------- Tab 2
-local Tab2o =MakeTab({Name = "99 đêm🌑🌓🌒"})
