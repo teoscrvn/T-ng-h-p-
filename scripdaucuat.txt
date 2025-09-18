@@ -209,12 +209,55 @@ AddButton(Tab1o, {
     Stroke = true,
     StrokeColor = Color3.fromRGB(0, 150, 255)
 })
------- Tab 4
-local Tab4o =MakeTab({Name = "cuớp1 bran rot 💩"})
 AddButton(Tab4o, {
-    Name = "inkxsteal💎🤗",
+    Name = "...",
     Callback = function()
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/GuizzyisbackV2LOL/Inkxsteal/refs/heads/main/.lua"))()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/NoLagHub3/StealABrainrot/refs/heads/main/Auto/Steal"))()
+    end,
+    Color = Color3.fromRGB(60, 120, 200),
+    Stroke = true,
+    StrokeColor = Color3.fromRGB(0, 150, 255)
+})
+AddButton(Tab4o, {
+    Name = "LEMON HUB🍋🍋",
+    Callback = function()
+        loadstring(game:HttpGet("https://pastefy.app/NU4lqGZe/raw"))()
+    end,
+    Color = Color3.fromRGB(60, 120, 200),
+    Stroke = true,
+    StrokeColor = Color3.fromRGB(0, 150, 255)
+})
+AddButton(Tab4o, {
+    Name = "v4",
+    Callback = function()
+        loadstring(game:HttpGet("https://api.luarmor.net/files/v4/loaders/a3e13a4a85ac4c2da17a6baab051ee1b.lua"))()
+    end,
+    Color = Color3.fromRGB(60, 120, 200),
+    Stroke = true,
+    StrokeColor = Color3.fromRGB(0, 150, 255)
+})
+AddButton(Tab4o, {
+    Name = "Arbixhub",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/Youifpg/Steal-a-Brainrot-op/refs/heads/main/Arbixhub-obfuscated.lua"))()
+    end,
+    Color = Color3.fromRGB(60, 120, 200),
+    Stroke = true,
+    StrokeColor = Color3.fromRGB(0, 150, 255)
+})
+AddButton(Tab4o, {
+    Name = "chillhub",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/tienkhanh1/spicy/main/Chilli.lua"))()
+    end,
+    Color = Color3.fromRGB(60, 120, 200),
+    Stroke = true,
+    StrokeColor = Color3.fromRGB(0, 150, 255)
+})
+AddButton(Tab4o, {
+    Name = "moondiety",
+    Callback = function()
+        loadstring(game:HttpGet('https://raw.githubusercontent.com/m00ndiety/Moondiety/refs/heads/main/Loader'))()
     end,
     Color = Color3.fromRGB(60, 120, 200),
     Stroke = true,
