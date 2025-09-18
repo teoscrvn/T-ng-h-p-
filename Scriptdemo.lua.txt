@@ -42,24 +42,6 @@ local PromoTab = PromoWin:MakeTab({Name = "TikTok 🎥"})
 
 PromoTab:AddLabel("👉 Follow TikTok: @teo_scvn")
 
-PromoTab:AddButton({
-    Name = "📋 Copy link TikTok",
-    Callback = function()
-        setclipboard("https://www.tiktok.com/@teo_scvn")
-        game.StarterGui:SetCore("SendNotification", {
-            Title = "✅ Copy thành công",
-            Text = "Link TikTok đã được copy!",
-            Duration = 4
-        })
-    end
-})
-
-PromoTab:AddButton({
-    Name = "❌ Đóng quảng cáo",
-    Callback = function()
-        PromoWin:Destroy()
-    end
-})
 
 ------ Tab 1
 local Tab1o =MakeTab({Name = "grow a gaden🌱🌲🌴🌵"})
