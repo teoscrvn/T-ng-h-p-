@@ -274,3 +274,30 @@ AddButton(Tab2o, {
     Stroke = true,
     StrokeColor = Color3.fromRGB(0, 150, 255)
 })
+AddButton(Tab4o, {
+    Name = "vth",
+    Callback = function()
+        loadstring(game:HttpGet("https://get-avth-ontop.netlify.app/my-paste/script.lua"))()
+    end,
+    Color = Color3.fromRGB(60, 120, 200),
+    Stroke = true,
+    StrokeColor = Color3.fromRGB(0, 150, 255)
+})
+AddButton(Tab4o, {
+    Name = "prim",
+    Callback = function()
+        loadstring(game:HttpGet("pastebin.com/raw/q8Q3Ff8F"))()
+    end,
+    Color = Color3.fromRGB(60, 120, 200),
+    Stroke = true,
+    StrokeColor = Color3.fromRGB(0, 150, 255)
+})
+AddButton(Tab4o, {
+    Name = "lurk",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/egor2078f/lurkhackv4/refs/heads/main/main.lua", true))()
+    end,
+    Color = Color3.fromRGB(60, 120, 200),
+    Stroke = true,
+    StrokeColor = Color3.fromRGB(0, 150, 255)
+})
