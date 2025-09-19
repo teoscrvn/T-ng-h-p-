@@ -212,6 +212,15 @@ AddButton(Tab1o, {
 ------ Tab2
 local Tab2o =MakeTab({Name = "cuớp1 bran rot 💩"})
 AddButton(Tab2o, {
+    Name = "new lemon😍",
+    Callback = function()
+        loadstring(game:HttpGet("https://pastefy.app/MJw2J4T6/raw"))()
+    end,
+    Color = Color3.fromRGB(60, 120, 200),
+    Stroke = true,
+    StrokeColor = Color3.fromRGB(0, 150, 255)
+})
+AddButton(Tab2o, {
     Name = "new script🤑 Key : AlexScriptsGG",
     Callback = function()
         loadstring(game:HttpGet("https://pastefy.app/27UrHD8C/raw"))()
