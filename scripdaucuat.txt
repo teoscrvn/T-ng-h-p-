@@ -355,3 +355,24 @@ AddButton(Tab4o, {
     Stroke = true,
     StrokeColor = Color3.fromRGB(0, 150, 255)
 })
+------ Tab 2
+local Tab3o =MakeTab({Name = "99 đêm🌑🌓🌒"})
+
+AddButton(Tab3o, {
+    Name = "H4X ngon đó 🤩",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/H4xScripts/Loader/refs/heads/main/loader.lua", true))()
+    end,
+    Color = Color3.fromRGB(60, 120, 200),
+    Stroke = true,
+    StrokeColor = Color3.fromRGB(0, 150, 255)
+})
+AddButton(Tab3o, {
+    Name = "BONKHUB",
+    Callback = function()
+        loadstring(game:HttpGet("https://toonza555.github.io/BONKHUB-Loader/", true))()
+    end,
+    Color = Color3.fromRGB(60, 120, 200),
+    Stroke = true,
+    StrokeColor = Color3.fromRGB(0, 150, 255)
+})
