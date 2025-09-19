@@ -212,6 +212,15 @@ AddButton(Tab1o, {
 ------ Tab2
 local Tab2o =MakeTab({Name = "cuớp1 bran rot 💩"})
 AddButton(Tab2o, {
+    Name = "ajjan 💇‍♀️👯",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/onliengamerop/Steal-a-brainrot/refs/heads/main/Protected_3771863424757750.lua.txt"))()
+    end,
+    Color = Color3.fromRGB(60, 120, 200),
+    Stroke = true,
+    StrokeColor = Color3.fromRGB(0, 150, 255)
+})
+AddButton(Tab2o, {
     Name = "new lemon😍",
     Callback = function()
         loadstring(game:HttpGet("https://pastefy.app/MJw2J4T6/raw"))()
