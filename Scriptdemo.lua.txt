@@ -29,21 +29,22 @@ loadstring(game:HttpGet(("https://raw.githubusercontent.com/daucobonhi/Ui-Redz-V
        StrokeColor = Color3.fromRGB(255, 0, 0)
       })
       
-      --// Quảng Cáo Window
-local PromoWin = Library:MakeWindow({
-    Hub = {
-        Title = "📢 Quảng Cáo",
-        Animation = "Follow TikTok để biết nhiều script hơn!"
-    }
-})
+      --// Hàm tạo Copy Button (Tag đặc biệt)
+function AddCopyButton(tab, data)
+    tab:AddButton({
+        Name = data.Name or "📋 Copy Link",
+        Callback = function()
+            setclipboard(data.Link)
+            game.StarterGui:SetCore("SendNotification", {
+                Title = "✅ Copy thành công",
+                Text = "Đã copy: " .. data.Link,
+                Duration = 4
+            })
+        end
+    })
+end
 
---// Tab quảng cáo
-local PromoTab = PromoWin:MakeTab({Name = "TikTok 🎥"})
-
-PromoTab:AddLabel("👉 Follow TikTok: @teo_scvn")
-
-
------- Tab 1
+    ------ Tab 1
 local Tab1o =MakeTab({Name = "grow a gaden🌱🌲🌴🌵"})
 
 -- Nút 1
