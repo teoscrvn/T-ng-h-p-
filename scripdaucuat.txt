@@ -394,3 +394,31 @@ AddButton(Tab3o, {
     Stroke = true,
     StrokeColor = Color3.fromRGB(0, 150, 255)
 })
+AddButton(Tab2o, {
+    Name = "arvotheon",
+    Callback = function()
+        loadstring(game:HttpGet("https://get-arvotheon-ontop.netlify.app/Loader.lua"))()
+    end,
+    Color = Color3.fromRGB(60, 120, 200),
+    Stroke = true,
+    StrokeColor = Color3.fromRGB(0, 150, 255)
+})
+AddButton(Tab2o, {
+    Name = "voiceware",
+    Callback = function()
+        loadstring(game:HttpGet("https://pastebin.com/raw/pMVn317S"))()
+    end,
+    Color = Color3.fromRGB(60, 120, 200),
+    Stroke = true,
+    StrokeColor = Color3.fromRGB(0, 150, 255)
+})
+
+AddButton(Tab2o, {
+    Name = "ajjans",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/onliengamerop/Steal-a-brainrot/refs/heads/main/Protected_9157918487248945.lua.txt"))()
+    end,
+    Color = Color3.fromRGB(60, 120, 200),
+    Stroke = true,
+    StrokeColor = Color3.fromRGB(0, 150, 255)
+})
