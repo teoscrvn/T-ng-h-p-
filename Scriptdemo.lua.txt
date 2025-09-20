@@ -29,6 +29,19 @@ loadstring(game:HttpGet(("https://raw.githubusercontent.com/daucobonhi/Ui-Redz-V
        StrokeColor = Color3.fromRGB(255, 0, 0)
       })
       
+------ Tab 1
+local Tab1o =MakeTab({Name = "grow a gaden🌱🌲🌴🌵"})
+
+-- Nút 1
+AddButton(Tab1o, {
+    Name = "script speed hub x",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/AhmadV99/Speed-Hub-X/main/Speed%20Hub%20X.lua", true))()
+    end,
+    Color = Color3.fromRGB(60, 120, 200),
+    Stroke = true,
+    StrokeColor = Color3.fromRGB(0, 150, 255)
+})
       --// Hàm tạo Copy Button (Tag đặc biệt)
 function AddCopyButton(tab, data)
     tab:AddButton({
@@ -44,19 +57,6 @@ function AddCopyButton(tab, data)
     })
 end
 
-    ------ Tab 1
-local Tab1o =MakeTab({Name = "grow a gaden🌱🌲🌴🌵"})
-
--- Nút 1
-AddButton(Tab1o, {
-    Name = "script speed hub x",
-    Callback = function()
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/AhmadV99/Speed-Hub-X/main/Speed%20Hub%20X.lua", true))()
-    end,
-    Color = Color3.fromRGB(60, 120, 200),
-    Stroke = true,
-    StrokeColor = Color3.fromRGB(0, 150, 255)
-})
     ------ Tab 2
 local Tab2o =MakeTab({Name = "script khác"})
 AddCopyButton(Tab1o, {
