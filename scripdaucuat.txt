@@ -1,424 +1,148 @@
-loadstring(game:HttpGet(("https://raw.githubusercontent.com/daucobonhi/Ui-Redz-V2/refs/heads/main/UiREDzV2.lua")))()
+local ScreenGui = Instance.new("ScreenGui")
+local ImageButton = Instance.new("ImageButton")
+local UICorner = Instance.new("UICorner")
 
-       local Window = MakeWindow({
-         Hub = {
-         Title = "teo🍎",
-         Animation = "Youtube: teo🍎scrvn"
-         },
-        Key = {
-        KeySystem = false,
-        Title = "Key System",
-        Description = "",
-        KeyLink = "",
-        Keys = {"1234"},
-        Notifi = {
-        Notifications = true,
-        CorrectKey = "Running the Script...",
-       Incorrectkey = "The key is incorrect",
-       CopyKeyLink = "Copied to Clipboard"
-      }
-    }
-  })
+ScreenGui.Parent = game.CoreGui
+ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 
-       MinimizeButton({
-       Image = "http://www.roblox.com/asset/?id=15059956542",
-       Size = {60, 60},
-       Color = Color3.fromRGB(10, 10, 10),
-       Corner = true,
-       Stroke = false,
-       StrokeColor = Color3.fromRGB(255, 0, 0)
-      })
-      
------- Tab 1
-local Tab1o =MakeTab({Name = "grow a gaden🌱🌲🌴🌵"})
+ImageButton.Parent = ScreenGui
+ImageButton.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+ImageButton.BorderSizePixel = 0
+ImageButton.Position = UDim2.new(0.10615778, 0, 0.16217947, 0)
+ImageButton.Size = UDim2.new(0, 40, 0, 40)
+ImageButton.Draggable = true
+ImageButton.Image = "http://www.roblox.com/asset/?id=15059956542"
 
--- Nút 1
-AddButton(Tab1o, {
-    Name = "script speed hub x",
-    Callback = function()
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/AhmadV99/Speed-Hub-X/main/Speed%20Hub%20X.lua", true))()
-    end,
-    Color = Color3.fromRGB(60, 120, 200),
-    Stroke = true,
-    StrokeColor = Color3.fromRGB(0, 150, 255)
+UICorner.CornerRadius = UDim.new(1, 10) 
+UICorner.Parent = ImageButton
+
+ImageButton.MouseButton1Down:Connect(function()
+    game:GetService("VirtualInputManager"):SendKeyEvent(true, Enum.KeyCode.End, false, game)
+end)
+
+local Fluent = loadstring(game:HttpGet("https://github.com/dawid-scripts/Fluent/releases/latest/download/main.lua"))()
+repeat wait() until game:IsLoaded()
+local Window = Fluent:CreateWindow({
+    Title = "Téo 🍎v2 update =}",
+    SubTitle = "vip pro💎😍",
+    TabWidth = 157,
+    Size = UDim2.fromOffset(450, 300),
+    Acrylic = true,
+    Theme = "Amethyst",
+    MinimizeKey = Enum.KeyCode.End
 })
-
--- Nút 2
-AddButton(Tab1o, {
-    Name = "Thunder Z :)",
+local Tabs = {
+        Main0=Window:AddTab({ Title="một số kênh🤓" }),
+        Main1=Window:AddTab({ Title="grow a gaden 🌱🌴🌵🌲" }),
+        Main2=Window:AddTab({ Title="bran rót💩" }),
+        Main3=Window:AddTab({ Title="99 đêm🥷" }),
+        Main4=Window:AddTab({ Title="Script Hop" }),
+       Main5=Window:AddTab({ Title="lin tinh" }),
+}
+    Tabs.Main0:AddButton({
+    Title = "tiktok bạn:)",
+    Description = "oách xà lách vô cùng",
     Callback = function()
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/ThundeZ/GrowAGardenScript/refs/heads/main/ThunderZHub.lua"))()
-    end,
-    Color = Color3.fromRGB(60, 120, 200),
-    Stroke = true,
-    StrokeColor = Color3.fromRGB(0, 150, 255)
+        setclipboard("https://www.tiktok.com/@lm.nguyn4717?_t=ZS-8zueZXpLRxq&_r=1")
+    end
 })
 
--- Nút 3
-AddButton(Tab1o, {
-    Name = "no lag 😀",
+    Tabs.Main0:AddButton({
+    Title = "Youtuber",
+    Description = "làm chơi thui",
     Callback = function()
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/greywaterstill/GAG/refs/heads/main/nathub.lua"))()
-    end,
-    Color = Color3.fromRGB(60, 120, 200),
-    Stroke = true,
-    StrokeColor = Color3.fromRGB(0, 150, 255)
-})
-AddButton(Tab1o, {
-    Name = "zysume🥷",
-    Callback = function()
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/ZusumeHub/ZusumeHub/refs/heads/main/UpdateZysume"))()
-    end,
-    Color = Color3.fromRGB(60, 120, 200),
-    Stroke = true,
-    StrokeColor = Color3.fromRGB(0, 150, 255)
-})
--- Nút 4
-AddButton(Tab1o, {
-    Name = "nathub",
-    Callback = function()
-        loadstring(game:HttpGet("https://get.nathub.xyz/loader"))()
-    end,
-    Color = Color3.fromRGB(60, 120, 200),
-    Stroke = true,
-    StrokeColor = Color3.fromRGB(0, 150, 255)
-})
-AddButton(Tab1o, {
-    Name = "h4x",
-    Callback = function()
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/H4xScripts/Loader/refs/heads/main/loader2.lua"))()
-    end,
-    Color = Color3.fromRGB(60, 120, 200),
-    Stroke = true,
-    StrokeColor = Color3.fromRGB(0, 150, 255)
-})
-AddButton(Tab1o, {
-    Name = "av",
-    Callback = function()
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/Ayvathion/AV-On-Top/refs/heads/main/Loader.lua"))()
-    end,
-    Color = Color3.fromRGB(60, 120, 200),
-    Stroke = true,
-    StrokeColor = Color3.fromRGB(0, 150, 255)
-})
-AddButton(Tab1o, {
-    Name = "14",
-    Callback = function()
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/nootmaus/GrowAAGarden/refs/heads/main/mauscripts"))()
-    end,
-    Color = Color3.fromRGB(60, 120, 200),
-    Stroke = true,
-    StrokeColor = Color3.fromRGB(0, 150, 255)
-})
-AddButton(Tab1o, {
-    Name = "Yhub",
-    Callback = function()
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/yue-os/script/refs/heads/main/Y-Hub"))()
-    end,
-    Color = Color3.fromRGB(60, 120, 200),
-    Stroke = true,
-    StrokeColor = Color3.fromRGB(0, 150, 255)
-})
-AddButton(Tab1o, {
-    Name = "lion",
-    Callback = function()
-        loadstring(game:HttpGet("https://api.luarmor.net/files/v3/loaders/e0c7fcf6c077fc23475cf4ce4db58e42.lua"))()
-    end,
-    Color = Color3.fromRGB(60, 120, 200),
-    Stroke = true,
-    StrokeColor = Color3.fromRGB(0, 150, 255)
-})
-AddButton(Tab1o, {
-    Name = "rifton",
-    Callback = function()
-        loadstring(game:HttpGet("https://rifton.top/loader.lua"))()
-    end,
-    Color = Color3.fromRGB(60, 120, 200),
-    Stroke = true,
-    StrokeColor = Color3.fromRGB(0, 150, 255)
-})
-AddButton(Tab1o, {
-    Name = "blue",
-    Callback = function()
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/tesghg/Grow-a-Garden/main/ameicaa_Grow_A_Garden.lua"))()
-    end,
-    Color = Color3.fromRGB(60, 120, 200),
-    Stroke = true,
-    StrokeColor = Color3.fromRGB(0, 150, 255)
-})
-AddButton(Tab1o, {
-    Name = "vxeze",
-    Callback = function()
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/Dex-Bear/Vxezehub/refs/heads/main/VxezeHubMain"))()
-    end,
-    Color = Color3.fromRGB(60, 120, 200),
-    Stroke = true,
-    StrokeColor = Color3.fromRGB(0, 150, 255)
-})
-AddButton(Tab1o, {
-    Name = "solix",
-    Callback = function()
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/debunked69/Solixreworkkeysystem/refs/heads/main/solix%20new%20keyui.lua"))()
-    end,
-    Color = Color3.fromRGB(60, 120, 200),
-    Stroke = true,
-    StrokeColor = Color3.fromRGB(0, 150, 255)
-})
-AddButton(Tab1o, {
-    Name = "lunor",
-    Callback = function()
-        loadstring(game:HttpGet("https://lunor.dev/loader"))()
-    end,
-    Color = Color3.fromRGB(60, 120, 200),
-    Stroke = true,
-    StrokeColor = Color3.fromRGB(0, 150, 255)
-})
-AddButton(Tab1o, {
-    Name = "forge",
-    Callback = function()
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/Skzuppy/forge-hub/main/loader.lua"))()
-    end,
-    Color = Color3.fromRGB(60, 120, 200),
-    Stroke = true,
-    StrokeColor = Color3.fromRGB(0, 150, 255)
-})
-AddButton(Tab1o, {
-    Name = "drrox",
-    Callback = function()
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/BrySadW/GrowAGarden/refs/heads/main/GrowAGarden.lua"))()
-    end,
-    Color = Color3.fromRGB(60, 120, 200),
-    Stroke = true,
-    StrokeColor = Color3.fromRGB(0, 150, 255)
-})
-AddButton(Tab1o, {
-    Name = "doggo",
-    Callback = function()
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/doggoman230/growagarden/refs/heads/main/script"))()
-    end,
-    Color = Color3.fromRGB(60, 120, 200),
-    Stroke = true,
-    StrokeColor = Color3.fromRGB(0, 150, 255)
-})
-AddButton(Tab1o, {
-    Name = "airflow",
-    Callback = function()
-        loadstring(game:HttpGet("https://api.luarmor.net/files/v3/loaders/255ac567ced3dcb9e69aa7e44c423f19.lua"))( )
-    end,
-    Color = Color3.fromRGB(60, 120, 200),
-    Stroke = true,
-    StrokeColor = Color3.fromRGB(0, 150, 255)
-})
------- Tab2
-local Tab2o =MakeTab({Name = "cuớp1 bran rot 💩"})
-AddButton(Tab2o, {
-    Name = "ajjan 💇‍♀️👯",
-    Callback = function()
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/onliengamerop/Steal-a-brainrot/refs/heads/main/Protected_3771863424757750.lua.txt"))()
-    end,
-    Color = Color3.fromRGB(60, 120, 200),
-    Stroke = true,
-    StrokeColor = Color3.fromRGB(0, 150, 255)
-})
-AddButton(Tab2o, {
-    Name = "new lemon😍",
-    Callback = function()
-        loadstring(game:HttpGet("https://pastefy.app/MJw2J4T6/raw"))()
-    end,
-    Color = Color3.fromRGB(60, 120, 200),
-    Stroke = true,
-    StrokeColor = Color3.fromRGB(0, 150, 255)
-})
-AddButton(Tab2o, {
-    Name = "new script🤑 Key : AlexScriptsGG",
-    Callback = function()
-        loadstring(game:HttpGet("https://pastefy.app/27UrHD8C/raw"))()
-    end,
-    Color = Color3.fromRGB(60, 120, 200),
-    Stroke = true,
-    StrokeColor = Color3.fromRGB(0, 150, 255)
-})
-AddButton(Tab2o, {
-    Name = "inkxsteal💎🤗",
-    Callback = function()
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/GuizzyisbackV2LOL/Inkxsteal/refs/heads/main/.lua"))()
-    end,
-    Color = Color3.fromRGB(60, 120, 200),
-    Stroke = true,
-    StrokeColor = Color3.fromRGB(0, 150, 255)
-})
-AddButton(Tab2o, {
-    Name = "...",
-    Callback = function()
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/NoLagHub3/StealABrainrot/refs/heads/main/Auto/Steal"))()
-    end,
-    Color = Color3.fromRGB(60, 120, 200),
-    Stroke = true,
-    StrokeColor = Color3.fromRGB(0, 150, 255)
-})
-AddButton(Tab2o, {
-    Name = "LEMON HUB🍋🍋",
-    Callback = function()
-        loadstring(game:HttpGet("https://pastefy.app/NU4lqGZe/raw"))()
-    end,
-    Color = Color3.fromRGB(60, 120, 200),
-    Stroke = true,
-    StrokeColor = Color3.fromRGB(0, 150, 255)
-})
-AddButton(Tab2o, {
-    Name = "v4",
-    Callback = function()
-        loadstring(game:HttpGet("https://api.luarmor.net/files/v4/loaders/a3e13a4a85ac4c2da17a6baab051ee1b.lua"))()
-    end,
-    Color = Color3.fromRGB(60, 120, 200),
-    Stroke = true,
-    StrokeColor = Color3.fromRGB(0, 150, 255)
-})
-AddButton(Tab2o, {
-    Name = "Arbixhub",
-    Callback = function()
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/Youifpg/Steal-a-Brainrot-op/refs/heads/main/Arbixhub-obfuscated.lua"))()
-    end,
-    Color = Color3.fromRGB(60, 120, 200),
-    Stroke = true,
-    StrokeColor = Color3.fromRGB(0, 150, 255)
-})
-AddButton(Tab2o, {
-    Name = "chillhub",
-    Callback = function()
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/tienkhanh1/spicy/main/Chilli.lua"))()
-    end,
-    Color = Color3.fromRGB(60, 120, 200),
-    Stroke = true,
-    StrokeColor = Color3.fromRGB(0, 150, 255)
-})
-AddButton(Tab2o, {
-    Name = "moondiety",
-    Callback = function()
-        loadstring(game:HttpGet('https://raw.githubusercontent.com/m00ndiety/Moondiety/refs/heads/main/Loader'))()
-    end,
-    Color = Color3.fromRGB(60, 120, 200),
-    Stroke = true,
-    StrokeColor = Color3.fromRGB(0, 150, 255)
-})
-AddButton(Tab4o, {
-    Name = "vth",
-    Callback = function()
-        loadstring(game:HttpGet("https://get-avth-ontop.netlify.app/my-paste/script.lua"))()
-    end,
-    Color = Color3.fromRGB(60, 120, 200),
-    Stroke = true,
-    StrokeColor = Color3.fromRGB(0, 150, 255)
-})
-AddButton(Tab4o, {
-    Name = "prim",
-    Callback = function()
-        loadstring(game:HttpGet("pastebin.com/raw/q8Q3Ff8F"))()
-    end,
-    Color = Color3.fromRGB(60, 120, 200),
-    Stroke = true,
-    StrokeColor = Color3.fromRGB(0, 150, 255)
-})
-AddButton(Tab4o, {
-    Name = "lurk",
-    Callback = function()
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/egor2078f/lurkhackv4/refs/heads/main/main.lua", true))()
-    end,
-    Color = Color3.fromRGB(60, 120, 200),
-    Stroke = true,
-    StrokeColor = Color3.fromRGB(0, 150, 255)
-})
-AddButton(Tab4o, {
-    Name = "timmy",
-    Callback = function()
-        loadstring(game:HttpGet('https://raw.githubusercontent.com/WinzeTim/timmyhack2/refs/heads/main/stealabrainrot.lua'))()
-    end,
-    Color = Color3.fromRGB(60, 120, 200),
-    Stroke = true,
-    StrokeColor = Color3.fromRGB(0, 150, 255)
-})
-AddButton(Tab4o, {
-    Name = "ronix",
-    Callback = function()
-        loadstring(game:HttpGet("pastebin.com/raw/HFx6faQY"))()
-    end,
-    Color = Color3.fromRGB(60, 120, 200),
-    Stroke = true,
-    StrokeColor = Color3.fromRGB(0, 150, 255)
-})
-AddButton(Tab4o, {
-    Name = "utopia",
-    Callback = function()
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/Klinac/scripts/main/steal_a_brainrot.lua", true))()
-    end,
-    Color = Color3.fromRGB(60, 120, 200),
-    Stroke = true,
-    StrokeColor = Color3.fromRGB(0, 150, 255)
-})
-AddButton(Tab2o, {
-    Name = "airhub",
-    Callback = function()
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/og2xn/AirHubs/refs/heads/main/Protected_3429231241525986.lua"))()
-    end,
-    Color = Color3.fromRGB(60, 120, 200),
-    Stroke = true,
-    StrokeColor = Color3.fromRGB(0, 150, 255)
-})
------- Tab 2
-local Tab3o =MakeTab({Name = "99 đêm🌑🌓🌒"})
-
-AddButton(Tab3o, {
-    Name = "H4X ngon đó 🤩",
-    Callback = function()
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/H4xScripts/Loader/refs/heads/main/loader.lua", true))()
-    end,
-    Color = Color3.fromRGB(60, 120, 200),
-    Stroke = true,
-    StrokeColor = Color3.fromRGB(0, 150, 255)
-})
-AddButton(Tab3o, {
-    Name = "BONKHUB",
-    Callback = function()
-        loadstring(game:HttpGet("https://toonza555.github.io/BONKHUB-Loader/", true))()
-    end,
-    Color = Color3.fromRGB(60, 120, 200),
-    Stroke = true,
-    StrokeColor = Color3.fromRGB(0, 150, 255)
-})
-AddButton(Tab3o, {
-    Name = "Foxnamhub",
-    Callback = function()
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/caomod2077/Script/refs/heads/main/FoxnameHub.lua"))()
-    end,
-    Color = Color3.fromRGB(60, 120, 200),
-    Stroke = true,
-    StrokeColor = Color3.fromRGB(0, 150, 255)
-})
-AddButton(Tab2o, {
-    Name = "arvotheon",
-    Callback = function()
-        loadstring(game:HttpGet("https://get-arvotheon-ontop.netlify.app/Loader.lua"))()
-    end,
-    Color = Color3.fromRGB(60, 120, 200),
-    Stroke = true,
-    StrokeColor = Color3.fromRGB(0, 150, 255)
-})
-AddButton(Tab2o, {
-    Name = "voiceware",
-    Callback = function()
-        loadstring(game:HttpGet("https://pastebin.com/raw/pMVn317S"))()
-    end,
-    Color = Color3.fromRGB(60, 120, 200),
-    Stroke = true,
-    StrokeColor = Color3.fromRGB(0, 150, 255)
+        setclipboard("https://www.youtube.com/@B%E1%BA%B7chH%E1%BB%95Review_VN")
+    end
 })
 
-AddButton(Tab2o, {
-    Name = "ajjans",
+    Tabs.Main0:AddButton({
+    Title = "tiktok",
+    Description = "fl tiktok để biết thêm nhiều script",
     Callback = function()
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/onliengamerop/Steal-a-brainrot/refs/heads/main/Protected_9157918487248945.lua.txt"))()
-    end,
-    Color = Color3.fromRGB(60, 120, 200),
-    Stroke = true,
-    StrokeColor = Color3.fromRGB(0, 150, 255)
+        setclipboard("https://www.tiktok.com/@hacbachvietsub?_t=ZS-8zuecIwatxX&_r=1")
+    end
+})
+    
+Tabs.Main1:AddButton({
+    Title="speed hub",
+    Description="cái này dùng ngon nè có key nhá",
+    Callback=function()
+	  local Settings = {
+  JoinTeam = "Pirates"; -- Pirates/Marines
+  Translator = true; -- true/false
+}
+loadstring(game:HttpGet("https://raw.githubusercontent.com/AhmadV99/Speed-Hub-X/main/Speed%20Hub%20X.lua", true))()
+
+})
+
+Tabs.Main1:AddButton({
+    Title="thumdeZ",
+    Description="",
+    Callback=function()
+	  local Settings = {
+  JoinTeam = "Pirates"; -- Pirates/Marines
+  Translator = true; -- true/false
+}
+ loadstring(game:HttpGet("https://raw.githubusercontent.com/ThundeZ/GrowAGardenScript/refs/heads/main/ThunderZHub.lua"))()
+
+})
+
+Tabs.Main1:AddButton({
+    Title="nolag🆘",
+    Description="",
+    Callback=function()
+	  local Settings = {
+  JoinTeam = "Pirates"; -- Pirates/Marines
+  Translator = true; -- true/false
+}
+loadstring(game:HttpGet("https://raw.githubusercontent.com/greywaterstill/GAG/refs/heads/main/nathub.lua"))()
+
+})
+
+Tabs.Main1:AddButton({
+    Title="zysume",
+    Description="",
+    Callback=function()
+	  local Settings = {
+  JoinTeam = "Pirates"; -- Pirates/Marines
+  Translator = true; -- true/false
+}
+loadstring(game:HttpGet("https://raw.githubusercontent.com/ZusumeHub/ZusumeHub/refs/heads/main/UpdateZysume"))()
+
+})
+
+Tabs.Main1:AddButton({
+    Title="Nathub",
+    Description="",
+    Callback=function()
+	  local Settings = {
+  JoinTeam = "Pirates"; -- Pirates/Marines
+  Translator = true; -- true/false
+}
+loadstring(game:HttpGet("https://get.nathub.xyz/loader"))()
+
+})
+
+Tabs.Main2:AddButton({
+    Title="ajjan",
+    Description=" ngon đó😍",
+    Callback=function()
+	  local Settings = {
+  JoinTeam = "Pirates"; -- Pirates/Marines
+  Translator = true; -- true/false
+}
+loadstring(game:HttpGet("https://raw.githubusercontent.com/onliengamerop/Steal-a-brainrot/refs/heads/main/Protected_3771863424757750.lua.txt"))()
+
+})
+
+Tabs.Main2:AddButton({
+    Title="New Lemon🍋",
+    Description="",
+    Callback=function()
+	  local Settings = {
+  JoinTeam = "Pirates"; -- Pirates/Marines
+  Translator = true; -- true/false
+}
+loadstring(game:HttpGet("https://pastefy.app/MJw2J4T6/raw"))()
+
 })
