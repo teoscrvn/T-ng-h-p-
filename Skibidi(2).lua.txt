@@ -1,0 +1,65 @@
+local ScreenGui = Instance.new("ScreenGui")
+local ImageButton = Instance.new("ImageButton")
+local UICorner = Instance.new("UICorner")
+
+ScreenGui.Parent = game.CoreGui
+ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+
+ImageButton.Parent = ScreenGui
+ImageButton.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+ImageButton.BorderSizePixel = 0
+ImageButton.Position = UDim2.new(0.10615778, 0, 0.16217947, 0)
+ImageButton.Size = UDim2.new(0, 40, 0, 40)
+ImageButton.Draggable = true
+ImageButton.Image = "http://www.roblox.com/asset/?id=15059956542"
+
+UICorner.CornerRadius = UDim.new(1, 10) 
+UICorner.Parent = ImageButton
+
+ImageButton.MouseButton1Down:Connect(function()
+    game:GetService("VirtualInputManager"):SendKeyEvent(true, Enum.KeyCode.End, false, game)
+end)
+
+local Fluent = loadstring(game:HttpGet("https://github.com/dawid-scripts/Fluent/releases/latest/download/main.lua"))()
+repeat wait() until game:IsLoaded()
+local Window = Fluent:CreateWindow({
+    Title = "Téo 🍎v2 update =}",
+    SubTitle = "vip pro💎😍",
+    TabWidth = 157,
+    Size = UDim2.fromOffset(450, 300),
+    Acrylic = true,
+    Theme = "Amethyst",
+    MinimizeKey = Enum.KeyCode.End
+})
+local Tabs = {
+        Main0=Window:AddTab({ Title="một số kênh🤓" }),
+        Main1=Window:AddTab({ Title="grow a gaden 🌱🌴🌵🌲" }),
+        Main2=Window:AddTab({ Title="bran rót💩" }),
+        Main3=Window:AddTab({ Title="99 đêm🥷" }),
+        Main4=Window:AddTab({ Title="Script Hop" }),
+       Main5=Window:AddTab({ Title="lin tinh" }),
+}
+    Tabs.Main0:AddButton({
+    Title = "tiktok bạn:)",
+    Description = "oách xà lách vô cùng",
+    Callback = function()
+        setclipboard("https://www.tiktok.com/@lm.nguyn4717?_t=ZS-8zueZXpLRxq&_r=1")
+    end
+})
+
+    Tabs.Main0:AddButton({
+    Title = "Youtuber",
+    Description = "làm chơi thui",
+    Callback = function()
+        setclipboard("https://www.youtube.com/@B%E1%BA%B7chH%E1%BB%95Review_VN")
+    end
+})
+
+    Tabs.Main0:AddButton({
+    Title = "tiktok",
+    Description = "fl tiktok để biết thêm nhiều script",
+    Callback = function()
+        setclipboard("https://www.tiktok.com/@hacbachvietsub?_t=ZS-8zuecIwatxX&_r=1")
+    end
+})
+    
