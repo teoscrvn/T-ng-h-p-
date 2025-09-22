@@ -1,47 +1,76 @@
--- Load Fluent
-local Fluent = loadstring(game:HttpGet("https://github.com/dawid-scripts/Fluent/releases/latest/download/main.lua"))()
-repeat task.wait() until game:IsLoaded()
+-- Tạo ScreenGui
+local ScreenGui = Instance.new("ScreenGui")
+ScreenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
 
--- Tạo cửa sổ chính
-local Window = Fluent:CreateWindow({
-    Title = "Téo 🍎v2 Update",
-    SubTitle = "Update Manager",
-    TabWidth = 160,
-    Size = UDim2.fromOffset(460, 300),
-    Acrylic = true,
-    Theme = "Amethyst",
-    MinimizeKey = Enum.KeyCode.End
-})
+-- Frame nền
+local MainFrame = Instance.new("Frame")
+MainFrame.Size = UDim2.new(0, 400, 0, 200)
+MainFrame.Position = UDim2.new(0.5, -200, 0.5, -100)
+MainFrame.BackgroundColor3 = Color3.fromRGB(40, 40, 60)
+MainFrame.BackgroundTransparency = 0.2
+MainFrame.Parent = ScreenGui
 
-local Tabs = {
-    Main = Window:AddTab({ Title = "Thông báo" }),
-    Update = Window:AddTab({ Title = "Update" })
-}
+-- CHỮ TO GIỮA MÀN
+local BigText = Instance.new("TextLabel")
+BigText.Size = UDim2.new(1, 0, 0.4, 0)
+BigText.Position = UDim2.new(0, 0, 0.25, 0)
+BigText.BackgroundTransparency = 1
+BigText.Text = "UPDATE"
+BigText.TextColor3 = Color3.fromRGB(255, 255, 255)
+BigText.TextScaled = true
+BigText.Font = Enum.Font.GothamBold
+BigText.Parent = MainFrame
 
--- Tab 1: Thông báo
-Tabs.Main:AddLabel("📣 Script này đã update, bạn muốn update không?", { Size = 20 })
+-- Nút Update
+local UpdateBtn = Instance.new("TextButton")
+UpdateBtn.Size = UDim2.new(0.5, 0, 0.2, 0)
+UpdateBtn.Position = UDim2.new(0.25, 0, 0.75, -10)
+UpdateBtn.Text = "Cập nhật ngay"
+UpdateBtn.BackgroundColor3 = Color3.fromRGB(100, 150, 255)
+UpdateBtn.TextColor3 = Color3.fromRGB(255,255,255)
+UpdateBtn.TextScaled = true
+UpdateBtn.Font = Enum.Font.GothamBold
+UpdateBtn.Parent = MainFrame
 
-Tabs.Main:AddButton({
-    Title = "Update",
-    Description = "Nhấn để mở trang update",
-    Callback = function()
-        Window:SelectTab(Tabs.Update) -- Chuyển sang tab Update
-    end
-})
+-- Khi bấm Update -> mở cửa sổ mới có copy link
+UpdateBtn.MouseButton1Click:Connect(function()
+    MainFrame:Destroy()
 
--- Tab 2: Update
-Tabs.Update:AddLabel("🔁 Copy link này dán vào Google để lấy bản update", { Size = 18 })
+    local NewFrame = Instance.new("Frame")
+    NewFrame.Size = UDim2.new(0, 400, 0, 200)
+    NewFrame.Position = UDim2.new(0.5, -200, 0.5, -100)
+    NewFrame.BackgroundColor3 = Color3.fromRGB(40, 40, 60)
+    NewFrame.BackgroundTransparency = 0.2
+    NewFrame.Parent = ScreenGui
 
-Tabs.Update:AddButton({
-    Title = "📋 Copy link",
-    Description = "Copy link update vào clipboard",
-    Callback = function()
-        local link = ""
+    local Info = Instance.new("TextLabel")
+    Info.Size = UDim2.new(1, 0, 0.5, 0)
+    Info.Position = UDim2.new(0, 0, 0, 10)
+    Info.BackgroundTransparency = 1
+    Info.Text = "📢 Copy link này và dán vào Google để lấy bản update"
+    Info.TextColor3 = Color3.fromRGB(255, 255, 255)
+    Info.TextScaled = true
+    Info.Font = Enum.Font.GothamBold
+    Info.Parent = NewFrame
+
+    local CopyBtn = Instance.new("TextButton")
+    CopyBtn.Size = UDim2.new(0.6, 0, 0.25, 0)
+    CopyBtn.Position = UDim2.new(0.2, 0, 0.65, 0)
+    CopyBtn.Text = "📋 Copy Link"
+    CopyBtn.BackgroundColor3 = Color3.fromRGB(255, 100, 100)
+    CopyBtn.TextColor3 = Color3.fromRGB(255,255,255)
+    CopyBtn.TextScaled = true
+    CopyBtn.Font = Enum.Font.GothamBold
+    CopyBtn.Parent = NewFrame
+
+    local link = "https://raw.githubusercontent.com/teoscrvn/T-ng-h-p-/refs/heads/main/teovip.txt"
+
+    CopyBtn.MouseButton1Click:Connect(function()
         setclipboard(link)
-        game:GetService("StarterGui"):SetCore("SendNotification", {
-            Title = "✅ Copy thành công",
-            Text = "Đã copy link update vào clipboard",
-            Duration = 4
+        game.StarterGui:SetCore("SendNotification", {
+            Title = "✅ Thành công",
+            Text = "Đã copy link update vào clipboard!",
+            Duration = 3
         })
-    end
-})
+    end)
+end)
