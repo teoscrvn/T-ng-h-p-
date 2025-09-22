@@ -64,12 +64,36 @@ local Tabs = {
 })
 Tabs.Main1:AddButton({
     Title="speed hub🌱",
-    Description="",
+    Description="script này ngon á đủ chức năng cả😃",
     Callback=function()
 	  local Settings = {
   JoinTeam = "Pirates"; -- Pirates/Marines
   Translator = true; -- true/false
 }
 loadstring(game:HttpGet("https://raw.githubusercontent.com/AhmadV99/Speed-Hub-X/main/Speed%20Hub%20X.lua", true))()
+  end
+})
+
+Tabs.Main1:AddButton({
+    Title="ThundeZ⚡",
+    Description="cái này cũng ngon ",
+    Callback=function()
+	  local Settings = {
+  JoinTeam = "Pirates"; -- Pirates/Marines
+  Translator = true; -- true/false
+}
+loadstring(game:HttpGet("https://raw.githubusercontent.com/ThundeZ/GrowAGardenScript/refs/heads/main/ThunderZHub.lua"))()
+  end
+})
+
+Tabs.Main1:AddButton({
+    Title="Nathub",
+    Description="ổn 😋",
+    Callback=function()
+	  local Settings = {
+  JoinTeam = "Pirates"; -- Pirates/Marines
+  Translator = true; -- true/false
+}
+loadstring(game:HttpGet("https://get.nathub.xyz/loader"))()
   end
 })
