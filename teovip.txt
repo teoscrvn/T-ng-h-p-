@@ -97,3 +97,39 @@ Tabs.Main1:AddButton({
 loadstring(game:HttpGet("https://get.nathub.xyz/loader"))()
   end
 })
+
+Tabs.Main2:AddButton({
+    Title="chillhub😌",
+    Description="cái này ổn dùng ngon no key",
+    Callback=function()
+	  local Settings = {
+  JoinTeam = "Pirates"; -- Pirates/Marines
+  Translator = true; -- true/false
+}
+loadstring(game:HttpGet("https://raw.githubusercontent.com/tienkhanh1/spicy/main/Chilli.lua"))()
+  end
+})
+
+Tabs.Main2:AddButton({
+    Title="ajjan👨‍💻",
+    Description=" script này điều khiển cả ng chơi luôn mà 😀",
+    Callback=function()
+	  local Settings = {
+  JoinTeam = "Pirates"; -- Pirates/Marines
+  Translator = true; -- true/false
+}
+loadstring(game:HttpGet("https://raw.githubusercontent.com/onliengamerop/Steal-a-brainrot/refs/heads/main/Protected_3771863424757750.lua.txt"))()
+  end
+})
+
+Tabs.Main2:AddButton({
+    Title="",
+    Description="",
+    Callback=function()
+	  local Settings = {
+  JoinTeam = "Pirates"; -- Pirates/Marines
+  Translator = true; -- true/false
+}
+
+  end
+})
