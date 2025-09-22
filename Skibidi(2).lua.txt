@@ -62,7 +62,7 @@ local Tabs = {
         setclipboard("https://www.tiktok.com/@hacbachvietsub?_t=ZS-8zuecIwatxX&_r=1")
     end
 })
-Tabs.Main:AddButton({
+Tabs.Main1:AddButton({
     Title="speed hub🌱",
     Description="",
     Callback=function()
