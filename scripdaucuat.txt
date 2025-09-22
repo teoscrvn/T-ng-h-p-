@@ -1,148 +1,47 @@
-local ScreenGui = Instance.new("ScreenGui")
-local ImageButton = Instance.new("ImageButton")
-local UICorner = Instance.new("UICorner")
-
-ScreenGui.Parent = game.CoreGui
-ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
-
-ImageButton.Parent = ScreenGui
-ImageButton.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
-ImageButton.BorderSizePixel = 0
-ImageButton.Position = UDim2.new(0.10615778, 0, 0.16217947, 0)
-ImageButton.Size = UDim2.new(0, 40, 0, 40)
-ImageButton.Draggable = true
-ImageButton.Image = "http://www.roblox.com/asset/?id=15059956542"
-
-UICorner.CornerRadius = UDim.new(1, 10) 
-UICorner.Parent = ImageButton
-
-ImageButton.MouseButton1Down:Connect(function()
-    game:GetService("VirtualInputManager"):SendKeyEvent(true, Enum.KeyCode.End, false, game)
-end)
-
+-- Load Fluent
 local Fluent = loadstring(game:HttpGet("https://github.com/dawid-scripts/Fluent/releases/latest/download/main.lua"))()
-repeat wait() until game:IsLoaded()
+repeat task.wait() until game:IsLoaded()
+
+-- Tạo cửa sổ chính
 local Window = Fluent:CreateWindow({
-    Title = "Téo 🍎v2 update =}",
-    SubTitle = "vip pro💎😍",
-    TabWidth = 157,
-    Size = UDim2.fromOffset(450, 300),
+    Title = "Téo 🍎v2 Update",
+    SubTitle = "Update Manager",
+    TabWidth = 160,
+    Size = UDim2.fromOffset(460, 300),
     Acrylic = true,
     Theme = "Amethyst",
     MinimizeKey = Enum.KeyCode.End
 })
+
 local Tabs = {
-        Main0=Window:AddTab({ Title="một số kênh🤓" }),
-        Main1=Window:AddTab({ Title="grow a gaden 🌱🌴🌵🌲" }),
-        Main2=Window:AddTab({ Title="bran rót💩" }),
-        Main3=Window:AddTab({ Title="99 đêm🥷" }),
-        Main4=Window:AddTab({ Title="Script Hop" }),
-       Main5=Window:AddTab({ Title="lin tinh" }),
+    Main = Window:AddTab({ Title = "Thông báo" }),
+    Update = Window:AddTab({ Title = "Update" })
 }
-    Tabs.Main0:AddButton({
-    Title = "tiktok bạn:)",
-    Description = "oách xà lách vô cùng",
+
+-- Tab 1: Thông báo
+Tabs.Main:AddLabel("📣 Script này đã update, bạn muốn update không?", { Size = 20 })
+
+Tabs.Main:AddButton({
+    Title = "Update",
+    Description = "Nhấn để mở trang update",
     Callback = function()
-        setclipboard("https://www.tiktok.com/@lm.nguyn4717?_t=ZS-8zueZXpLRxq&_r=1")
+        Window:SelectTab(Tabs.Update) -- Chuyển sang tab Update
     end
 })
 
-    Tabs.Main0:AddButton({
-    Title = "Youtuber",
-    Description = "làm chơi thui",
+-- Tab 2: Update
+Tabs.Update:AddLabel("🔁 Copy link này dán vào Google để lấy bản update", { Size = 18 })
+
+Tabs.Update:AddButton({
+    Title = "📋 Copy link",
+    Description = "Copy link update vào clipboard",
     Callback = function()
-        setclipboard("https://www.youtube.com/@B%E1%BA%B7chH%E1%BB%95Review_VN")
+        local link = ""
+        setclipboard(link)
+        game:GetService("StarterGui"):SetCore("SendNotification", {
+            Title = "✅ Copy thành công",
+            Text = "Đã copy link update vào clipboard",
+            Duration = 4
+        })
     end
-})
-
-    Tabs.Main0:AddButton({
-    Title = "tiktok",
-    Description = "fl tiktok để biết thêm nhiều script",
-    Callback = function()
-        setclipboard("https://www.tiktok.com/@hacbachvietsub?_t=ZS-8zuecIwatxX&_r=1")
-    end
-})
-    
-Tabs.Main1:AddButton({
-    Title="speed hub",
-    Description="cái này dùng ngon nè có key nhá",
-    Callback=function()
-	  local Settings = {
-  JoinTeam = "Pirates"; -- Pirates/Marines
-  Translator = true; -- true/false
-}
-loadstring(game:HttpGet("https://raw.githubusercontent.com/AhmadV99/Speed-Hub-X/main/Speed%20Hub%20X.lua", true))()
-
-})
-
-Tabs.Main1:AddButton({
-    Title="thumdeZ",
-    Description="",
-    Callback=function()
-	  local Settings = {
-  JoinTeam = "Pirates"; -- Pirates/Marines
-  Translator = true; -- true/false
-}
- loadstring(game:HttpGet("https://raw.githubusercontent.com/ThundeZ/GrowAGardenScript/refs/heads/main/ThunderZHub.lua"))()
-
-})
-
-Tabs.Main1:AddButton({
-    Title="nolag🆘",
-    Description="",
-    Callback=function()
-	  local Settings = {
-  JoinTeam = "Pirates"; -- Pirates/Marines
-  Translator = true; -- true/false
-}
-loadstring(game:HttpGet("https://raw.githubusercontent.com/greywaterstill/GAG/refs/heads/main/nathub.lua"))()
-
-})
-
-Tabs.Main1:AddButton({
-    Title="zysume",
-    Description="",
-    Callback=function()
-	  local Settings = {
-  JoinTeam = "Pirates"; -- Pirates/Marines
-  Translator = true; -- true/false
-}
-loadstring(game:HttpGet("https://raw.githubusercontent.com/ZusumeHub/ZusumeHub/refs/heads/main/UpdateZysume"))()
-
-})
-
-Tabs.Main1:AddButton({
-    Title="Nathub",
-    Description="",
-    Callback=function()
-	  local Settings = {
-  JoinTeam = "Pirates"; -- Pirates/Marines
-  Translator = true; -- true/false
-}
-loadstring(game:HttpGet("https://get.nathub.xyz/loader"))()
-
-})
-
-Tabs.Main2:AddButton({
-    Title="ajjan",
-    Description=" ngon đó😍",
-    Callback=function()
-	  local Settings = {
-  JoinTeam = "Pirates"; -- Pirates/Marines
-  Translator = true; -- true/false
-}
-loadstring(game:HttpGet("https://raw.githubusercontent.com/onliengamerop/Steal-a-brainrot/refs/heads/main/Protected_3771863424757750.lua.txt"))()
-
-})
-
-Tabs.Main2:AddButton({
-    Title="New Lemon🍋",
-    Description="",
-    Callback=function()
-	  local Settings = {
-  JoinTeam = "Pirates"; -- Pirates/Marines
-  Translator = true; -- true/false
-}
-loadstring(game:HttpGet("https://pastefy.app/MJw2J4T6/raw"))()
-
 })
