@@ -63,7 +63,7 @@ UpdateBtn.MouseButton1Click:Connect(function()
     CopyBtn.Font = Enum.Font.GothamBold
     CopyBtn.Parent = NewFrame
 
-    local link = "https://raw.githubusercontent.com/teoscrvn/T-ng-h-p-/refs/heads/main/teovip.txt"
+    local link = "https://link4sub.com/zQrn"
 
     CopyBtn.MouseButton1Click:Connect(function()
         setclipboard(link)
