@@ -123,13 +123,49 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/onliengamerop/Steal-a
 })
 
 Tabs.Main2:AddButton({
-    Title="",
+    Title="Lemon🍋 new",
     Description="",
     Callback=function()
 	  local Settings = {
   JoinTeam = "Pirates"; -- Pirates/Marines
   Translator = true; -- true/false
 }
+loadstring(game:HttpGet("https://pastefy.app/MJw2J4T6/raw"))()
+  end
+})
 
+Tabs.Main2:AddButton({
+    Title="Kurdhub😍",
+    Description="",
+    Callback=function()
+	  local Settings = {
+  JoinTeam = "Pirates"; -- Pirates/Marines
+  Translator = true; -- true/false
+}
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Ninja10908/S4/refs/heads/main/Kurdhub"))()
+  end
+})
+
+Tabs.Main3:AddButton({
+    Title="FoxnameHub",
+    Description="cái này no key mà ngon 😋",
+    Callback=function()
+	  local Settings = {
+  JoinTeam = "Pirates"; -- Pirates/Marines
+  Translator = true; -- true/false
+}
+loadstring(game:HttpGet("https://raw.githubusercontent.com/caomod2077/Script/refs/heads/main/FoxnameHub.lua"))()
+  end
+})
+
+Tabs.Main3:AddButton({
+    Title="H4x",
+    Description="có key ngon lắm😋😋",
+    Callback=function()
+	  local Settings = {
+  JoinTeam = "Pirates"; -- Pirates/Marines
+  Translator = true; -- true/false
+}
+loadstring(game:HttpGet("https://raw.githubusercontent.com/H4xScripts/Loader/refs/heads/main/loader.lua", true))()
   end
 })
