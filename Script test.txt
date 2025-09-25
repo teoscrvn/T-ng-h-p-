@@ -6,6 +6,16 @@ local UICorner = Instance.new("UICorner")
 ScreenGui.Parent = game.CoreGui
 ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 
+-- ⚡ Nền (ImageLabel nằm sau cùng)
+local Background = Instance.new("ImageLabel")
+Background.Size = UDim2.new(1, 0, 1, 0)
+Background.Position = UDim2.new(0, 0, 0, 0)
+Background.BackgroundTransparency = 1
+Background.Image = "rbxassetid://117151182727695" -- 👉 đổi ID ở đây
+Background.ImageTransparency = 0.1
+Background.ZIndex = 0
+Background.Parent = ScreenGui
+
 ImageButton.Parent = ScreenGui
 ImageButton.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
 ImageButton.BorderSizePixel = 0
@@ -31,20 +41,10 @@ local Window = Fluent:CreateWindow({
     SubTitle = "vip pro💎😍",
     TabWidth = 157,
     Size = UDim2.fromOffset(450, 300),
-    Acrylic = false, -- tắt acrylic để không bị đè nền
+    Acrylic = false, -- tắt acrylic để thấy nền
     Theme = "Dark",
     MinimizeKey = Enum.KeyCode.End
 })
-
--- ⚡ Thêm nền bằng ImageLabel
-local Background = Instance.new("ImageLabel")
-Background.Size = UDim2.new(1, 0, 1, 0)
-Background.Position = UDim2.new(0, 0, 0, 0)
-Background.BackgroundTransparency = 1
-Background.Image = "rbxassetid://117151182727695" -- 👉 thay ID ảnh Roblox ở đây
-Background.ImageTransparency = 0.1
-Background.ZIndex = -1
-Background.Parent = Window.Main -- đặt vào cửa sổ chính
 
 -- ⚡ Tabs
 local Tabs = {
