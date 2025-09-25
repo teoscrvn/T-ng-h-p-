@@ -1,27 +1,52 @@
-local Fluent = loadstring(game:HttpGet("https://github.com/dawid-scripts/Fluent/releases/latest/download/main.lua"))()
-repeat task.wait() until game:IsLoaded()
+-- ⚡ Bong bóng mở/tắt Script
+local ScreenGui = Instance.new("ScreenGui")
+local ImageButton = Instance.new("ImageButton")
+local UICorner = Instance.new("UICorner")
 
+ScreenGui.Parent = game.CoreGui
+ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+
+ImageButton.Parent = ScreenGui
+ImageButton.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+ImageButton.BorderSizePixel = 0
+ImageButton.Position = UDim2.new(0.1, 0, 0.2, 0)
+ImageButton.Size = UDim2.new(0, 40, 0, 40)
+ImageButton.Draggable = true
+ImageButton.Image = "http://www.roblox.com/asset/?id=99048922857383"
+
+UICorner.CornerRadius = UDim.new(1, 10) 
+UICorner.Parent = ImageButton
+
+ImageButton.MouseButton1Down:Connect(function()
+    game:GetService("VirtualInputManager"):SendKeyEvent(true, Enum.KeyCode.End, false, game)
+end)
+
+-- ⚡ Load Fluent UI
+local Fluent = loadstring(game:HttpGet("https://github.com/dawid-scripts/Fluent/releases/latest/download/main.lua"))()
+repeat wait() until game:IsLoaded()
+
+-- ⚡ Tạo Window
 local Window = Fluent:CreateWindow({
     Title = "Téo 🍎v2 update =}",
     SubTitle = "vip pro💎😍",
     TabWidth = 157,
     Size = UDim2.fromOffset(450, 300),
-    Acrylic = true, -- vẫn có hiệu ứng mờ
-    Theme = "Dark", -- theme cơ bản (nhưng sẽ bị ảnh nền che)
+    Acrylic = false, -- tắt acrylic để không bị đè nền
+    Theme = "Dark",
     MinimizeKey = Enum.KeyCode.End
 })
 
--- 🖼️ Ảnh nền cho menu (thay ID tuỳ ý)
+-- ⚡ Thêm nền bằng ImageLabel
 local Background = Instance.new("ImageLabel")
-Background.Parent = Window.Window -- gắn vào khung chính của Fluent
-Background.Size = UDim2.fromScale(1, 1)
+Background.Size = UDim2.new(1, 0, 1, 0)
 Background.Position = UDim2.new(0, 0, 0, 0)
 Background.BackgroundTransparency = 1
-Background.Image = "rbxassetid://120546351045897" -- đổi ID này thành ảnh Roblox bạn muốn
-Background.ImageTransparency = 0.1 -- độ trong suốt ảnh (0 = rõ nhất, 1 = ẩn luôn)
-Background.ZIndex = 0 -- cho nó ra sau cùng
+Background.Image = "rbxassetid://117151182727695" -- 👉 thay ID ảnh Roblox ở đây
+Background.ImageTransparency = 0.1
+Background.ZIndex = -1
+Background.Parent = Window.Main -- đặt vào cửa sổ chính
 
--- Tabs
+-- ⚡ Tabs
 local Tabs = {
     Main0 = Window:AddTab({ Title="một số kênh🤓" }),
     Main1 = Window:AddTab({ Title="grow a gaden 🌱🌴🌵🌲" }),
@@ -31,11 +56,11 @@ local Tabs = {
     Main5 = Window:AddTab({ Title="lin tinh" }),
 }
 
--- Ví dụ button
+-- ⚡ Ví dụ nút copy
 Tabs.Main0:AddButton({
     Title = "tiktok bạn:)",
     Description = "oách xà lách vô cùng",
     Callback = function()
-        setclipboard("https://www.tiktok.com/@lm.nguyn4717?_t=ZS-8zueZXpLRxq&_r=1")
+        setclipboard("https://www.tiktok.com/@lm.nguyn4717")
     end
 })
