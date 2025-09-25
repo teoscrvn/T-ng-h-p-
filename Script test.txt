@@ -6,16 +6,6 @@ local UICorner = Instance.new("UICorner")
 ScreenGui.Parent = game.CoreGui
 ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 
--- ⚡ Nền (ImageLabel nằm sau cùng)
-local Background = Instance.new("ImageLabel")
-Background.Size = UDim2.new(1, 0, 1, 0)
-Background.Position = UDim2.new(0, 0, 0, 0)
-Background.BackgroundTransparency = 1
-Background.Image = "rbxassetid://117151182727695" -- 👉 đổi ID ở đây
-Background.ImageTransparency = 0.1
-Background.ZIndex = 0
-Background.Parent = ScreenGui
-
 ImageButton.Parent = ScreenGui
 ImageButton.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
 ImageButton.BorderSizePixel = 0
@@ -45,6 +35,26 @@ local Window = Fluent:CreateWindow({
     Theme = "Dark",
     MinimizeKey = Enum.KeyCode.End
 })
+
+-- ⚡ Chèn nền vào trong khung chính của Window
+task.defer(function()
+    local mainFrame = Window.Window -- 👉 Frame chính của Fluent UI
+
+    -- ẩn background gốc
+    if mainFrame.BackgroundTransparency then
+        mainFrame.BackgroundTransparency = 1
+    end
+
+    -- thêm ảnh nền
+    local Background = Instance.new("ImageLabel")
+    Background.Size = UDim2.new(1, 0, 1, 0)
+    Background.Position = UDim2.new(0, 0, 0, 0)
+    Background.BackgroundTransparency = 1
+    Background.Image = "rbxassetid://117151182727695" -- 👉 ID ảnh Roblox
+    Background.ImageTransparency = 0.1
+    Background.ZIndex = 0
+    Background.Parent = mainFrame
+end)
 
 -- ⚡ Tabs
 local Tabs = {
