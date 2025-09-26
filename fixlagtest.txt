@@ -1,0 +1,41 @@
+-- Simple Roblox FPS Booster / Low Graphics Script
+-- Dán vào executor để chạy, có thể bật lại khi lag
+
+local Lighting = game:GetService("Lighting")
+local Terrain = workspace:FindFirstChildOfClass("Terrain")
+
+-- Giảm chất lượng ánh sáng
+Lighting.GlobalShadows = false
+Lighting.FogEnd = 9e9
+Lighting.Brightness = 1
+
+-- Tắt các hiệu ứng ánh sáng
+for _, effect in pairs(Lighting:GetChildren()) do
+    if effect:IsA("BlurEffect") or effect:IsA("SunRaysEffect") or effect:IsA("BloomEffect") or effect:IsA("ColorCorrectionEffect") then
+        effect.Enabled = false
+    end
+end
+
+-- Giảm chất lượng terrain (cỏ, nước, mây...)
+if Terrain then
+    Terrain.WaterWaveSize = 0
+    Terrain.WaterWaveSpeed = 0
+    Terrain.WaterReflectance = 0
+    Terrain.WaterTransparency = 1
+end
+
+-- Tắt Shadow của tất cả Part
+for _, obj in pairs(workspace:GetDescendants()) do
+    if obj:IsA("Part") or obj:IsA("UnionOperation") or obj:IsA("MeshPart") or obj:IsA("WedgePart") then
+        obj.CastShadow = false
+    elseif obj:IsA("Decal") or obj:IsA("Texture") then
+        obj.Transparency = 0 -- giữ hình ảnh nhưng ko quá nặng
+    elseif obj:IsA("ParticleEmitter") or obj:IsA("Trail") then
+        obj.Lifetime = NumberRange.new(0)
+    end
+end
+
+-- Giảm chất lượng Render (FPS Boost mạnh nhất)
+settings().Rendering.QualityLevel = Enum.QualityLevel.Level01
+
+print("✅ FPS Booster: Đã bật chế độ giảm đồ hoạ để đỡ lag")
