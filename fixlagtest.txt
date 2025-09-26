@@ -1,120 +1,138 @@
--- 🏮 Fix Lag Menu cho 99 Đêm
-local Fluent = loadstring(game:HttpGet("https://github.com/dawid-scripts/Fluent/releases/latest/download/main.lua"))()
-repeat wait() until game:IsLoaded()
+-- ⚡ Bong bóng mở/tắt Script
+local ScreenGui = Instance.new("ScreenGui")
+local ImageButton = Instance.new("ImageButton")
+local UICorner = Instance.new("UICorner")
 
--- 🪟 Tạo Window
+ScreenGui.Parent = game.CoreGui
+ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+
+ImageButton.Parent = ScreenGui
+ImageButton.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+ImageButton.BorderSizePixel = 0
+ImageButton.Position = UDim2.new(0.1, 0, 0.2, 0)
+ImageButton.Size = UDim2.new(0, 40, 0, 40)
+ImageButton.Draggable = true
+ImageButton.Image = "rbxassetid://15059956542" -- ID ảnh bong bóng
+UICorner.CornerRadius = UDim.new(1, 10)
+UICorner.Parent = ImageButton
+
+ImageButton.MouseButton1Down:Connect(function()
+    game:GetService("VirtualInputManager"):SendKeyEvent(true, Enum.KeyCode.End, false, game)
+end)
+
+-- ⚡ Load Fluent UI
+local Fluent = loadstring(game:HttpGet("https://github.com/dawid-scripts/Fluent/releases/latest/download/main.lua"))()
+repeat task.wait() until game:IsLoaded()
+
+-- ⚡ Tạo Window chính
 local Window = Fluent:CreateWindow({
-    Title = "Fix Lag 99 Đêm 🌙",
-    SubTitle = "Chọn cấp hoặc tự chỉnh",
-    TabWidth = 160,
-    Size = UDim2.fromOffset(460, 320),
-    Acrylic = false,
+    Title = "🐯 Téo Hub - Fix Lag",
+    SubTitle = "Update v2",
+    TabWidth = 157,
+    Size = UDim2.fromOffset(470, 320),
+    Acrylic = false, -- tắt trong suốt để nền ảnh hiển thị rõ
     Theme = "Dark",
     MinimizeKey = Enum.KeyCode.End
 })
 
--- Tabs
-local Tabs = {
-    Auto = Window:AddTab({ Title = "⚡ Fix nhanh" }),
-    Custom = Window:AddTab({ Title = "⚙️ Tuỳ chỉnh" }),
-}
+-- ⚡ Nền bằng ảnh Roblox
+local Background = Instance.new("ImageLabel")
+Background.Size = UDim2.new(1, 0, 1, 0)
+Background.Position = UDim2.new(0, 0, 0, 0)
+Background.BackgroundTransparency = 1
+Background.Image = "rbxassetid://15059956542" -- 👉 đổi ID ảnh Roblox tại đây
+Background.ImageTransparency = 0.2
+Background.ZIndex = -1
+Background.Parent = Window.Main
 
--- ⚡ CÁC MỨC AUTO FIX
-Tabs.Auto:AddButton({
-    Title = "Fix Lag V1 (Nhẹ)",
+-- ⚡ Tabs
+local Tabs = {
+    Main = Window:AddTab({ Title="⚡ Fix Lag" }),
+    Game = Window:AddTab({ Title="🎮 Game riêng" }),
+    Info = Window:AddTab({ Title="ℹ️ Thông tin" }),
+}
+-- ⚡ Các mức Fix Lag
+Tabs.Main:AddButton({
+    Title = "Fix Lag V1 (nhẹ)",
+    Description = "Xoá bớt bóng, giảm chi tiết nhẹ",
     Callback = function()
         settings().Rendering.QualityLevel = Enum.QualityLevel.Level10
-        game.Lighting.GlobalShadows = false
-        game.Lighting.FogEnd = 200
-        for _,v in pairs(workspace:GetDescendants()) do
-            if v:IsA("ParticleEmitter") or v:IsA("Trail") then v.Enabled = false end
-        end
+        workspace.GlobalShadows = false
+        settings().Rendering.EagerBulkExecution = false
     end
 })
 
-Tabs.Auto:AddButton({
-    Title = "Fix Lag V2 (Trung)",
+Tabs.Main:AddButton({
+    Title = "Fix Lag V2 (trung bình)",
+    Description = "Giảm bóng, xoá chi tiết + giảm anim",
     Callback = function()
-        settings().Rendering.QualityLevel = Enum.QualityLevel.Level5
-        game.Lighting.GlobalShadows = false
-        game.Lighting.FogEnd = 100
+        settings().Rendering.QualityLevel = Enum.QualityLevel.Level8
+        workspace.GlobalShadows = false
         for _,v in pairs(workspace:GetDescendants()) do
-            if v:IsA("ParticleEmitter") or v:IsA("Trail") or v:IsA("Beam") then v.Enabled = false end
-        end
-        -- Ẩn lá cây
-        for _,v in pairs(workspace:GetDescendants()) do
-            if v:IsA("MeshPart") and string.find(v.Name:lower(),"leaf") then
-                v.Transparency = 1
+            if v:IsA("ParticleEmitter") or v:IsA("Trail") then
+                v.Enabled = false
             end
         end
     end
 })
 
-Tabs.Auto:AddButton({
-    Title = "Fix Lag V3 (Mạnh)",
+Tabs.Main:AddButton({
+    Title = "Fix Lag V3 (mạnh)",
+    Description = "Xoá hầu hết hiệu ứng, giảm tầm nhìn",
     Callback = function()
-        settings().Rendering.QualityLevel = Enum.QualityLevel.Level1
-        game.Lighting.GlobalShadows = false
+        settings().Rendering.QualityLevel = Enum.QualityLevel.Level6
+        game.Lighting.FogStart = 5
         game.Lighting.FogEnd = 50
         for _,v in pairs(workspace:GetDescendants()) do
-            if v:IsA("ParticleEmitter") or v:IsA("Trail") or v:IsA("Beam") then v.Enabled = false end
-        end
-        -- Ẩn toàn bộ cây
-        for _,v in pairs(workspace:GetDescendants()) do
-            if v:IsA("MeshPart") and (string.find(v.Name:lower(),"tree") or string.find(v.Name:lower(),"leaf")) then
-                v.Transparency = 1
-            end
-        end
-        -- Ẩn thịt rơi
-        for _,v in pairs(workspace:GetDescendants()) do
-            if v:IsA("MeshPart") and string.find(v.Name:lower(),"meat") then
-                v.Transparency = 1
+            if v:IsA("ParticleEmitter") or v:IsA("Trail") or v:IsA("Beam") then
+                v.Enabled = false
             end
         end
     end
 })
 
-Tabs.Auto:AddButton({
-    Title = "SIÊU FIX (Tối đa)",
+Tabs.Main:AddButton({
+    Title = "Siêu Fix Lag",
+    Description = "Tắt hoàn toàn anim + tầm nhìn cực thấp",
     Callback = function()
-        settings().Rendering.QualityLevel = Enum.QualityLevel.Automatic
-        game.Lighting.GlobalShadows = false
+        settings().Rendering.QualityLevel = Enum.QualityLevel.Level1
+        game.Lighting.FogStart = 5
         game.Lighting.FogEnd = 20
-        workspace.DescendantAdded:Connect(function(v)
-            if v:IsA("ParticleEmitter") or v:IsA("Trail") or v:IsA("Beam") then v.Enabled = false end
-        end)
-        -- Ẩn tất cả cây + thịt
         for _,v in pairs(workspace:GetDescendants()) do
-            if v:IsA("MeshPart") then v.Transparency = 1 end
+            if v:IsA("ParticleEmitter") or v:IsA("Trail") or v:IsA("Beam") or v:IsA("Explosion") then
+                v.Enabled = false
+            end
         end
     end
 })
 
--- ⚙️ Tuỳ chỉnh riêng
-Tabs.Custom:AddToggle("HideMeat", {Title = "Ẩn thịt rơi", Default = false }):OnChanged(function(state)
-    for _,v in pairs(workspace:GetDescendants()) do
-        if v:IsA("MeshPart") and string.find(v.Name:lower(),"meat") then
-            v.Transparency = state and 1 or 0
+-- ⚡ Game riêng (ví dụ 99 Đêm)
+if game.PlaceId == 1234567890 then -- 👉 thay ID game 99 Đêm
+    Tabs.Game:AddButton({
+        Title = "Ẩn cây",
+        Callback = function()
+            for _,v in pairs(workspace:GetDescendants()) do
+                if v:IsA("MeshPart") and v.Name:lower():find("tree") then
+                    v.Transparency = 1
+                end
+            end
         end
-    end
-end)
+    })
 
-Tabs.Custom:AddToggle("HideTree", {Title = "Ẩn cây", Default = false }):OnChanged(function(state)
-    for _,v in pairs(workspace:GetDescendants()) do
-        if v:IsA("MeshPart") and (string.find(v.Name:lower(),"tree") or string.find(v.Name:lower(),"leaf")) then
-            v.Transparency = state and 1 or 0
+    Tabs.Game:AddButton({
+        Title = "Ẩn thịt",
+        Callback = function()
+            for _,v in pairs(workspace:GetDescendants()) do
+                if v:IsA("MeshPart") and v.Name:lower():find("meat") then
+                    v.Transparency = 1
+                end
+            end
         end
-    end
-end)
+    })
+end
 
-Tabs.Custom:AddToggle("NoParticles", {Title = "Tắt hiệu ứng (particles/trail)", Default = false }):OnChanged(function(state)
-    for _,v in pairs(workspace:GetDescendants()) do
-        if v:IsA("ParticleEmitter") or v:IsA("Trail") or v:IsA("Beam") then
-            v.Enabled = not state
-        end
-    end
-end)
-
-Tabs.Custom:AddToggle("NoShadow", {Title = "Tắt bóng", Default = false }):OnChanged(function(state)
-    game.Lighting.GlobalShadows = not state
-end)
+-- ⚡ Tab thông tin
+Tabs.Info:AddParagraph({
+    Title = "🐯 Téo Hub",
+    Content = "Hub fix lag dành cho mọi game.\nUpdate v2 - có hỗ trợ game riêng."
+})
