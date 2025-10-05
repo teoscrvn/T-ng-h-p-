@@ -172,13 +172,13 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/H4xScripts/Loader/ref
 
 Tabs.Main3:AddButton({
     Title="NEW script",
-    Description=" key nè (toatsyissexy) có thể sẽ thay đổiloadstring(game:HttpGet("https://raw.githubusercontent.com/nouralddin-abdullah/99-night/refs/heads/main/main-en.lua"))()",
+    Description=" key nè (toatsyissexy) có thể sẽ thay đổi",
     Callback=function()
 	  local Settings = {
   JoinTeam = "Pirates"; -- Pirates/Marines
   Translator = true; -- true/false
 }
-
+loadstring(game:HttpGet("https://raw.githubusercontent.com/nouralddin-abdullah/99-night/refs/heads/main/main-en.lua"))()
   end
 })
 
