@@ -36,7 +36,7 @@ local Tabs = {
         Main1=Window:AddTab({ Title="grow a gaden 🌱🌴🌵🌲" }),
         Main2=Window:AddTab({ Title="bran rót💩" }),
         Main3=Window:AddTab({ Title="99 đêm🥷" }),
-        Main4=Window:AddTab({ Title="Script Hop" }),
+        Main4=Window:AddTab({ Title="blox fruit🍎" }),
        Main5=Window:AddTab({ Title="lin tinh" }),
 }
     Tabs.Main0:AddButton({
@@ -167,5 +167,41 @@ Tabs.Main3:AddButton({
   Translator = true; -- true/false
 }
 loadstring(game:HttpGet("https://raw.githubusercontent.com/H4xScripts/Loader/refs/heads/main/loader.lua", true))()
+  end
+})
+
+Tabs.Main3:AddButton({
+    Title="NEW script",
+    Description=" key nè (toatsyissexy) có thể sẽ thay đổiloadstring(game:HttpGet("https://raw.githubusercontent.com/nouralddin-abdullah/99-night/refs/heads/main/main-en.lua"))()",
+    Callback=function()
+	  local Settings = {
+  JoinTeam = "Pirates"; -- Pirates/Marines
+  Translator = true; -- true/false
+}
+
+  end
+})
+
+Tabs.Main4:AddButton({
+    Title="Red😍",
+    Description="ngon nhất hiênh tại r",
+    Callback=function()
+	  local Settings = {
+  JoinTeam = "Pirates"; -- Pirates/Marines
+  Translator = true; -- true/false
+}
+loadstring(game:HttpGet("https://raw.githubusercontent.com/tlredz/Scripts/refs/heads/main/main.luau"))(Settings)
+  end
+})
+
+Tabs.Main4:AddButton({
+    Title="BlueX",
+    Description="",
+    Callback=function()
+	  local Settings = {
+  JoinTeam = "Pirates"; -- Pirates/Marines
+  Translator = true; -- true/false
+}
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Dev-BlueX/BlueX-Hub/refs/heads/main/Main.lua"))()
   end
 })
