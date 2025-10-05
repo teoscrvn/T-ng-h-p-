@@ -1,55 +1,49 @@
--- 🛍️ GUI nút bật/tắt
+-- 🌱 Auto Mua Vật Phẩm - Bản Việt Hóa Gọn & Đầy Đủ
+
+-- Nút bật/tắt GUI
 local ScreenGui = Instance.new("ScreenGui")
-local ImageButton = Instance.new("ImageButton")
+local Button = Instance.new("ImageButton")
 local UICorner = Instance.new("UICorner")
 
 ScreenGui.Parent = game.CoreGui
-ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
-
-ImageButton.Parent = ScreenGui
-ImageButton.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
-ImageButton.BorderSizePixel = 0
-ImageButton.Position = UDim2.new(0.05, 0, 0.15, 0)
-ImageButton.Size = UDim2.new(0, 45, 0, 45)
-ImageButton.Draggable = true
-ImageButton.Image = "http://www.roblox.com/asset/?id=15059956542" -- icon shop
+Button.Parent = ScreenGui
+Button.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+Button.Size = UDim2.new(0, 45, 0, 45)
+Button.Position = UDim2.new(0.05, 0, 0.15, 0)
+Button.Image = "rbxassetid://15059956542"
+Button.Draggable = true
 UICorner.CornerRadius = UDim.new(1, 10)
-UICorner.Parent = ImageButton
+UICorner.Parent = Button
 
--------------------------------------------------
--- 🔮 Tải Fluent UI
+-- Tải Fluent UI
 local Fluent = loadstring(game:HttpGet("https://github.com/dawid-scripts/Fluent/releases/latest/download/main.lua"))()
 repeat task.wait() until game:IsLoaded()
 
--- 🪟 Tạo cửa sổ chính
+-- Tạo cửa sổ
 local Window = Fluent:CreateWindow({
     Title = "🌱 Cửa Hàng Cây - Auto Mua V2",
     SubTitle = "Bản Việt hóa bởi Bạch Hổ 💎",
     TabWidth = 160,
-    Size = UDim2.fromOffset(500, 350),
+    Size = UDim2.fromOffset(480, 340),
     Acrylic = true,
     Theme = "Amethyst",
     MinimizeKey = Enum.KeyCode.End
 })
 
--- 📂 Tạo Tab
-local Tabs = {
-    Shop = Window:AddTab({ Title = "🛒 Mua Vật Phẩm" }),
-}
+-- Tab chính
+local TabShop = Window:AddTab({ Title = "🛒 Mua Vật Phẩm" })
 
--------------------------------------------------
--- 🌸 Hình nền (thay màu bằng ảnh Roblox)
-local background = Instance.new("ImageLabel")
-background.Parent = Window.Frame
-background.Size = UDim2.new(1, 0, 1, 0)
-background.Position = UDim2.new(0, 0, 0, 0)
-background.Image = "rbxassetid://15034567890" -- 🔁 đổi ID này thành ảnh bong bóng / hoa bạn muốn
-background.ImageTransparency = 0.15
-background.ScaleType = Enum.ScaleType.Crop
-background.ZIndex = 0
+-- Thêm hình nền
+local bg = Instance.new("ImageLabel")
+bg.Parent = Window.Frame
+bg.Size = UDim2.new(1, 0, 1, 0)
+bg.Position = UDim2.new(0, 0, 0, 0)
+bg.Image = "rbxassetid://15034567890" -- 🔁 thay ID hình nền nếu muốn
+bg.ImageTransparency = 0.15
+bg.ScaleType = Enum.ScaleType.Crop
+bg.ZIndex = 0
 
--------------------------------------------------
--- 🌿 Dữ liệu shop
+-- Dữ liệu shop
 local vatPham = {
     "Cactus", "Strawberry", "Pumpkin", "Sunflower", "Dragon Fruit",
     "Eggplant", "Watermelon", "Cocotank", "Grape", "Carnivorous Plant",
@@ -60,11 +54,12 @@ local daChon = {}
 local shopFolder = game.ReplicatedStorage:FindFirstChild("Plants shop")
 local shopEvent = shopFolder and shopFolder:FindFirstChildWhichIsA("RemoteEvent")
 
--------------------------------------------------
--- ✅ Giao diện chọn vật phẩm
+task.wait(1) -- chờ GUI sẵn sàng
+
+-- Hiển thị danh sách chọn
 for _, ten in ipairs(vatPham) do
-    Tabs.Shop:AddToggle(ten, false, function(trangThai)
-        if trangThai then
+    TabShop:AddToggle("🪴 " .. ten, false, function(on)
+        if on then
             table.insert(daChon, ten)
         else
             for i, v in ipairs(daChon) do
@@ -74,14 +69,13 @@ for _, ten in ipairs(vatPham) do
     end)
 end
 
--------------------------------------------------
--- 🎯 Nút mua vật phẩm đã chọn
-Tabs.Shop:AddButton({
+-- Nút mua vật phẩm đã chọn
+TabShop:AddButton({
     Title = "🪙 Mua vật phẩm đã chọn",
-    Description = "Chỉ mua các món bạn đã tick chọn ở trên",
+    Description = "Mua từng món bạn đã chọn ở trên.",
     Callback = function()
         if not shopEvent then
-            Fluent:Notify({ Title = "⚠️ Lỗi", Content = "Không tìm thấy sự kiện trong 'Plants shop'!", Duration = 3 })
+            Fluent:Notify({ Title = "⚠️ Lỗi", Content = "Không tìm thấy event trong Plants shop!", Duration = 3 })
             return
         end
         for _, ten in ipairs(daChon) do
@@ -89,18 +83,17 @@ Tabs.Shop:AddButton({
             shopEvent:FireServer(ten)
             task.wait(0.8)
         end
-        Fluent:Notify({ Title = "✅ Hoàn tất", Content = "Đã mua xong các vật phẩm bạn chọn.", Duration = 3 })
+        Fluent:Notify({ Title = "✅ Thành công", Content = "Đã mua xong các vật phẩm đã chọn!", Duration = 3 })
     end
 })
 
--------------------------------------------------
--- 💎 Nút mua tất cả
-Tabs.Shop:AddButton({
+-- Nút mua tất cả
+TabShop:AddButton({
     Title = "💰 Mua tất cả vật phẩm",
-    Description = "Tự động mua toàn bộ vật phẩm trong shop",
+    Description = "Mua toàn bộ vật phẩm trong cửa hàng.",
     Callback = function()
         if not shopEvent then
-            Fluent:Notify({ Title = "⚠️ Lỗi", Content = "Không tìm thấy sự kiện trong 'Plants shop'!", Duration = 3 })
+            Fluent:Notify({ Title = "⚠️ Lỗi", Content = "Không tìm thấy event trong Plants shop!", Duration = 3 })
             return
         end
         for _, ten in ipairs(vatPham) do
@@ -108,14 +101,13 @@ Tabs.Shop:AddButton({
             shopEvent:FireServer(ten)
             task.wait(0.8)
         end
-        Fluent:Notify({ Title = "🎉 Thành công", Content = "Đã mua toàn bộ vật phẩm trong cửa hàng!", Duration = 3 })
+        Fluent:Notify({ Title = "🎉 Hoàn tất", Content = "Đã mua toàn bộ vật phẩm thành công!", Duration = 3 })
     end
 })
 
--------------------------------------------------
--- 🔘 Khi bấm nút tròn sẽ bật/tắt cửa sổ
+-- Nút bật/tắt GUI
 local hien = false
-ImageButton.MouseButton1Click:Connect(function()
+Button.MouseButton1Click:Connect(function()
     hien = not hien
     Window:SetVisible(hien)
 end)
