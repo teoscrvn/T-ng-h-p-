@@ -1,0 +1,121 @@
+-- 🛍️ GUI nút bật/tắt
+local ScreenGui = Instance.new("ScreenGui")
+local ImageButton = Instance.new("ImageButton")
+local UICorner = Instance.new("UICorner")
+
+ScreenGui.Parent = game.CoreGui
+ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+
+ImageButton.Parent = ScreenGui
+ImageButton.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+ImageButton.BorderSizePixel = 0
+ImageButton.Position = UDim2.new(0.05, 0, 0.15, 0)
+ImageButton.Size = UDim2.new(0, 45, 0, 45)
+ImageButton.Draggable = true
+ImageButton.Image = "http://www.roblox.com/asset/?id=15059956542" -- icon shop
+UICorner.CornerRadius = UDim.new(1, 10)
+UICorner.Parent = ImageButton
+
+-------------------------------------------------
+-- 🔮 Tải Fluent UI
+local Fluent = loadstring(game:HttpGet("https://github.com/dawid-scripts/Fluent/releases/latest/download/main.lua"))()
+repeat task.wait() until game:IsLoaded()
+
+-- 🪟 Tạo cửa sổ chính
+local Window = Fluent:CreateWindow({
+    Title = "🌱 Cửa Hàng Cây - Auto Mua V2",
+    SubTitle = "Bản Việt hóa bởi Bạch Hổ 💎",
+    TabWidth = 160,
+    Size = UDim2.fromOffset(500, 350),
+    Acrylic = true,
+    Theme = "Amethyst",
+    MinimizeKey = Enum.KeyCode.End
+})
+
+-- 📂 Tạo Tab
+local Tabs = {
+    Shop = Window:AddTab({ Title = "🛒 Mua Vật Phẩm" }),
+}
+
+-------------------------------------------------
+-- 🌸 Hình nền (thay màu bằng ảnh Roblox)
+local background = Instance.new("ImageLabel")
+background.Parent = Window.Frame
+background.Size = UDim2.new(1, 0, 1, 0)
+background.Position = UDim2.new(0, 0, 0, 0)
+background.Image = "rbxassetid://15034567890" -- 🔁 đổi ID này thành ảnh bong bóng / hoa bạn muốn
+background.ImageTransparency = 0.15
+background.ScaleType = Enum.ScaleType.Crop
+background.ZIndex = 0
+
+-------------------------------------------------
+-- 🌿 Dữ liệu shop
+local vatPham = {
+    "Cactus", "Strawberry", "Pumpkin", "Sunflower", "Dragon Fruit",
+    "Eggplant", "Watermelon", "Cocotank", "Grape", "Carnivorous Plant",
+    "Mr Carrot", "Tomatrio", "Shroombino"
+}
+
+local daChon = {}
+local shopFolder = game.ReplicatedStorage:FindFirstChild("Plants shop")
+local shopEvent = shopFolder and shopFolder:FindFirstChildWhichIsA("RemoteEvent")
+
+-------------------------------------------------
+-- ✅ Giao diện chọn vật phẩm
+for _, ten in ipairs(vatPham) do
+    Tabs.Shop:AddToggle(ten, false, function(trangThai)
+        if trangThai then
+            table.insert(daChon, ten)
+        else
+            for i, v in ipairs(daChon) do
+                if v == ten then table.remove(daChon, i) break end
+            end
+        end
+    end)
+end
+
+-------------------------------------------------
+-- 🎯 Nút mua vật phẩm đã chọn
+Tabs.Shop:AddButton({
+    Title = "🪙 Mua vật phẩm đã chọn",
+    Description = "Chỉ mua các món bạn đã tick chọn ở trên",
+    Callback = function()
+        if not shopEvent then
+            Fluent:Notify({ Title = "⚠️ Lỗi", Content = "Không tìm thấy sự kiện trong 'Plants shop'!", Duration = 3 })
+            return
+        end
+        for _, ten in ipairs(daChon) do
+            print("🛍️ Mua:", ten)
+            shopEvent:FireServer(ten)
+            task.wait(0.8)
+        end
+        Fluent:Notify({ Title = "✅ Hoàn tất", Content = "Đã mua xong các vật phẩm bạn chọn.", Duration = 3 })
+    end
+})
+
+-------------------------------------------------
+-- 💎 Nút mua tất cả
+Tabs.Shop:AddButton({
+    Title = "💰 Mua tất cả vật phẩm",
+    Description = "Tự động mua toàn bộ vật phẩm trong shop",
+    Callback = function()
+        if not shopEvent then
+            Fluent:Notify({ Title = "⚠️ Lỗi", Content = "Không tìm thấy sự kiện trong 'Plants shop'!", Duration = 3 })
+            return
+        end
+        for _, ten in ipairs(vatPham) do
+            print("💎 Mua:", ten)
+            shopEvent:FireServer(ten)
+            task.wait(0.8)
+        end
+        Fluent:Notify({ Title = "🎉 Thành công", Content = "Đã mua toàn bộ vật phẩm trong cửa hàng!", Duration = 3 })
+    end
+})
+
+-------------------------------------------------
+-- 🔘 Khi bấm nút tròn sẽ bật/tắt cửa sổ
+local hien = false
+ImageButton.MouseButton1Click:Connect(function()
+    hien = not hien
+    Window:SetVisible(hien)
+end)
