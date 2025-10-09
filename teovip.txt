@@ -147,6 +147,18 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Ninja10908/S4/refs/he
 })
 
 Tabs.Main3:AddButton({
+    Title="combo new😍",
+    Description="no key ngon á full tiếng việt",
+    Callback=function()
+	  local Settings = {
+  JoinTeam = "Pirates"; -- Pirates/Marines
+  Translator = true; -- true/false
+}
+loadstring(game:HttpGet("https://raw.githubusercontent.com/checkurasshole/Trt/refs/heads/main/999NIGH"))()
+  end
+})
+
+Tabs.Main3:AddButton({
     Title="FoxnameHub",
     Description="cái này no key mà ngon 😋",
     Callback=function()
