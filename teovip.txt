@@ -194,6 +194,19 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/nouralddin-abdullah/9
   end
 })
 
+Tabs.Main3:AddButton({
+    Title="auto chs 99 đêm
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/Rx1m/CpsHub/refs/heads/main/Day%20farm",true))()",
+    Description="",
+    Callback=function()
+	  local Settings = {
+  JoinTeam = "Pirates"; -- Pirates/Marines
+  Translator = true; -- true/false
+}
+
+  end
+})
+
 Tabs.Main4:AddButton({
     Title="Red😍",
     Description="ngon nhất hiênh tại r",
