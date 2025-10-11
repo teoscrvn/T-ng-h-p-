@@ -43,15 +43,15 @@ local Tabs = {
     Title = "tiktok bạn:)",
     Description = "oách xà lách vô cùng",
     Callback = function()
-        https://www.tiktok.com/@jannie3342?_t=ZS-90QsJQ5j0NO&_r=1
+        setclipboard("https://www.tiktok.com/@jannie3342?_t=ZS-90QsJQ5j0NO&_r=1")
     end
 })
 
     Tabs.Main0:AddButton({
-    Title = "Youtuber",
+    Title = "tik",
     Description = "làm chơi thui",
     Callback = function()
-        https://www.tiktok.com/@b.yt03?_t=ZS-90QsHokNlwN&_r=1
+        setclipboard("https://www.tiktok.com/@b.yt03?_t=ZS-90QsHokNlwN&_r=1")
     end
 })
 
@@ -59,7 +59,7 @@ local Tabs = {
     Title = "tiktok",
     Description = "fl tiktok để biết thêm nhiều script",
     Callback = function()
-        https://www.tiktok.com/@b.yt03?_t=ZS-90QsHmSjaiu&_r=1
+        setclipboard("https://www.tiktok.com/@b.yt03?_t=ZS-90QsHmSjaiu&_r=1")
     end
 })
 Tabs.Main1:AddButton({
