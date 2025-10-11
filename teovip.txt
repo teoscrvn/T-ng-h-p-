@@ -43,7 +43,7 @@ local Tabs = {
     Title = "tiktok bạn:)",
     Description = "oách xà lách vô cùng",
     Callback = function()
-        setclipboard("https://www.tiktok.com/@lm.nguyn4717?_t=ZS-8zueZXpLRxq&_r=1")
+        https://www.tiktok.com/@jannie3342?_t=ZS-90QsJQ5j0NO&_r=1
     end
 })
 
@@ -51,7 +51,7 @@ local Tabs = {
     Title = "Youtuber",
     Description = "làm chơi thui",
     Callback = function()
-        setclipboard("https://www.youtube.com/@B%E1%BA%B7chH%E1%BB%95Review_VN")
+        https://www.tiktok.com/@b.yt03?_t=ZS-90QsHokNlwN&_r=1
     end
 })
 
@@ -59,7 +59,7 @@ local Tabs = {
     Title = "tiktok",
     Description = "fl tiktok để biết thêm nhiều script",
     Callback = function()
-        setclipboard("https://www.tiktok.com/@hacbachvietsub?_t=ZS-8zuecIwatxX&_r=1")
+        https://www.tiktok.com/@b.yt03?_t=ZS-90QsHmSjaiu&_r=1
     end
 })
 Tabs.Main1:AddButton({
@@ -191,6 +191,108 @@ Tabs.Main3:AddButton({
   Translator = true; -- true/false
 }
 loadstring(game:HttpGet("https://raw.githubusercontent.com/nouralddin-abdullah/99-night/refs/heads/main/main-en.lua"))()
+  end
+})
+
+Tabs.Main3:AddButton({
+    Title="auto chơi game",
+    Description=" nokey",
+    Callback=function()
+	  local Settings = {
+  JoinTeam = "Pirates"; -- Pirates/Marines
+  Translator = true; -- true/false
+}
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Rx1m/CpsHub/refs/heads/main/Day%20farm",true))()
+  end
+})
+
+Tabs.Main3:AddButton({
+    Title="auto đam kim cương",
+    Description=" ngon á nó chỉ tìm sever có kim cương chỉ cần bật",
+    Callback=function()
+	  local Settings = {
+  JoinTeam = "Pirates"; -- Pirates/Marines
+  Translator = true; -- true/false
+}
+getgenv().hop = "old"
+getgenv().reducelag = true
+getgenv().blackscreen = false
+getgenv().AutoFarm = false
+getgenv().autoexecuter = true
+getgenv().WebhookURL = "" --If not used do not write anything
+loadstring(game:HttpGet("https://raw.githubusercontent.com/caomod2077/Script/refs/heads/main/FoxnameFarmdiamond.lua"))()
+  end
+})
+
+Tabs.Main3:AddButton({
+    Title="void",
+    Description="nokey ",
+    Callback=function()
+	  local Settings = {
+  JoinTeam = "Pirates"; -- Pirates/Marines
+  Translator = true; -- true/false
+}
+loadstring(game:HttpGet("https://raw.githubusercontent.com/VapeVoidware/VW-Add/main/nightsintheforest.lua", true))()
+  end
+})
+
+Tabs.Main3:AddButton({
+    Title="cps",
+    Description="._.",
+    Callback=function()
+	  local Settings = {
+  JoinTeam = "Pirates"; -- Pirates/Marines
+  Translator = true; -- true/false
+}
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Rx1m/CpsHub/refs/heads/main/Hub",true))()
+  end
+})
+
+Tabs.Main3:AddButton({
+    Title="bất con mẹ nó tử",
+    Description=" chỉ bất tử no key",
+    Callback=function()
+	  local Settings = {
+  JoinTeam = "Pirates"; -- Pirates/Marines
+  Translator = true; -- true/false
+}
+loadstring(game:HttpGet("https://raw.githubusercontent.com/ProBaconHub/DATABASE/refs/heads/main/99%20Nights%20in%20the%20Forest/Infinite%20Health.lua"))()
+  end
+})
+
+Tabs.Main3:AddButton({
+    Title="auto fam diamon",
+    Description=" đểu hơn bản trên",
+    Callback=function()
+	  local Settings = {
+  JoinTeam = "Pirates"; -- Pirates/Marines
+  Translator = true; -- true/false
+}
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Bubu2k/Rubutv/refs/heads/main/Framkimcuong",true))()
+  end
+})
+
+Tabs.Main3:AddButton({
+    Title="vector",
+    Description="",
+    Callback=function()
+	  local Settings = {
+  JoinTeam = "Pirates"; -- Pirates/Marines
+  Translator = true; -- true/false
+}
+loadstring(game:HttpGet("https://raw.githubusercontent.com/AAwful /Vector_Hub/0/v2"))()
+  end
+})
+
+Tabs.Main3:AddButton({
+    Title=".fam diamon",
+    Description="",
+    Callback=function()
+	  local Settings = {
+  JoinTeam = "Pirates"; -- Pirates/Marines
+  Translator = true; -- true/false
+}
+loadstring(game:HttpGet('https://raw.githubusercontent.com/MQPS7/99-Night-in-the-Forset/refs/heads/main/Gfarm'))()
   end
 })
 
