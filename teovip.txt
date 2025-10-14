@@ -37,7 +37,7 @@ local Tabs = {
         Main2=Window:AddTab({ Title="bran rót💩" }),
         Main3=Window:AddTab({ Title="99 đêm🥷" }),
         Main4=Window:AddTab({ Title="blox fruit🍎" }),
-       Main5=Window:AddTab({ Title="lin tinh" }),
+       Main5=Window:AddTab({ Title="plan vs branro🌲🐘t" }),
 }
     Tabs.Main0:AddButton({
     Title = "tiktok bạn:)",
@@ -98,6 +98,18 @@ loadstring(game:HttpGet("https://get.nathub.xyz/loader"))()
   end
 })
 
+Tabs.Main:AddButton({
+    Title="VN 🇻🇳🇻🇳🇻🇳",
+    Description="script của ng việt làm 🇻🇳",
+    Callback=function()
+	  local Settings = {
+  JoinTeam = "Pirates"; -- Pirates/Marines
+  Translator = true; -- true/false
+}
+loadstring(game:HttpGet("https://raw.githubusercontent.com/replit8173/VietnamHub/refs/heads/main/VietnamseHub.lua", true))()
+  end
+})
+
 Tabs.Main2:AddButton({
     Title="chillhub😌",
     Description="cái này ổn dùng ngon no key",
@@ -123,7 +135,7 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/onliengamerop/Steal-a
 })
 
 Tabs.Main2:AddButton({
-    Title="Lemon🍋 new",
+    Title="Lemon update",
     Description="",
     Callback=function()
 	  local Settings = {
@@ -202,7 +214,7 @@ Tabs.Main3:AddButton({
   JoinTeam = "Pirates"; -- Pirates/Marines
   Translator = true; -- true/false
 }
-loadstring(game:HttpGet("https://raw.githubusercontent.com/Rx1m/CpsHub/refs/heads/main/Day%20farm",true))()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Rx1m/CpsHub/refs/heads/main/DayFarm%E2%84%A2",true))()
   end
 })
 
@@ -317,5 +329,89 @@ Tabs.Main4:AddButton({
   Translator = true; -- true/false
 }
 loadstring(game:HttpGet("https://raw.githubusercontent.com/Dev-BlueX/BlueX-Hub/refs/heads/main/Main.lua"))()
+  end
+})
+
+Tabs.Main2:AddButton({
+    Title="khngscript hub",
+    Description="duper bram rot",
+    Callback=function()
+	  local Settings = {
+  JoinTeam = "Pirates"; -- Pirates/Marines
+  Translator = true; -- true/false
+}
+loadstring(game:HttpGet("https://raw.githubusercontent.com/BestScript-cmd/Khangdz28/refs/heads/main/KhgScripttt"))()
+  end
+})
+
+Tabs.Main2:AddButton({
+    Title="script tạo seven vip",
+    Description="tạo seven vip",
+    Callback=function()
+	  local Settings = {
+  JoinTeam = "Pirates"; -- Pirates/Marines
+  Translator = true; -- true/false
+}
+loadstring(game:HttpGet("https://raw.githubusercontent.com/JoshzzAlteregooo/FreePrivateServer/refs/heads/main/UniversalFreePrivateServerByJoshzz"))()
+  end
+})
+
+Tabs.Main2:AddButton({
+    Title="ZZZz hub ",
+    Description="cướp tàng hình",
+    Callback=function()
+	  local Settings = {
+  JoinTeam = "Pirates"; -- Pirates/Marines
+  Translator = true; -- true/false
+}
+loadstring(game:HttpGet("https://pastefy.app/DHyT4Zoi/raw"))()
+  end
+})
+
+Tabs.Main3:AddButton({
+    Title="auto fam kc cps",
+    Description="",
+    Callback=function()
+	  local Settings = {
+  JoinTeam = "Pirates"; -- Pirates/Marines
+  Translator = true; -- true/false
+}
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Rx1m/CpsHub/refs/heads/main/CpsX",true))()
+  end
+})
+
+Tabs.Main3:AddButton({
+    Title="cps hub",
+    Description="",
+    Callback=function()
+	  local Settings = {
+  JoinTeam = "Pirates"; -- Pirates/Marines
+  Translator = true; -- true/false
+}
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Rx1m/CpsHub/refs/heads/main/Hub",true))()
+  end
+})
+
+Tabs.Main5:AddButton({
+    Title="speed hub",
+    Description="đầy đue chức năng khá ngon",
+    Callback=function()
+	  local Settings = {
+  JoinTeam = "Pirates"; -- Pirates/Marines
+  Translator = true; -- true/false
+}
+loadstring(game:HttpGet("https://raw.githubusercontent.com/AhmadV99/Speed-Hub-X/main/Speed%20Hub%20X.lua", true))()
+  end
+})
+
+Tabs.Main2:AddButton({
+    Title="fam kc thunder",
+    Description="đam khá ổn",
+    Callback=function()
+	  local Settings = {
+  JoinTeam = "Pirates"; -- Pirates/Marines
+  Translator = true; -- true/false
+}
+
   end
 })
