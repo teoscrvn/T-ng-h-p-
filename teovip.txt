@@ -193,6 +193,7 @@ Tabs.Main2:AddButton({
 loadstring(game:HttpGet("https://pastefy.app/DHyT4Zoi/raw"))()
   end
 })
+
 Tabs.Main3:AddButton({
     Title="combo new😍",
     Description="no key ngon á full tiếng việt",
@@ -388,17 +389,5 @@ Tabs.Main4:AddButton({
   Translator = true; -- true/false
 }
 loadstring(game:HttpGet("https://raw.githubusercontent.com/Dev-BlueX/BlueX-Hub/refs/heads/main/Main.lua"))()
-  end
-})
-
-Tabs.Main5:AddButton({
-    Title="speed hub",
-    Description="đầy đue chức năng khá ngon",
-    Callback=function()
-	  local Settings = {
-  JoinTeam = "Pirates"; -- Pirates/Marines
-  Translator = true; -- true/false
-}
-loadstring(game:HttpGet("https://raw.githubusercontent.com/AhmadV99/Speed-Hub-X/main/Speed%20Hub%20X.lua", true))()
   end
 })
