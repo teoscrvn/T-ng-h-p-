@@ -195,6 +195,18 @@ loadstring(game:HttpGet("https://pastefy.app/DHyT4Zoi/raw"))()
 })
 
 Tabs.Main3:AddButton({
+    Title="thunder",
+    Description="cái này auto đam ngày và kc",
+    Callback=function()
+	  local Settings = {
+  JoinTeam = "Pirates"; -- Pirates/Marines
+  Translator = true; -- true/false
+}
+loadstring(game:HttpGet("https://raw.githubusercontent.com/NAVAAI098/Thunder-Hub/main/Kaitun.lua"))()
+  end
+})
+
+Tabs.Main3:AddButton({
     Title="combo new😍",
     Description="no key ngon á full tiếng việt",
     Callback=function()
@@ -389,5 +401,17 @@ Tabs.Main4:AddButton({
   Translator = true; -- true/false
 }
 loadstring(game:HttpGet("https://raw.githubusercontent.com/Dev-BlueX/BlueX-Hub/refs/heads/main/Main.lua"))()
+  end
+})
+
+Tabs.Main5:AddButton({
+    Title="speed hub",
+    Description="khá ổn đầy đủ",
+    Callback=function()
+	  local Settings = {
+  JoinTeam = "Pirates"; -- Pirates/Marines
+  Translator = true; -- true/false
+}
+loadstring(game:HttpGet("https://raw.githubusercontent.com/AhmadV99/Speed-Hub-X/main/Speed%20Hub%20X.lua", true))()
   end
 })
