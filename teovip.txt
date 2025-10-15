@@ -98,7 +98,7 @@ loadstring(game:HttpGet("https://get.nathub.xyz/loader"))()
   end
 })
 
-Tabs.Main:AddButton({
+Tabs.Main2:AddButton({
     Title="VN 🇻🇳🇻🇳🇻🇳",
     Description="script của ng việt làm 🇻🇳",
     Callback=function()
