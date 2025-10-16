@@ -195,6 +195,18 @@ loadstring(game:HttpGet("https://pastefy.app/DHyT4Zoi/raw"))()
 })
 
 Tabs.Main3:AddButton({
+    Title="FNdayfam",
+    Description=" Siêu script vừa fam ngày vừa kim cương siêu ngon",
+    Callback=function()
+	  local Settings = {
+  JoinTeam = "Pirates"; -- Pirates/Marines
+  Translator = true; -- true/false
+}
+loadstring(game:HttpGet('https://raw.githubusercontent.com/caomod2077/Script/refs/heads/main/FNDayFarm.lua'))()
+  end
+})
+
+Tabs.Main3:AddButton({
     Title="thunder",
     Description="cái này auto đam ngày và kc",
     Callback=function()
