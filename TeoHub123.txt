@@ -1,0 +1,563 @@
+-- Téo🍎🍏 Hub - Executor GUI (StarterGui -> LocalScript)
+-- Bản này dành cho người mới: mọi chỗ cần sửa có chú thích ngắn ngay cạnh dòng (dạng -- 🍎 ... 👈)
+-- Kích thước: 400 x 250
+-- Hình nền: rbxassetid://120546351045897
+-- Viền neon: xanh lam + cam (glow)
+-- Lưu ý: loadstring chỉ chạy trong môi trường cho phép (Studio). Đảm bảo dùng an toàn.
+
+local Players = game:GetService("Players")
+local TweenService = game:GetService("TweenService")
+
+local player = Players.LocalPlayer
+local playerGui = player:WaitForChild("PlayerGui")
+
+-- 🍎 Nếu muốn đổi tên GUI (ví dụ: "MyGui"), sửa chỗ này 👈
+local existing = playerGui:FindFirstChild("TeoHubGui")
+if existing then existing:Destroy() end
+
+local screenGui = Instance.new("ScreenGui")
+screenGui.Name = "TeoHubGui" -- 🍎 Sửa tên ID GUI ở đây nếu cần 👈
+screenGui.ResetOnSpawn = false
+screenGui.Parent = playerGui
+
+-- Main window (frame)
+local main = Instance.new("Frame", screenGui)
+main.Name = "MainWindow"
+main.Size = UDim2.new(0, 400, 0, 250) -- 🍎 Sửa kích thước ở đây (width,height) nếu muốn 👈
+main.Position = UDim2.new(0.5, -200, 0.5, -125)
+main.AnchorPoint = Vector2.new(0.5, 0.5)
+main.BackgroundColor3 = Color3.fromRGB(10, 10, 10)
+main.BackgroundTransparency = 0.40 -- 🍎 Độ trong suốt (0..1) - sửa nếu muốn 👈
+main.BorderSizePixel = 0
+main.ZIndex = 5
+main.Active = true
+main.Draggable = true
+
+local mainCorner = Instance.new("UICorner", main)
+mainCorner.CornerRadius = UDim.new(0, 10)
+
+-- Glow strokes: cyan outer + orange inner (neon)
+local strokeCyan = Instance.new("UIStroke", main)
+strokeCyan.Name = "CyanStroke"
+strokeCyan.Color = Color3.fromRGB(0, 170, 255) -- 🍎 Màu viền chính (xanh lam) - sửa nếu muốn 👈
+strokeCyan.Thickness = 2
+strokeCyan.Transparency = 0.2
+strokeCyan.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
+
+local strokeOrange = Instance.new("UIStroke", main)
+strokeOrange.Name = "OrangeStroke"
+strokeOrange.Color = Color3.fromRGB(255, 140, 30) -- 🍎 Màu viền phụ (cam) - sửa nếu muốn 👈
+strokeOrange.Thickness = 1
+strokeOrange.Transparency = 0.35
+strokeOrange.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
+
+-- glow placeholder (layering only)
+local glow = Instance.new("ImageLabel", main)
+glow.Name = "Glow"
+glow.Size = UDim2.new(1, 30, 1, 30)
+glow.Position = UDim2.new(-0.03, 0, -0.03, 0)
+glow.BackgroundTransparency = 1
+glow.Image = "rbxasset://textures/ui/GuiImagePlaceholder.png"
+glow.ZIndex = 1
+glow.ImageTransparency = 1
+
+-- Title bar
+local titleBar = Instance.new("Frame", main)
+titleBar.Name = "TitleBar"
+titleBar.Size = UDim2.new(1, 0, 0, 28)
+titleBar.Position = UDim2.new(0, 0, 0, 0)
+titleBar.BackgroundTransparency = 1
+
+local titleLabel = Instance.new("TextLabel", titleBar)
+titleLabel.Name = "Title"
+titleLabel.Text = "Téo🍎🍏 Hub" -- 🍎 Sửa tên Hub hiển thị ở đây 👈
+titleLabel.Size = UDim2.new(1, -60, 1, 0)
+titleLabel.Position = UDim2.new(0, 12, 0, 0)
+titleLabel.BackgroundTransparency = 1
+titleLabel.Font = Enum.Font.SourceSans -- 🍎 Font: SourceSans (anime-soft). Thay Enum.Font nếu muốn 👈
+titleLabel.TextSize = 18
+titleLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+titleLabel.TextXAlignment = Enum.TextXAlignment.Left
+titleLabel.ZIndex = 6
+
+-- Hide/Show button
+local hideBtn = Instance.new("TextButton", titleBar)
+hideBtn.Name = "HideBtn"
+hideBtn.Size = UDim2.new(0, 40, 1, -4)
+hideBtn.Position = UDim2.new(1, -46, 0, 2)
+hideBtn.BackgroundTransparency = 0.3
+hideBtn.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+hideBtn.Text = "Ẩn" -- 🍎 Đổi thành "Hiện" / "Ẩn" nếu muốn (lập logic thay đổi text) 👈
+hideBtn.Font = Enum.Font.SourceSansBold
+hideBtn.TextSize = 14
+hideBtn.TextColor3 = Color3.fromRGB(255,255,255)
+local hideCorner = Instance.new("UICorner", hideBtn)
+hideCorner.CornerRadius = UDim.new(0,6)
+
+hideBtn.MouseButton1Click:Connect(function()
+	main.Visible = not main.Visible
+end)
+
+-- Left sidebar (tabs)
+local sidebar = Instance.new("Frame", main)
+sidebar.Name = "Sidebar"
+sidebar.Size = UDim2.new(0, 120, 1, -28)
+sidebar.Position = UDim2.new(0, 0, 0, 28)
+sidebar.BackgroundColor3 = Color3.fromRGB(18,18,18)
+sidebar.BackgroundTransparency = 0
+local sideCorner = Instance.new("UICorner", sidebar)
+sideCorner.CornerRadius = UDim.new(0, 8)
+
+local sideLayout = Instance.new("UIListLayout", sidebar)
+sideLayout.Padding = UDim.new(0,6)
+sideLayout.SortOrder = Enum.SortOrder.LayoutOrder
+sideLayout.HorizontalAlignment = Enum.HorizontalAlignment.Center
+sideLayout.VerticalAlignment = Enum.VerticalAlignment.Top
+
+local sidePadding = Instance.new("UIPadding", sidebar)
+sidePadding.PaddingTop = UDim.new(0,8)
+sidePadding.PaddingLeft = UDim.new(0,6)
+
+-- Right content area (pages)
+local content = Instance.new("Frame", main)
+content.Name = "Content"
+content.Size = UDim2.new(1, -120, 1, -28)
+content.Position = UDim2.new(0, 120, 0, 28)
+content.BackgroundTransparency = 1
+local contentCorner = Instance.new("UICorner", content)
+contentCorner.CornerRadius = UDim.new(0,6)
+
+local pageFolder = Instance.new("Folder", content)
+pageFolder.Name = "Pages"
+
+local uiPageLayout = Instance.new("UIPageLayout", pageFolder)
+uiPageLayout.FillDirection = Enum.FillDirection.Vertical
+uiPageLayout.SortOrder = Enum.SortOrder.LayoutOrder
+uiPageLayout.TweenTime = 0.15
+uiPageLayout.EasingStyle = Enum.EasingStyle.Quad
+uiPageLayout.EasingDirection = Enum.EasingDirection.Out
+
+-- Helper: create a tab button and page
+local Tabs = {}
+local function CreateTab(tabName, iconImage)
+	local btn = Instance.new("TextButton", sidebar)
+	btn.Name = tabName .. "_Tab"
+	btn.Size = UDim2.new(1, -12, 0, 36)
+	btn.BackgroundTransparency = 1
+	btn.AutoButtonColor = false
+	btn.Font = Enum.Font.SourceSansBold
+	btn.Text = ""
+	btn.TextColor3 = Color3.new(1,1,1)
+
+	local btnFrame = Instance.new("Frame", btn)
+	btnFrame.Size = UDim2.new(1, 0, 1, 0)
+	btnFrame.BackgroundTransparency = 0.8
+	btnFrame.BackgroundColor3 = Color3.fromRGB(0,0,0)
+	local bfCorner = Instance.new("UICorner", btnFrame)
+	bfCorner.CornerRadius = UDim.new(0,6)
+
+	local icon = Instance.new("ImageLabel", btnFrame)
+	icon.Name = "Icon"
+	icon.Size = UDim2.new(0, 24, 0, 24)
+	icon.Position = UDim2.new(0, 6, 0.5, -12)
+	icon.BackgroundTransparency = 1
+	icon.Image = iconImage or "" -- 🍎 Sửa icon ở đây (rbxassetid) nếu muốn 👈
+
+	local label = Instance.new("TextLabel", btnFrame)
+	label.Size = UDim2.new(1, -38, 1, 0)
+	label.Position = UDim2.new(0, 36, 0, 0)
+	label.BackgroundTransparency = 1
+	label.Text = tabName -- 🍎 Tên tab hiển thị, sửa ở đây nếu muốn 👈
+	label.Font = Enum.Font.SourceSans
+	label.TextSize = 14
+	label.TextColor3 = Color3.fromRGB(255,255,255)
+	label.TextXAlignment = Enum.TextXAlignment.Left
+
+	-- highlight overlay
+	local highlight = Instance.new("Frame", btnFrame)
+	highlight.Size = UDim2.new(0, 4, 1, 0)
+	highlight.Position = UDim2.new(0, -4, 0, 0)
+	highlight.BackgroundColor3 = Color3.fromRGB(0,170,255)
+	highlight.BackgroundTransparency = 0.8
+	local hCorner = Instance.new("UICorner", highlight); hCorner.CornerRadius = UDim.new(0,2)
+
+	-- create page
+	local page = Instance.new("ScrollingFrame", pageFolder)
+	page.Name = tabName .. "_Page"
+	page.Size = UDim2.new(1, 0, 1, 0)
+	page.CanvasSize = UDim2.new(0,0,0,0)
+	page.ScrollBarThickness = 4
+	page.BackgroundTransparency = 1
+	page.AutomaticCanvasSize = Enum.AutomaticSize.Y
+	page.LayoutOrder = 1
+
+	local pagePadding = Instance.new("UIPadding", page)
+	pagePadding.PaddingTop = UDim.new(0, 10)
+	pagePadding.PaddingLeft = UDim.new(0, 12)
+	pagePadding.PaddingRight = UDim.new(0, 12)
+
+	local pageList = Instance.new("UIListLayout", page)
+	pageList.SortOrder = Enum.SortOrder.LayoutOrder
+	pageList.Padding = UDim.new(0,8)
+
+	-- tab click behavior
+	btn.MouseButton1Click:Connect(function()
+		uiPageLayout:JumpTo(page)
+		-- visual highlight: fade in highlight
+		TweenService:Create(highlight, TweenInfo.new(0.18, Enum.EasingStyle.Quad), {BackgroundTransparency = 0}):Play()
+	end)
+
+	table.insert(Tabs, {Button = btn, Page = page, Name = tabName})
+	return { Button = btn, Page = page, Name = tabName,
+		-- widget API
+		AddButton = function(_, text)
+			local container = Instance.new("Frame", page)
+			container.Size = UDim2.new(1, 0, 0, 36)
+			container.BackgroundTransparency = 1
+			local btn = Instance.new("TextButton", container)
+			btn.Size = UDim2.new(1, 0, 1, 0)
+			btn.BackgroundColor3 = Color3.fromRGB(20,20,20)
+			btn.AutoButtonColor = false
+			btn.Text = text -- 🍎 Sửa chữ nút hiển thị ở đây 👈
+			btn.Font = Enum.Font.SourceSansBold
+			btn.TextSize = 14
+			btn.TextColor3 = Color3.fromRGB(255,255,255)
+			local btnCorner = Instance.new("UICorner", btn)
+			btnCorner.CornerRadius = UDim.new(0,6)
+			-- hover tween
+			btn.MouseEnter:Connect(function()
+				TweenService:Create(btn, TweenInfo.new(0.12, Enum.EasingStyle.Quad), {BackgroundTransparency = 0}):Play()
+			end)
+			btn.MouseLeave:Connect(function()
+				TweenService:Create(btn, TweenInfo.new(0.12, Enum.EasingStyle.Quad), {BackgroundTransparency = 0.6}):Play()
+			end)
+			-- placeholder click
+			btn.MouseButton1Click:Connect(function()
+				print("[TODO] Button clicked:", text)
+				-- 🍎 Thêm code xử lý khi nhấn nút ở đây (ví dụ call function) 👈
+				-- TODO: add real action here
+			end)
+			return btn
+		end,
+
+		AddToggle = function(_, title, default)
+			local container = Instance.new("Frame", page)
+			container.Size = UDim2.new(1, 0, 0, 46)
+			container.BackgroundTransparency = 1
+			local label = Instance.new("TextLabel", container)
+			label.Size = UDim2.new(0.7, 0, 1, 0)
+			label.BackgroundTransparency = 1
+			label.Font = Enum.Font.SourceSans
+			label.TextSize = 14
+			label.TextXAlignment = Enum.TextXAlignment.Left
+			label.Text = title -- nhảy trên không
+
+			local toggleBtn = Instance.new("TextButton", container)
+			toggleBtn.Size = UDim2.new(0, 60, 0, 28)
+			toggleBtn.Position = UDim2.new(1, -70, 0.5, -14)
+			toggleBtn.BackgroundColor3 = Color3.fromRGB(50,50,50)
+			toggleBtn.Text = ""
+			local tCorner = Instance.new("UICorner", toggleBtn); tCorner.CornerRadius = UDim.new(0,14)
+			local small = Instance.new("Frame", toggleBtn)
+			small.Size = UDim2.new(0, 24, 0, 24)
+			small.Position = UDim2.new(0, 4, 0.5, -12)
+			small.BackgroundColor3 = default and Color3.fromRGB(0,170,255) or Color3.fromRGB(0,0,0)
+			local sCorner = Instance.new("UICorner", small); sCorner.CornerRadius = UDim.new(1,0)
+			local state = default and true or false
+
+			toggleBtn.MouseButton1Click:Connect(function()
+				state = not state
+				if state then
+					TweenService:Create(small, TweenInfo.new(0.12), {Position = UDim2.new(0, 32, 0.5, -12), BackgroundColor3 = Color3.fromRGB(0,170,255)}):Play()
+				else
+					TweenService:Create(small, TweenInfo.new(0.12), {Position = UDim2.new(0, 4, 0.5, -12), BackgroundColor3 = Color3.fromRGB(0,0,0)}):Play()
+				end
+				print("[TODO] Toggle changed:", title, state)
+				-- 🌌 Infinite Jump by Té🍎
+-- Bật/tắt bằng phím cách (Space)
+-- An toàn, không gây lỗi server
+
+local Player = game:GetService("Players").LocalPlayer
+local UserInputService = game:GetService("UserInputService")
+
+local InfiniteJumpEnabled = true
+
+UserInputService.JumpRequest:Connect(function()
+	if InfiniteJumpEnabled then
+		Player.Character:FindFirstChildOfClass("Humanoid"):ChangeState("Jumping")
+	end
+end)
+
+print("✅ Infinite Jump Loaded - Nhấn Space để nhảy liên tục trên không!")
+				-- TODO: add real toggle behavior here
+			end)
+
+			-- initialize visual
+			if state then small.Position = UDim2.new(0, 32, 0.5, -12) else small.Position = UDim2.new(0,4,0.5,-12) end
+			return toggleBtn
+		end,
+
+		AddTextbox = function(_, labelText, placeholder)
+			local container = Instance.new("Frame", page)
+			container.Size = UDim2.new(1, 0, 0, 36)
+			container.BackgroundTransparency = 1
+			local lbl = Instance.new("TextLabel", container)
+			lbl.Size = UDim2.new(0.45, 0, 1, 0)
+			lbl.BackgroundTransparency = 1
+			lbl.Font = Enum.Font.SourceSans
+			lbl.TextSize = 14
+			lbl.Text = labelText -- 🍎 Sửa nhãn ô nhập ở đây 👈
+
+			local textBox = Instance.new("TextBox", container)
+			textBox.Size = UDim2.new(0.5, 0, 1, 0)
+			textBox.Position = UDim2.new(0.48, 0, 0, 0)
+			textBox.BackgroundColor3 = Color3.fromRGB(30,30,30)
+			textBox.TextColor3 = Color3.fromRGB(220,220,220)
+			textBox.Text = placeholder or ""
+			textBox.ClearTextOnFocus = false
+			local tbCorner = Instance.new("UICorner", textBox); tbCorner.CornerRadius = UDim.new(0,6)
+
+			textBox.FocusLost:Connect(function(enter)
+				if enter then
+					print("[TODO] TextBox input for", labelText, ":", textBox.Text)
+					-- 🍎 Xử lý khi người dùng nhập xong (nhấn Enter) - chèn code ở đây 👈
+				end
+			end)
+			return textBox
+		end,
+
+		AddDropdown = function(_, labelText, options)
+			local container = Instance.new("Frame", page)
+			container.Size = UDim2.new(1, 0, 0, 36)
+			container.BackgroundTransparency = 1
+			local lbl = Instance.new("TextLabel", container)
+			lbl.Size = UDim2.new(0.4, 0, 1, 0)
+			lbl.BackgroundTransparency = 1
+			lbl.Font = Enum.Font.SourceSans
+			lbl.TextSize = 14
+			lbl.Text = labelText -- 🍎 Sửa nhãn dropdown ở đây 👈
+
+			local pick = Instance.new("TextButton", container)
+			pick.Size = UDim2.new(0.5, 0, 1, 0)
+			pick.Position = UDim2.new(0.48, 0, 0, 0)
+			pick.AutoButtonColor = false
+			pick.BackgroundColor3 = Color3.fromRGB(30,30,30)
+			pick.Text = "Chọn..." -- 🍎 Đổi chữ mặc định của dropdown nếu muốn 👈
+			local pCorner = Instance.new("UICorner", pick); pCorner.CornerRadius = UDim.new(0,6)
+
+			local dropFrame = Instance.new("Frame", container)
+			dropFrame.Size = UDim2.new(0.9, 0, 0, 0)
+			dropFrame.Position = UDim2.new(0.05, 0, 1, 4)
+			dropFrame.BackgroundTransparency = 1
+			dropFrame.ClipsDescendants = true
+
+			local dropList = Instance.new("Frame", dropFrame)
+			dropList.Size = UDim2.new(1,0,0,0)
+			dropList.BackgroundColor3 = Color3.fromRGB(28,28,28)
+			dropList.BackgroundTransparency = 0.95
+			local dlCorner = Instance.new("UICorner", dropList); dlCorner.CornerRadius = UDim.new(0,6)
+			local dlLayout = Instance.new("UIListLayout", dropList)
+			dlLayout.SortOrder = Enum.SortOrder.LayoutOrder
+			dlLayout.Padding = UDim.new(0,4)
+
+			local open = false
+			local function rebuild()
+				for _,c in ipairs(dropList:GetChildren()) do if c:IsA("TextButton") then c:Destroy() end end
+				local height = 0
+				for i,opt in ipairs(options or {}) do
+					local it = Instance.new("TextButton", dropList)
+					it.Size = UDim2.new(1, -8, 0, 28)
+					it.Position = UDim2.new(0, 4, 0, height)
+					it.BackgroundColor3 = Color3.fromRGB(40,40,40)
+					it.AutoButtonColor = false
+					it.Text = opt
+					it.Font = Enum.Font.SourceSans
+					it.TextSize = 14
+					local ic = Instance.new("UICorner", it); ic.CornerRadius = UDim.new(0,6)
+					it.MouseButton1Click:Connect(function()
+						pick.Text = opt
+						open = false
+						dropFrame:TweenSize(UDim2.new(0.9,0,0,0),"Out","Quad",0.12,true)
+						print("[TODO] Dropdown selected", labelText, opt)
+						-- 🍎 Chèn hành động khi chọn item ở đây (ví dụ: lưu biến, gọi function) 👈
+					end)
+					height = height + 32
+				end
+				dropList.Size = UDim2.new(1,0,0,height)
+				dropFrame.Size = UDim2.new(0.9, 0, 0, 0)
+			end
+			rebuild()
+
+			pick.MouseButton1Click:Connect(function()
+				open = not open
+				if open then
+					dropFrame:TweenSize(UDim2.new(0.9,0,0,120),"Out","Quad",0.12,true)
+				else
+					dropFrame:TweenSize(UDim2.new(0.9,0,0,0),"Out","Quad",0.12,true)
+				end
+			end)
+			return { Button = pick, Rebuild = rebuild }
+		end,
+
+		AddLabel = function(_, text)
+			local l = Instance.new("TextLabel", page)
+			l.Size = UDim2.new(1, 0, 0, 22)
+			l.BackgroundTransparency = 1
+			l.Font = Enum.Font.SourceSansBold
+			l.TextSize = 14
+			l.Text = text -- 🍎 Chỉnh chữ hiển thị ở đây 👈
+			l.TextColor3 = Color3.fromRGB(235,235,235)
+			l.TextXAlignment = Enum.TextXAlignment.Left
+			return l
+		end,
+
+		AddSeperator = function(_, text)
+			local sep = Instance.new("Frame", page)
+			sep.Size = UDim2.new(1,0,0,28)
+			sep.BackgroundColor3 = Color3.fromRGB(40,40,40)
+			local corner = Instance.new("UICorner", sep); corner.CornerRadius = UDim.new(0,6)
+			local label = Instance.new("TextLabel", sep)
+			label.Size = UDim2.new(1, -16, 1, 0)
+			label.Position = UDim2.new(0, 8, 0, 0)
+			label.BackgroundTransparency = 1
+			label.Font = Enum.Font.SourceSansBold
+			label.TextSize = 13
+			label.TextXAlignment = Enum.TextXAlignment.Left
+			label.Text = " " .. (text or "") -- 🍎 Sửa tiêu đề mục ở đây (ví dụ: "Executor") 👈
+			label.TextColor3 = Color3.fromRGB(220,220,220)
+			return sep
+		end
+	}
+end
+
+-- Create single sample tab "Trang chủ"
+local home = CreateTab("Trang chủ", "") -- 🍎 Sửa tên tab nếu muốn 👈
+-- populate the page with widget samples (all TODO)
+local sample = home
+sample.AddLabel(sample, "Welcome to Téo🍎🍏 Hub - Demo") -- 🍎 Sửa dòng chào mừng ở đây 👈
+
+-- Executor separator (vị trí executor)
+sample.AddSeperator(sample, "Executor") -- 🍎 Sửa tiêu đề khối Executor nếu muốn 👈
+
+-- Executor area (code input)
+local exeFrame = Instance.new("Frame", sample.Page)
+exeFrame.Size = UDim2.new(1, 0, 0, 120)
+exeFrame.BackgroundTransparency = 1
+local exeText = Instance.new("TextBox", exeFrame)
+exeText.Size = UDim2.new(1, 0, 1, -36)
+exeText.Position = UDim2.new(0,0,0,0)
+exeText.BackgroundColor3 = Color3.fromRGB(18,18,18)
+exeText.TextColor3 = Color3.fromRGB(180,255,180)
+exeText.Text = "-- Nhập code Lua ở đây (thực thi LOCAL). TODO: kiểm tra an toàn khi deploy ngoài Studio" -- 🍎 Sửa hướng dẫn mặc định ở đây 👈
+exeText.ClearTextOnFocus = false
+exeText.MultiLine = true
+exeText.Font = Enum.Font.Code
+exeText.TextSize = 14
+local corner = Instance.new("UICorner", exeText); corner.CornerRadius = UDim.new(0,6)
+
+local btnRow = Instance.new("Frame", exeFrame)
+btnRow.Size = UDim2.new(1, 0, 0, 36)
+btnRow.Position = UDim2.new(0,0,1,-36)
+btnRow.BackgroundTransparency = 1
+
+local executeBtn = Instance.new("TextButton", btnRow)
+executeBtn.Size = UDim2.new(0.5, -6, 1, 0)
+executeBtn.Position = UDim2.new(0, 6, 0, 0)
+executeBtn.Text = "▶ Thực thi" -- 🍎 Sửa chữ nút Thực thi ở đây 👈
+executeBtn.Font = Enum.Font.SourceSansBold
+executeBtn.TextSize = 14
+executeBtn.BackgroundColor3 = Color3.fromRGB(0,170,255)
+local execCorner = Instance.new("UICorner", executeBtn); execCorner.CornerRadius = UDim.new(0,6)
+
+local clearBtn = Instance.new("TextButton", btnRow)
+clearBtn.Size = UDim2.new(0.5, -6, 1, 0)
+clearBtn.Position = UDim2.new(0.5, 0, 0, 0)
+clearBtn.Text = "🧹 Xoá" -- 🍎 Sửa chữ nút Xoá ở đây nếu muốn 👈
+clearBtn.Font = Enum.Font.SourceSansBold
+clearBtn.TextSize = 14
+clearBtn.BackgroundColor3 = Color3.fromRGB(200,80,60)
+local clrCorner = Instance.new("UICorner", clearBtn); clrCorner.CornerRadius = UDim.new(0,6)
+
+-- Executor behaviour (LOCAL ONLY: loadstring)
+executeBtn.MouseButton1Click:Connect(function()
+	local code = exeText.Text
+	if not code or code == "" then return end
+	-- LƯU Ý: loadstring chỉ chạy trong Studio/Environment có bật. Dùng cẩn thận.
+	local func, err = loadstring(code)
+	if not func then
+		warn("[Executor] Lỗi cú pháp:", err)
+		return
+	end
+	local ok, res = pcall(func)
+	if ok then
+		print("[Executor] Thực thi thành công:", res)
+	else
+		warn("[Executor] Lỗi khi chạy:", res)
+	end
+end)
+
+clearBtn.MouseButton1Click:Connect(function()
+	exeText.Text = ""
+end)
+
+-- Add more sample widgets (all print TODO when activated)
+sample.AddSeperator(sample, "Điều khiển (Mẫu)") -- 🍎 Sửa tiêu đề mục ở đây 👈
+sample.AddButton(sample, "Nút Mẫu (TODO)") -- 🍎 Sửa chữ nút mẫu ở đây 👈
+sample.AddToggle(sample, "Công tắc Mẫu (TODO)", false) -- 🍎 Sửa tên toggle mẫu ở đây 👈
+sample.AddTextbox(sample, "Ô nhập Mẫu", "Gõ gì đó...") -- 🍎 Sửa nhãn/placeholder ở đây 👈
+local dd = sample.AddDropdown(sample, "Dropdown Mẫu", {"Tùy chọn 1","Tùy chọn 2","Tùy chọn 3"}) -- 🍎 Sửa các mục ở đây 👈
+dd.Rebuild() -- populate items
+
+sample.AddSeperator(sample, "Trạng thái") -- 🍎 Sửa tiêu đề mục ở đây 👈
+sample.AddLabel(sample, "Trạng thái: -- TODO update status here") -- 🍎 Sửa text trạng thái ở đây 👈
+
+-- Background image on right (anime chibi)
+local bg = Instance.new("ImageLabel", content)
+bg.Name = "BackgroundArt"
+bg.Size = UDim2.new(1, 0, 1, 0)
+bg.Position = UDim2.new(0, 0, 0, 0)
+bg.BackgroundTransparency = 1
+bg.Image = "rbxassetid://120546351045897" -- 🍎 Đổi ID ảnh nền ở đây 👈
+bg.ImageTransparency = 0.6 -- 🍎 Độ trong suốt ảnh nền (0..1) - sửa nếu muốn 👈
+bg.ZIndex = 0
+
+-- Ensure pages render above background
+pageFolder.Parent = content
+for _, p in ipairs(pageFolder:GetChildren()) do
+	p.ZIndex = 6
+end
+
+-- Jump to the first tab initially
+if #Tabs > 0 then
+	uiPageLayout:JumpTo(pageFolder:GetChildren()[1])
+end
+
+-- Small floating toggle icon (corner)
+local floatGui = Instance.new("Frame", screenGui)
+floatGui.Name = "FloatToggle"
+floatGui.AnchorPoint = Vector2.new(0,0)
+floatGui.Position = UDim2.new(0.02, 0, 0.03, 0)
+floatGui.Size = UDim2.new(0, 48, 0, 48)
+floatGui.BackgroundTransparency = 1
+
+local imgBtn = Instance.new("ImageButton", floatGui)
+imgBtn.Size = UDim2.new(1, 0, 1, 0)
+imgBtn.BackgroundTransparency = 0.2
+imgBtn.AutoButtonColor = false
+imgBtn.Image = "rbxassetid://120546351045897" -- 🍎 Ảnh icon nhỏ góc màn hình - đổi ID nếu muốn 👈
+local ic = Instance.new("UICorner", imgBtn); ic.CornerRadius = UDim.new(0,12)
+
+imgBtn.MouseButton1Click:Connect(function()
+	main.Visible = not main.Visible
+end)
+
+-- small enter animation
+main.Size = UDim2.new(0, 0, 0, 0)
+main:TweenSize(UDim2.new(0,400,0,250),"Out","Quad",0.18,true)
+
+-- === HƯỚNG DẪN NHANH (tất cả bằng tiếng Việt, chỉnh trực tiếp) ===
+-- 🍎 Đổi tên Hub: sửa titleLabel.Text (tìm chuỗi "Téo🍎🍏 Hub") --> xóa chú thích và nhập tên mới.
+-- 🍎 Đổi ID ảnh nền: sửa bg.Image = "rbxassetid://..." ở trên.
+-- 🍎 Thêm code cho nút/toggle/textbox/dropdown: tìm các dòng có comment "-- 🍎 Thêm code ..." hoặc "-- TODO" và chèn logic Lua vào đó.
+-- 🍎 Muốn thêm tab mới: gọi CreateTab("Tên tab", "rbxassetid://icon") rồi dùng tab:AddButton/AddToggle... tương tự.
+-- 🍎 Lưu: copy toàn bộ script vào StarterGui -> LocalScript, chạy Play (Play Solo) để test.
