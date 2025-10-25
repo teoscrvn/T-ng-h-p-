@@ -38,6 +38,7 @@ local Tabs = {
         Main3=Window:AddTab({ Title="99 đêm🥷" }),
         Main4=Window:AddTab({ Title="blox fruit🍎" }),
        Main5=Window:AddTab({ Title="plan vs branro🌲🐘t" }),
+       Settings = Window:AddTab({ Title = "⚙️Cài đặt" }),
 }
     Tabs.Main0:AddButton({
     Title = "tiktok bạn:)",
@@ -191,6 +192,18 @@ Tabs.Main2:AddButton({
   Translator = true; -- true/false
 }
 loadstring(game:HttpGet("https://pastefy.app/DHyT4Zoi/raw"))()
+  end
+})
+
+Tabs.Main3:AddButton({
+    Title="fam keo siêu xịn :))",
+    Description="",
+    Callback=function()
+	  local Settings = {
+  JoinTeam = "Pirates"; -- Pirates/Marines
+  Translator = true; -- true/false
+}
+loadstring(game:HttpGet('https://raw.githubusercontent.com/MQPS7/99-Night-in-the-Forset/refs/heads/main/CandyFarm'))()
   end
 })
 
@@ -426,4 +439,209 @@ Tabs.Main5:AddButton({
 }
 loadstring(game:HttpGet("https://raw.githubusercontent.com/AhmadV99/Speed-Hub-X/main/Speed%20Hub%20X.lua", true))()
   end
+})
+
+local Players = game:GetService("Players")
+local LocalPlayer = Players.LocalPlayer
+local StarterGui = game:GetService("StarterGui")
+
+Tabs.Settings:AddToggle("LagFix_Super", {
+    Title = "🧹 Fix Lag  siêu cấp xoá",
+    Description = "Xoá toàn bộ map, giữ lại nhân vật và đồ hoạ cơ bản nhất",
+    Default = false,
+    Callback = function(state)
+        if state then
+            -- Thông báo GUI
+            StarterGui:SetCore("SendNotification", {
+                Title = "⚙️ Fix Lag Siêu Mạnh",
+                Text = "Đang xoá map và giảm đồ hoạ...",
+                Duration = 4
+            })
+
+            -- Giảm chất lượng hình ảnh
+            settings().Rendering.QualityLevel = Enum.QualityLevel.Level01
+            game.Lighting.GlobalShadows = false
+            game.Lighting.FogEnd = 9e9
+
+            -- Xoá map lớn: chỉ giữ lại nhân vật và camera
+            for _,v in pairs(workspace:GetChildren()) do
+                if not (v == LocalPlayer.Character or v.Name == "Camera" or v:FindFirstChildOfClass("Humanoid")) then
+                    v:Destroy()
+                end
+            end
+
+            -- Xoá mọi hiệu ứng
+            for _,v in pairs(workspace:GetDescendants()) do
+                if v:IsA("Decal") or v:IsA("Texture") or v:IsA("ParticleEmitter") or v:IsA("Trail") or v:IsA("Smoke") then
+                    v:Destroy()
+                elseif v:IsA("BasePart") then
+                    v.Material = Enum.Material.Plastic
+                    v.Reflectance = 0
+                end
+            end
+
+            StarterGui:SetCore("SendNotification", {
+                Title = "✅ Thành công!",
+                Text = "Fix lag siêu mạnh đã bật. Map lớn đã bị xoá.",
+                Duration = 5
+            })
+            print("🔥 Fix lag siêu mạnh đã bật - map lớn đã bị xoá")
+
+        else
+            StarterGui:SetCore("SendNotification", {
+                Title = "❌ Đã tắt Fix Lag",
+                Text = "Muốn khôi phục map thì reload game nha.",
+                Duration = 5
+            })
+            print("❌ Fix lag siêu mạnh đã tắt (cần reload map để khôi phục)")
+        end
+    end
+})
+Tabs.Settings:AddToggle("AutoFixLag", {
+    Title = "⚙️ Fix Lag Pro",
+    Description = "Bật để tự tối ưu hiệu suất liên tục",
+    Default = false,
+    Callback = function(state)
+        if state then
+            -- Khi bật ✅
+            print("🟢 Đã bật Auto Fix Lag")
+
+            -- ⚙️ Toàn bộ code fix lag auto
+            local Players = game:GetService("Players")
+            local Lighting = game:GetService("Lighting")
+            local Workspace = game:GetService("Workspace")
+            local RunService = game:GetService("RunService")
+            local player = Players.LocalPlayer
+
+            local function safeCall(fn, ...)
+                local ok, res = pcall(fn, ...)
+                return ok, res
+            end
+
+            local function applyLightingFix()
+                safeCall(function()
+                    Lighting.GlobalShadows = false
+                    Lighting.FogEnd = 999999
+                    Lighting.FogStart = 999999
+                    Lighting.Brightness = 1
+                    Lighting.EnvironmentDiffuseScale = 0
+                    Lighting.EnvironmentSpecularScale = 0
+                    for _, e in ipairs(Lighting:GetChildren()) do
+                        if e:IsA("BlurEffect") or e:IsA("BloomEffect")
+                        or e:IsA("ColorCorrectionEffect") or e:IsA("DepthOfFieldEffect")
+                        or e:IsA("SunRaysEffect") or e:IsA("Atmosphere") then
+                            e.Enabled = false
+                        end
+                    end
+                end)
+            end
+
+            local function applyTerrainFix()
+                safeCall(function()
+                    local t = Workspace:FindFirstChildOfClass("Terrain")
+                    if t then
+                        t.WaterWaveSize = 0
+                        t.WaterReflectance = 0
+                        t.WaterTransparency = 1
+                        t.Decoration = false
+                    end
+                end)
+            end
+
+            local function applyCameraFix()
+                safeCall(function()
+                    local cam = Workspace.CurrentCamera
+                    if cam then cam.FieldOfView = 70 end
+                end)
+            end
+
+            local function applyPlayerFix()
+                safeCall(function()
+                    if player and player.Character then
+                        for _, c in ipairs(player.Character:GetChildren()) do
+                            if c:IsA("Accessory") or c:IsA("Clothing") or c:IsA("Shirt") or c:IsA("Pants") then
+                                c:Destroy()
+                            end
+                        end
+                    end
+                end)
+            end
+
+            local function applyObjectSimplify(obj)
+                safeCall(function()
+                    if not obj or not obj.Parent then return end
+                    if obj:IsA("ParticleEmitter") or obj:IsA("Trail") or obj:IsA("Beam")
+                    or obj:IsA("Smoke") or obj:IsA("Fire") or obj:IsA("Sparkles") then
+                        obj.Enabled = false
+                        return
+                    end
+                    if obj:IsA("Decal") or obj:IsA("Texture") then
+                        obj.Transparency = 1
+                        return
+                    end
+                    if obj:IsA("BasePart") then
+                        local s = obj.Size
+                        if s and s.X and s.Y and s.Z then
+                            if s.X < 1 and s.Y < 1 and s.Z < 1 then
+                                obj.Transparency = 1
+                            end
+                        end
+                        obj.Material = Enum.Material.SmoothPlastic
+                        obj.Reflectance = 0
+                    end
+                end)
+            end
+
+            local function applyToAllExisting()
+                applyLightingFix()
+                applyTerrainFix()
+                applyCameraFix()
+                applyPlayerFix()
+                for _, obj in ipairs(Workspace:GetDescendants()) do
+                    applyObjectSimplify(obj)
+                end
+                safeCall(function() collectgarbage("collect") end)
+            end
+
+            Workspace.DescendantAdded:Connect(function(obj)
+                task.defer(function()
+                    applyObjectSimplify(obj)
+                end)
+            end)
+
+            local sweeping = false
+            task.spawn(function()
+                applyToAllExisting()
+                while state do
+                    task.wait(1)
+                    if not sweeping then
+                        sweeping = true
+                        task.spawn(function()
+                            local all = Workspace:GetDescendants()
+                            local chunkSize = 250
+                            local i = 1
+                            while i <= #all do
+                                local j = math.min(i + chunkSize - 1, #all)
+                                for k = i, j do
+                                    applyObjectSimplify(all[k])
+                                end
+                                i = j + 1
+                                task.wait(0)
+                            end
+                            applyLightingFix()
+                            applyTerrainFix()
+                            applyCameraFix()
+                            applyPlayerFix()
+                            safeCall(function() collectgarbage("collect") end)
+                            sweeping = false
+                        end)
+                    end
+                end
+            end)
+
+        else
+            -- Khi tắt 🔴
+            print("🔴 Đã tắt Auto Fix Lag")
+        end
+    end
 })
