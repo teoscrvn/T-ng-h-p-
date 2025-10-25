@@ -100,6 +100,18 @@ loadstring(game:HttpGet("https://get.nathub.xyz/loader"))()
 })
 
 Tabs.Main2:AddButton({
+    Title="B0oe",
+    Description="còn dùng đc",
+    Callback=function()
+	  local Settings = {
+  JoinTeam = "Pirates"; -- Pirates/Marines
+  Translator = true; -- true/false
+}
+loadstring(game:HttpGet("https://pastefy.app/B0oeOAsg/raw"))()
+  end
+})
+
+Tabs.Main2:AddButton({
     Title="VN 🇻🇳🇻🇳🇻🇳",
     Description="script của ng việt làm 🇻🇳",
     Callback=function()
