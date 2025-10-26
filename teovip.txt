@@ -100,6 +100,42 @@ loadstring(game:HttpGet("https://get.nathub.xyz/loader"))()
 })
 
 Tabs.Main2:AddButton({
+    Title="utopia",
+    Description="",
+    Callback=function()
+	  local Settings = {
+  JoinTeam = "Pirates"; -- Pirates/Marines
+  Translator = true; -- true/false
+}
+
+  end
+})
+
+Tabs.Main2:AddButton({
+    Title="airhub",
+    Description="",
+    Callback=function()
+	  local Settings = {
+  JoinTeam = "Pirates"; -- Pirates/Marines
+  Translator = true; -- true/false
+}
+loadstring(game:HttpGet("https://raw.githubusercontent.com/og2xn/AirHubs/refs/heads/main/Protected_3429231241525986.lua"))()
+  end
+})
+
+Tabs.Main2:AddButton({
+    Title="moondiety",
+    Description="",
+    Callback=function()
+	  local Settings = {
+  JoinTeam = "Pirates"; -- Pirates/Marines
+  Translator = true; -- true/false
+}
+loadstring(game:HttpGet('https://raw.githubusercontent.com/m00ndiety/Moondiety/refs/heads/main/Loader'))()
+  end
+})
+
+Tabs.Main2:AddButton({
     Title="B0oe",
     Description="còn dùng đc",
     Callback=function()
@@ -204,6 +240,18 @@ Tabs.Main2:AddButton({
   Translator = true; -- true/false
 }
 loadstring(game:HttpGet("https://pastefy.app/DHyT4Zoi/raw"))()
+  end
+})
+
+Tabs.Main3:AddButton({
+    Title="fam kẹo cps 😋🍥",
+    Description="mới nên còn dùng đc",
+    Callback=function()
+	  local Settings = {
+  JoinTeam = "Pirates"; -- Pirates/Marines
+  Translator = true; -- true/false
+}
+loadstring(game:HttpGet("https://api.luarmor.net/files/v3/loaders/c87b3621b22ecc2c8b474f95c47ecb40.lua"))()
   end
 })
 
