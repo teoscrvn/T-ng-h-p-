@@ -39,6 +39,7 @@ local Tabs = {
         Main4=Window:AddTab({ Title="blox fruit🍎" }),
        Main5=Window:AddTab({ Title="plan vs branro🌲🐘t" }),
        Settings = Window:AddTab({ Title = "⚙️Cài đặt" }),
+       Main6=Window:AddTab({ Title="chức năng linh tinh" }),
 }
     Tabs.Main0:AddButton({
     Title = "tiktok bạn:)",
@@ -704,4 +705,414 @@ Tabs.Settings:AddToggle("AutoFixLag", {
             print("🔴 Đã tắt Auto Fix Lag")
         end
     end
+})
+Tabs.Main6:AddButton({
+    Title="ambot :))",
+    Description="am các game bắ. súng góc 1",
+    Callback=function()
+	  local Settings = {
+  JoinTeam = "Pirates"; -- Pirates/Marines
+  Translator = true; -- true/false
+}
+-- AIMBOT TRAINER (Upgrade Full Auto) - Learning / Studio only
+-- Dùng cho học/testing trong Roblox Studio
+-- Dán vào StarterPlayer -> StarterPlayerScripts (LocalScript)
+
+local Players = game:GetService("Players")
+local RunService = game:GetService("RunService")
+local UserInputService = game:GetService("UserInputService")
+
+local LocalPlayer = Players.LocalPlayer
+local PlayerGui = LocalPlayer:WaitForChild("PlayerGui")
+local Camera = workspace.CurrentCamera
+local Mouse = LocalPlayer:GetMouse()
+
+-- ==== UI Creation (persistent across respawn) ====
+local screenGui = Instance.new("ScreenGui")
+screenGui.Name = "AimbotPanel"
+screenGui.ResetOnSpawn = false
+screenGui.Parent = PlayerGui
+
+local frame = Instance.new("Frame")
+frame.Name = "MainFrame"
+frame.Size = UDim2.new(0, 200, 0, 110)
+
+local savedXScale = LocalPlayer:GetAttribute("Aimbot_XScale")
+local savedXOffset = LocalPlayer:GetAttribute("Aimbot_XOffset")
+local savedYScale = LocalPlayer:GetAttribute("Aimbot_YScale")
+local savedYOffset = LocalPlayer:GetAttribute("Aimbot_YOffset")
+
+if savedXScale and savedXOffset and savedYScale and savedYOffset then
+	frame.Position = UDim2.new(savedXScale, savedXOffset, savedYScale, savedYOffset)
+else
+	frame.Position = UDim2.new(0.5, -100, 0.78, 0)
+end
+
+frame.BackgroundColor3 = Color3.fromRGB(30,30,30)
+frame.Active = true
+frame.Parent = screenGui
+
+local uic = Instance.new("UICorner", frame)
+uic.CornerRadius = UDim.new(0,8)
+
+local title = Instance.new("TextLabel", frame)
+title.Size = UDim2.new(1,0,0,28)
+title.BackgroundTransparency = 1
+title.Text = "Aimbot Trainer"
+title.TextColor3 = Color3.fromRGB(255,255,255)
+title.Font = Enum.Font.SourceSansBold
+title.TextSize = 18
+
+local masterBtn = Instance.new("TextButton", frame)
+masterBtn.Size = UDim2.new(1, -20, 0, 28)
+masterBtn.Position = UDim2.new(0,10,0,34)
+masterBtn.Text = "🔴 SCRIPT: OFF"
+masterBtn.Font = Enum.Font.SourceSans
+masterBtn.TextSize = 16
+masterBtn.BackgroundColor3 = Color3.fromRGB(120, 0, 0)
+masterBtn.TextColor3 = Color3.fromRGB(255,255,255)
+
+local v1Btn = Instance.new("TextButton", frame)
+v1Btn.Size = UDim2.new(0.5, -12, 0, 28)
+v1Btn.Position = UDim2.new(0,10,0,68)
+v1Btn.Text = "V1: CLICK SHOOT"
+v1Btn.Font = Enum.Font.SourceSans
+v1Btn.TextSize = 14
+v1Btn.BackgroundColor3 = Color3.fromRGB(70,70,70)
+v1Btn.TextColor3 = Color3.fromRGB(255,255,255)
+
+local v2Btn = Instance.new("TextButton", frame)
+v2Btn.Size = UDim2.new(0.5, -12, 0, 28)
+v2Btn.Position = UDim2.new(0.5,6,0,68)
+v2Btn.Text = "V2: CAMERA FOLLOW"
+v2Btn.Font = Enum.Font.SourceSans
+v2Btn.TextSize = 14
+v2Btn.BackgroundColor3 = Color3.fromRGB(70,70,70)
+v2Btn.TextColor3 = Color3.fromRGB(255,255,255)
+
+-- ==== Dragging ====
+local dragging = false
+local dragStart
+local startPos
+frame.InputBegan:Connect(function(input)
+	if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+		dragging = true
+		dragStart = input.Position
+		startPos = frame.Position
+		input.Changed:Connect(function()
+			if input.UserInputState == Enum.UserInputState.End then
+				dragging = false
+				local p = frame.Position
+				LocalPlayer:SetAttribute("Aimbot_XScale", p.X.Scale)
+				LocalPlayer:SetAttribute("Aimbot_XOffset", p.X.Offset)
+				LocalPlayer:SetAttribute("Aimbot_YScale", p.Y.Scale)
+				LocalPlayer:SetAttribute("Aimbot_YOffset", p.Y.Offset)
+			end
+		end)
+	end
+end)
+
+UserInputService.InputChanged:Connect(function(input)
+	if dragging and (input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch) then
+		local delta = input.Position - dragStart
+		frame.Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)
+	end
+end)
+
+-- ==== State vars ====
+local enabled = false
+local V1_enabled = false
+local V2_enabled = false
+
+local currentTarget = nil
+local targetHumanoidConn = nil
+local targetHealthConn = nil
+local targetHighlight = nil
+
+-- helper: is valid target
+local function isValidTarget(plr)
+	if not plr or plr == LocalPlayer then return false end
+	if not plr.Character then return false end
+	local humanoid = plr.Character:FindFirstChild("Humanoid")
+	local hrp = plr.Character:FindFirstChild("HumanoidRootPart")
+	if not humanoid or not hrp then return false end
+	if humanoid.Health <= 0 then return false end
+	local myTeam = LocalPlayer.Team
+	if myTeam and plr.Team == myTeam then return false end
+	return true
+end
+
+-- CHECK LINE OF SIGHT: trả về true nếu KHÔNG bị vật cản (tức là có LOS)
+local function hasLineOfSight(player, target)
+	if not player or not target then return false end
+	if not player.Character then return false end
+	if not target.Character then return false end
+
+	local originPart = player.Character:FindFirstChild("Head") or player.Character:FindFirstChild("HumanoidRootPart")
+	local targetPart = target.Character:FindFirstChild("Head") or target.Character:FindFirstChild("HumanoidRootPart")
+	if not originPart or not targetPart then return false end
+
+	local origin = originPart.Position
+	local direction = (targetPart.Position - origin)
+	if direction.Magnitude <= 0 then return true end
+
+	local rp = RaycastParams.new()
+	-- exclude self so ray won't hit the player's own parts
+	rp.FilterDescendantsInstances = {player.Character}
+	rp.FilterType = Enum.RaycastFilterType.Exclude
+	rp.IgnoreWater = true
+
+	local ray = workspace:Raycast(origin, direction, rp)
+	if not ray then
+		-- nothing hit -> clear line
+		return true
+	end
+
+	-- if ray hit something that is part of the target's character, then visible
+	if ray.Instance and ray.Instance:IsDescendantOf(target.Character) then
+		return true
+	end
+
+	-- else ray hit some other object => blocked
+	return false
+end
+
+-- find nearest visible enemy (prioritize LOS)
+local function getNearestEnemy()
+	local nearest = nil
+	local shortest = math.huge
+	if not LocalPlayer.Character or not LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
+		return nil
+	end
+	local myPos = LocalPlayer.Character.HumanoidRootPart.Position
+	for _, p in pairs(Players:GetPlayers()) do
+		if isValidTarget(p) then
+			local hrp = p.Character:FindFirstChild("HumanoidRootPart")
+			if hrp then
+				-- check LOS first
+				if hasLineOfSight(LocalPlayer, p) then
+					local d = (hrp.Position - myPos).Magnitude
+					if d < shortest then
+						shortest = d
+						nearest = p
+					end
+				end
+			end
+		end
+	end
+	-- if no visible target found, return nil (so script won't lock through walls)
+	return nearest
+end
+
+-- create target marker
+local function createTargetMarker(target)
+	if not target or not target.Character then return nil end
+	local head = target.Character:FindFirstChild("Head")
+	if not head then return nil end
+	local bb = Instance.new("BillboardGui")
+	bb.Name = "Aimbot_TargetMark"
+	bb.Adornee = head
+	bb.Size = UDim2.new(0,100,0,28)
+	bb.StudsOffset = Vector3.new(0, 1.4, 0)
+	bb.AlwaysOnTop = true
+	bb.Parent = PlayerGui
+
+	local label = Instance.new("TextLabel", bb)
+	label.Size = UDim2.new(1,0,1,0)
+	label.BackgroundTransparency = 1
+	label.Text = "TARGET"
+	label.Font = Enum.Font.SourceSansBold
+	label.TextSize = 18
+	label.TextColor3 = Color3.fromRGB(255,50,50)
+	label.TextStrokeTransparency = 0.6
+
+	return bb
+end
+
+-- clear current target
+local function clearCurrentTarget()
+	if targetHighlight and targetHighlight.Parent then
+		targetHighlight:Destroy()
+		targetHighlight = nil
+	end
+	if targetHealthConn then
+		targetHealthConn:Disconnect()
+		targetHealthConn = nil
+	end
+	if targetHumanoidConn then
+		targetHumanoidConn:Disconnect()
+		targetHumanoidConn = nil
+	end
+	currentTarget = nil
+end
+
+-- set target
+local function setCurrentTarget(p)
+	if p == currentTarget then return end
+	clearCurrentTarget()
+	if not p then return end
+	currentTarget = p
+
+	pcall(function()
+		targetHighlight = createTargetMarker(p)
+	end)
+
+	if p.Character then
+		local humanoid = p.Character:FindFirstChild("Humanoid")
+		if humanoid then
+			targetHealthConn = humanoid.HealthChanged:Connect(function(h)
+				if h <= 0 then clearCurrentTarget() end
+			end)
+			targetHumanoidConn = humanoid.Died:Connect(function() clearCurrentTarget() end)
+		end
+	end
+end
+
+-- shoot function
+local function shootAtTarget(target)
+	if not target or not target.Character then return end
+	-- ensure visible
+	if not hasLineOfSight(LocalPlayer, target) then
+		-- blocked by obstacle; do not fire
+		print("🔴 Target blocked by obstacle - not firing")
+		return
+	end
+
+	local head = target.Character:FindFirstChild("Head")
+	local hrp = target.Character:FindFirstChild("HumanoidRootPart")
+	if not head and not hrp then return end
+	local aimPos = (head and head.Position) or hrp.Position
+
+	local rp = RaycastParams.new()
+	rp.FilterType = Enum.RaycastFilterType.Blacklist
+	if LocalPlayer.Character then rp.FilterDescendantsInstances = {LocalPlayer.Character} end
+
+	local origin = Camera.CFrame.Position
+	local direction = (aimPos - origin)
+	local ray = workspace:Raycast(origin, direction, rp)
+
+	local mark = Instance.new("Part")
+	mark.Name = "AimbotHitMarker"
+	mark.Size = Vector3.new(0.2,0.2,0.2)
+	mark.Shape = Enum.PartType.Ball
+	mark.Anchored = true
+	mark.CanCollide = false
+	mark.Material = Enum.Material.Neon
+	mark.Color = Color3.fromRGB(255, 60, 60)
+	if ray and ray.Position then
+		mark.CFrame = CFrame.new(ray.Position)
+	else
+		mark.CFrame = CFrame.new(aimPos)
+	end
+	mark.Parent = workspace
+	game:GetService("Debris"):AddItem(mark, 0.35)
+
+	if target then
+		print(("🟢 Fire demo -> %s (hp: %s)"):format(target.Name, tostring((target.Character and target.Character:FindFirstChild("Humanoid") and target.Character.Humanoid.Health) or "N/A")))
+	end
+end
+
+-- Mouse click V1
+local mouseConn = nil
+local function bindMouseClick()
+	if mouseConn then return end
+	mouseConn = Mouse.Button1Down:Connect(function()
+		if enabled and V1_enabled then
+			local tgt = getNearestEnemy()
+			setCurrentTarget(tgt)
+			if tgt then
+				shootAtTarget(tgt)
+			else
+				print("No visible enemy to shoot (blocked or none)")
+			end
+		end
+	end)
+end
+local function unbindMouseClick()
+	if mouseConn then
+		mouseConn:Disconnect()
+		mouseConn = nil
+	end
+end
+
+-- Main loop: V2 camera follow & auto nearest target
+RunService.RenderStepped:Connect(function()
+	if not enabled then return end
+	if not LocalPlayer.Character or not LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then return end
+
+	if V2_enabled then
+		local tgt = getNearestEnemy()
+		setCurrentTarget(tgt)
+		if tgt and tgt.Character and tgt.Character:FindFirstChild("Head") then
+			-- ensure visible before locking camera
+			if hasLineOfSight(LocalPlayer, tgt) then
+				local headPos = tgt.Character.Head.Position
+				local camPos = Camera.CFrame.Position
+				Camera.CFrame = CFrame.new(camPos, headPos)
+			else
+				-- target blocked: optionally clear marker or keep until visible
+				-- clearCurrentTarget()
+			end
+		end
+	end
+end)
+
+-- Buttons events
+masterBtn.MouseButton1Click:Connect(function()
+	enabled = not enabled
+	if enabled then
+		masterBtn.Text = "🟢 SCRIPT: ON"
+		masterBtn.BackgroundColor3 = Color3.fromRGB(0,170,0)
+		bindMouseClick()
+	else
+		masterBtn.Text = "🔴 SCRIPT: OFF"
+		masterBtn.BackgroundColor3 = Color3.fromRGB(120,0,0)
+		unbindMouseClick()
+		clearCurrentTarget()
+	end
+end)
+
+v1Btn.MouseButton1Click:Connect(function()
+	V1_enabled = not V1_enabled
+	if V1_enabled then
+		v1Btn.BackgroundColor3 = Color3.fromRGB(0,150,200)
+	else
+		v1Btn.BackgroundColor3 = Color3.fromRGB(70,70,70)
+	end
+	if enabled and V1_enabled then bindMouseClick() end
+end)
+
+v2Btn.MouseButton1Click:Connect(function()
+	V2_enabled = not V2_enabled
+	if V2_enabled then
+		v2Btn.BackgroundColor3 = Color3.fromRGB(200,80,80)
+	else
+		v2Btn.BackgroundColor3 = Color3.fromRGB(70,70,70)
+	end
+end)
+
+-- CharacterAdded handler
+LocalPlayer.CharacterAdded:Connect(function(char)
+	char:WaitForChild("HumanoidRootPart", 5)
+	if not screenGui.Parent then
+		screenGui.Parent = PlayerGui
+	end
+	local sx = LocalPlayer:GetAttribute("Aimbot_XScale")
+	local xo = LocalPlayer:GetAttribute("Aimbot_XOffset")
+	local sy = LocalPlayer:GetAttribute("Aimbot_YScale")
+	local yo = LocalPlayer:GetAttribute("Aimbot_YOffset")
+	if sx and xo and sy and yo then
+		frame.Position = UDim2.new(sx, xo, sy, yo)
+	end
+end)
+
+-- Cleanup
+LocalPlayer.AncestryChanged:Connect(function()
+	if not PlayerGui:IsDescendantOf(game) then
+		unbindMouseClick()
+	end
+end)
+
+print("Aimbot Trainer FULL AUTO (learning demo) loaded. V1 -> click shoot nearest visible, V2 -> camera follow nearest visible.")
+  end
 })
