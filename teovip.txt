@@ -244,6 +244,30 @@ loadstring(game:HttpGet("https://pastefy.app/DHyT4Zoi/raw"))()
   end
 })
 
+Tabs.Main:AddButton({
+    Title="bonkhub",
+    Description="",
+    Callback=function()
+	  local Settings = {
+  JoinTeam = "Pirates"; -- Pirates/Marines
+  Translator = true; -- true/false
+}
+loadstring(game:HttpGet("https://bonkhub.online/loader.lua",true))()
+  end
+})
+
+Tabs.Main3:AddButton({
+    Title="1 bản khá ngon ới",
+    Description="ko nên quay có nhạc bản quyền",
+    Callback=function()
+	  local Settings = {
+  JoinTeam = "Pirates"; -- Pirates/Marines
+  Translator = true; -- true/false
+}
+loadstring(game:HttpGet("https://raw.githubusercontent.com/DarkenedEssence/Elude/refs/heads/main/External/Diamond/ELUDESJI.lua"))()
+  end
+})
+
 Tabs.Main3:AddButton({
     Title="fam kẹo cps 😋🍥",
     Description="mới nên còn dùng đc",
