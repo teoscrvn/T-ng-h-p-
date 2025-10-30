@@ -244,7 +244,7 @@ loadstring(game:HttpGet("https://pastefy.app/DHyT4Zoi/raw"))()
   end
 })
 
-Tabs.Main:AddButton({
+Tabs.Main3:AddButton({
     Title="bonkhub",
     Description="",
     Callback=function()
