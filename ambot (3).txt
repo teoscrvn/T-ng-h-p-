@@ -1,0 +1,198 @@
+local Players = game:GetService("Players")
+local RunService = game:GetService("RunService")
+local UserInputService = game:GetService("UserInputService")
+local Workspace = game:GetService("Workspace")
+
+local player = Players.LocalPlayer
+local mouse = player:GetMouse()
+
+local isAutoClicking = false
+local isAutoAiming = false
+local connection1, connection2 = nil, nil
+
+-- Tạo giao diện
+local screenGui = Instance.new("ScreenGui")
+screenGui.Name = "AmbotGUI"
+screenGui.Parent = player.PlayerGui
+
+local mainFrame = Instance.new("Frame")
+mainFrame.Size = UDim2.new(0, 150, 0, 100)
+mainFrame.Position = UDim2.new(0.5, -75, 0.5, -50)
+mainFrame.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+mainFrame.BorderSizePixel = 2
+mainFrame.BorderColor3 = Color3.fromRGB(100, 100, 100)
+mainFrame.Parent = screenGui
+
+local title = Instance.new("TextLabel")
+title.Size = UDim2.new(1, 0, 0, 30)
+title.Position = UDim2.new(0, 0, 0, 0)
+title.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+title.TextColor3 = Color3.fromRGB(255, 255, 255)
+title.Text = "AM BOT"
+title.Font = Enum.Font.SourceSansBold
+title.TextSize = 20
+title.Parent = mainFrame
+
+-- Nút Auto Click
+local autoClickButton = Instance.new("TextButton")
+autoClickButton.Size = UDim2.new(0.8, 0, 0, 30)
+autoClickButton.Position = UDim2.new(0.1, 0, 0.35, 0)
+autoClickButton.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
+autoClickButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+autoClickButton.Text = "AUTO CLICK: OFF"
+autoClickButton.Font = Enum.Font.SourceSans
+autoClickButton.TextSize = 14
+autoClickButton.Parent = mainFrame
+
+-- Nút Auto Aim
+local autoAimButton = Instance.new("TextButton")
+autoAimButton.Size = UDim2.new(0.8, 0, 0, 30)
+autoAimButton.Position = UDim2.new(0.1, 0, 0.7, 0)
+autoAimButton.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
+autoAimButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+autoAimButton.Text = "AUTO AIM: OFF"
+autoAimButton.Font = Enum.Font.SourceSans
+autoAimButton.TextSize = 14
+autoAimButton.Parent = mainFrame
+
+-- Hàm tìm người chơi gần nhất
+function findNearestPlayer()
+    local nearestPlayer = nil
+    local nearestDistance = math.huge
+    local localCharacter = player.Character
+    local localRoot = localCharacter and localCharacter:FindFirstChild("HumanoidRootPart")
+    
+    if not localRoot then return nil end
+    
+    for _, otherPlayer in pairs(Players:GetPlayers()) do
+        if otherPlayer ~= player and otherPlayer.Character then
+            local otherRoot = otherPlayer.Character:FindFirstChild("HumanoidRootPart")
+            if otherRoot then
+                local distance = (localRoot.Position - otherRoot.Position).Magnitude
+                if distance < nearestDistance then
+                    nearestDistance = distance
+                    nearestPlayer = otherPlayer
+                end
+            end
+        end
+    end
+    
+    return nearestPlayer, nearestDistance
+end
+
+-- Hàm click vào vị trí
+function clickAtPosition(position)
+    -- Mô phỏng click chuột
+    local camera = Workspace.CurrentCamera
+    if camera then
+        -- Tạo raycast để click chính xác
+        local ray = Ray.new(camera.CFrame.Position, (position - camera.CFrame.Position).Unit * 500)
+        local part, hitPosition = Workspace:FindPartOnRay(ray, player.Character)
+        
+        if part then
+            -- Fire mouse events để giả lập click
+            fireclickdetector(part)
+        end
+    end
+end
+
+-- Chức năng Auto Click
+function toggleAutoClick()
+    isAutoClicking = not isAutoClicking
+    
+    if isAutoClicking then
+        autoClickButton.BackgroundColor3 = Color3.fromRGB(0, 100, 0)
+        autoClickButton.Text = "AUTO CLICK: ON"
+        
+        -- Kết nối render step để tự động click
+        connection1 = RunService.RenderStepped:Connect(function()
+            local nearestPlayer, distance = findNearestPlayer()
+            if nearestPlayer and nearestPlayer.Character then
+                local targetRoot = nearestPlayer.Character:FindFirstChild("HumanoidRootPart")
+                if targetRoot then
+                    -- Click vào vị trí của người chơi gần nhất
+                    clickAtPosition(targetRoot.Position)
+                end
+            end
+        end)
+    else
+        autoClickButton.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
+        autoClickButton.Text = "AUTO CLICK: OFF"
+        
+        if connection1 then
+            connection1:Disconnect()
+            connection1 = nil
+        end
+    end
+end
+
+-- Chức năng Auto Aim
+function toggleAutoAim()
+    isAutoAiming = not isAutoAiming
+    
+    if isAutoAiming then
+        autoAimButton.BackgroundColor3 = Color3.fromRGB(0, 100, 0)
+        autoAimButton.Text = "AUTO AIM: ON"
+        
+        -- Kết nối render step để tự động aim
+        connection2 = RunService.RenderStepped:Connect(function()
+            local nearestPlayer = findNearestPlayer()
+            if nearestPlayer and nearestPlayer.Character then
+                local targetRoot = nearestPlayer.Character:FindFirstChild("HumanoidRootPart")
+                local localCharacter = player.Character
+                local localRoot = localCharacter and localCharacter:FindFirstChild("HumanoidRootPart")
+                
+                if targetRoot and localRoot then
+                    -- Tính toán hướng nhìn tới mục tiêu
+                    local direction = (targetRoot.Position - localRoot.Position).Unit
+                    local lookAt = CFrame.new(localRoot.Position, localRoot.Position + direction)
+                    
+                    -- Cập nhật hướng nhìn của character
+                    localCharacter:SetPrimaryPartCFrame(CFrame.new(localRoot.Position) * CFrame.Angles(0, lookAt:ToEulerAnglesXYZ()))
+                end
+            end
+        end)
+    else
+        autoAimButton.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
+        autoAimButton.Text = "AUTO AIM: OFF"
+        
+        if connection2 then
+            connection2:Disconnect()
+            connection2 = nil
+        end
+    end
+end
+
+-- Kết nối sự kiện click cho nút
+autoClickButton.MouseButton1Click:Connect(toggleAutoClick)
+autoAimButton.MouseButton1Click:Connect(toggleAutoAim)
+
+-- Thêm hiệu ứng hover cho nút
+autoClickButton.MouseEnter:Connect(function()
+    if not isAutoClicking then
+        autoClickButton.BackgroundColor3 = Color3.fromRGB(80, 80, 80)
+    end
+end)
+
+autoClickButton.MouseLeave:Connect(function()
+    if not isAutoClicking then
+        autoClickButton.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
+    end
+end)
+
+autoAimButton.MouseEnter:Connect(function()
+    if not isAutoAiming then
+        autoAimButton.BackgroundColor3 = Color3.fromRGB(80, 80, 80)
+    end
+end)
+
+autoAimButton.MouseLeave:Connect(function()
+    if not isAutoAiming then
+        autoAimButton.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
+    end
+end)
+
+-- Thông báo khi script chạy
+print("AM BOT GUI đã được tạo!")
+print("Nút 1: Auto Click - Tự động click vào người chơi gần nhất")
+print("Nút 2: Auto Aim - Tự động quay hướng vào người chơi gần nhất")
