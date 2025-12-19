@@ -1,31 +1,30 @@
 -- =============================================
--- AM BOT với ESP và 2 chế độ AIM
+-- AM BOT FIXED - BẮN THEO TARGET DÙ CLICK ĐÂU
 -- =============================================
 
 local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")
 local UserInputService = game:GetService("UserInputService")
 local Workspace = game:GetService("Workspace")
-local TweenService = game:GetService("TweenService")
 
 local player = Players.LocalPlayer
-local camera = Workspace.CurrentCamera
+local mouse = player:GetMouse()
 
 -- Biến toàn cục
-local isAIM1 = false
-local isAIM2 = false
+local isAutoClicking = false
 local isESP = false
-local connectionAIM1, connectionAIM2, connectionESP = nil, nil, nil
+local connectionClick, connectionESP = nil, nil
+local currentTarget = nil
 local espBoxes = {}
-local lastTarget = nil
+local playerConnections = {}
 
 -- ================== GIAO DIỆN ==================
 local screenGui = Instance.new("ScreenGui")
-screenGui.Name = "AmbotGUI"
+screenGui.Name = "AmbotGUIFixed"
 screenGui.Parent = game:GetService("CoreGui") or player.PlayerGui
 
 local mainFrame = Instance.new("Frame")
-mainFrame.Size = UDim2.new(0, 200, 0, 200)
+mainFrame.Size = UDim2.new(0, 200, 0, 150)
 mainFrame.Position = UDim2.new(0, 20, 0, 20)
 mainFrame.BackgroundColor3 = Color3.fromRGB(25, 25, 35)
 mainFrame.BorderSizePixel = 2
@@ -39,37 +38,26 @@ title.Size = UDim2.new(1, 0, 0, 30)
 title.Position = UDim2.new(0, 0, 0, 0)
 title.BackgroundColor3 = Color3.fromRGB(40, 40, 60)
 title.TextColor3 = Color3.fromRGB(255, 100, 100)
-title.Text = "🔥 AM BOT PRO 🔥"
+title.Text = "🎯 AM BOT FIXED 🎯"
 title.Font = Enum.Font.SourceSansBold
 title.TextSize = 18
 title.Parent = mainFrame
 
--- Nút AIM MODE 1
-local aim1Button = Instance.new("TextButton")
-aim1Button.Size = UDim2.new(0.9, 0, 0, 35)
-aim1Button.Position = UDim2.new(0.05, 0, 0.18, 0)
-aim1Button.BackgroundColor3 = Color3.fromRGB(60, 60, 80)
-aim1Button.TextColor3 = Color3.fromRGB(255, 255, 255)
-aim1Button.Text = "🎯 AIM MODE 1: OFF"
-aim1Button.Font = Enum.Font.SourceSansBold
-aim1Button.TextSize = 14
-aim1Button.Parent = mainFrame
-
--- Nút AIM MODE 2
-local aim2Button = Instance.new("TextButton")
-aim2Button.Size = UDim2.new(0.9, 0, 0, 35)
-aim2Button.Position = UDim2.new(0.05, 0, 0.4, 0)
-aim2Button.BackgroundColor3 = Color3.fromRGB(60, 60, 80)
-aim2Button.TextColor3 = Color3.fromRGB(255, 255, 255)
-aim2Button.Text = "🎯 AIM MODE 2: OFF"
-aim2Button.Font = Enum.Font.SourceSansBold
-aim2Button.TextSize = 14
-aim2Button.Parent = mainFrame
+-- Nút Auto Click
+local autoClickButton = Instance.new("TextButton")
+autoClickButton.Size = UDim2.new(0.9, 0, 0, 35)
+autoClickButton.Position = UDim2.new(0.05, 0, 0.22, 0)
+autoClickButton.BackgroundColor3 = Color3.fromRGB(60, 60, 80)
+autoClickButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+autoClickButton.Text = "🔫 AUTO CLICK: OFF"
+autoClickButton.Font = Enum.Font.SourceSansBold
+autoClickButton.TextSize = 14
+autoClickButton.Parent = mainFrame
 
 -- Nút ESP
 local espButton = Instance.new("TextButton")
 espButton.Size = UDim2.new(0.9, 0, 0, 35)
-espButton.Position = UDim2.new(0.05, 0, 0.62, 0)
+espButton.Position = UDim2.new(0.05, 0, 0.55, 0)
 espButton.BackgroundColor3 = Color3.fromRGB(60, 60, 80)
 espButton.TextColor3 = Color3.fromRGB(255, 255, 255)
 espButton.Text = "📡 ESP: OFF"
@@ -80,7 +68,7 @@ espButton.Parent = mainFrame
 -- Status label
 local statusLabel = Instance.new("TextLabel")
 statusLabel.Size = UDim2.new(0.9, 0, 0, 25)
-statusLabel.Position = UDim2.new(0.05, 0, 0.84, 0)
+statusLabel.Position = UDim2.new(0.05, 0, 0.85, 0)
 statusLabel.BackgroundColor3 = Color3.fromRGB(40, 40, 50)
 statusLabel.TextColor3 = Color3.fromRGB(100, 255, 100)
 statusLabel.Text = "READY"
@@ -88,8 +76,8 @@ statusLabel.Font = Enum.Font.SourceSans
 statusLabel.TextSize = 12
 statusLabel.Parent = mainFrame
 
--- ================== HÀM TÌM NGƯỜI CHƠI ==================
-function findNearestPlayer()
+-- ================== HÀM TÌM TARGET GẦN NHẤT ==================
+function findNearestTarget()
     local nearestPlayer = nil
     local nearestDistance = math.huge
     local localCharacter = player.Character
@@ -99,94 +87,287 @@ function findNearestPlayer()
     
     for _, otherPlayer in pairs(Players:GetPlayers()) do
         if otherPlayer ~= player and otherPlayer.Character then
-            local otherRoot = otherPlayer.Character:FindFirstChild("HumanoidRootPart")
-            if otherRoot then
-                local distance = (localRoot.Position - otherRoot.Position).Magnitude
-                if distance < nearestDistance then
-                    nearestDistance = distance
-                    nearestPlayer = otherPlayer
+            local humanoid = otherPlayer.Character:FindFirstChildOfClass("Humanoid")
+            if humanoid and humanoid.Health > 0 then -- Chỉ target người còn sống
+                local otherRoot = otherPlayer.Character:FindFirstChild("HumanoidRootPart")
+                if otherRoot then
+                    local distance = (localRoot.Position - otherRoot.Position).Magnitude
+                    if distance < nearestDistance then
+                        nearestDistance = distance
+                        nearestPlayer = otherPlayer
+                    end
                 end
             end
         end
     end
     
-    lastTarget = nearestPlayer
     return nearestPlayer, nearestDistance
 end
 
--- ================== ESP SYSTEM ==================
-function createESPBox(targetPlayer)
-    if not targetPlayer or not targetPlayer.Character then return end
+-- ================== HÀM BẮN VÀO TARGET ==================
+function shootAtTarget(targetPlayer)
+    if not targetPlayer or not targetPlayer.Character then return false end
     
     local character = targetPlayer.Character
     local humanoid = character:FindFirstChildOfClass("Humanoid")
-    if not humanoid then return end
+    local head = character:FindFirstChild("Head")
+    local torso = character:FindFirstChild("Torso") or character:FindFirstChild("UpperTorso")
     
-    -- Tạo ESP box
-    local espBox = Instance.new("BillboardGui")
-    espBox.Name = "ESP_" .. targetPlayer.Name
-    espBox.Size = UDim2.new(5, 0, 7, 0)
-    espBox.AlwaysOnTop = true
-    espBox.ClipsDescendants = true
+    if not humanoid or humanoid.Health <= 0 then return false end
     
-    local espFrame = Instance.new("Frame")
-    espFrame.Size = UDim2.new(1, 0, 1, 0)
-    espFrame.BackgroundTransparency = 0.7
-    espFrame.BorderSizePixel = 2
-    espFrame.BorderColor3 = Color3.fromRGB(255, 50, 50)
-    espFrame.BackgroundColor3 = Color3.fromRGB(255, 50, 50, 0.1)
-    espFrame.Parent = espBox
+    local targetPart = head or torso or character:FindFirstChild("HumanoidRootPart")
+    if not targetPart then return false end
     
-    local espName = Instance.new("TextLabel")
-    espName.Size = UDim2.new(1, 0, 0.2, 0)
-    espName.Position = UDim2.new(0, 0, -0.3, 0)
-    espName.BackgroundTransparency = 1
-    espName.TextColor3 = Color3.fromRGB(255, 100, 100)
-    espName.Text = targetPlayer.Name
-    espName.Font = Enum.Font.SourceSansBold
-    espName.TextSize = 14
-    espName.Parent = espBox
+    -- Tạo raycast từ camera đến target
+    local camera = Workspace.CurrentCamera
+    local rayOrigin = camera.CFrame.Position
+    local rayDirection = (targetPart.Position - rayOrigin).Unit * 1000
     
-    local espHealth = Instance.new("TextLabel")
-    espHealth.Size = UDim2.new(1, 0, 0.2, 0)
-    espHealth.Position = UDim2.new(0, 0, 1, 0)
-    espHealth.BackgroundTransparency = 1
-    espHealth.TextColor3 = Color3.fromRGB(100, 255, 100)
-    espHealth.Font = Enum.Font.SourceSans
-    espHealth.TextSize = 12
-    espHealth.Parent = espBox
+    local ray = Ray.new(rayOrigin, rayDirection)
+    local raycastParams = RaycastParams.new()
+    raycastParams.FilterDescendantsInstances = {player.Character}
+    raycastParams.FilterType = Enum.RaycastFilterType.Blacklist
     
-    -- Gắn vào HumanoidRootPart
-    local rootPart = character:FindFirstChild("HumanoidRootPart")
-    if rootPart then
-        espBox.Adornee = rootPart
-        espBox.Parent = rootPart
-    else
-        espBox.Adornee = humanoid
-        espBox.Parent = character
+    local rayResult = Workspace:Raycast(ray.Origin, ray.Direction, raycastParams)
+    
+    if rayResult then
+        local hitPart = rayResult.Instance
+        local hitPlayer = Players:GetPlayerFromCharacter(hitPart.Parent)
+        
+        if hitPlayer == targetPlayer then
+            -- Thử các phương pháp fire remote event
+            local success = pcall(function()
+                -- Method 1: Tìm remote event phổ biến
+                local remotes = {
+                    "DamageEvent", "HitEvent", "ShootEvent", "Damage",
+                    "Fire", "Attack", "RemoteEvent", "RE"
+                }
+                
+                for _, remoteName in pairs(remotes) do
+                    local remote = game:GetService("ReplicatedStorage"):FindFirstChild(remoteName)
+                    if remote and remote:IsA("RemoteEvent") then
+                        remote:FireServer({
+                            target = humanoid,
+                            damage = 25,
+                            part = hitPart,
+                            origin = rayOrigin,
+                            direction = rayDirection
+                        })
+                        return true
+                    end
+                end
+                
+                -- Method 2: Tìm trong workspace
+                for _, obj in pairs(Workspace:GetDescendants()) do
+                    if obj:IsA("RemoteEvent") and obj.Name:lower():find("hit") then
+                        obj:FireServer(humanoid, 25, hitPart)
+                        return true
+                    end
+                end
+                
+                -- Method 3: Fire mouse event
+                mouse.Target = hitPart
+                mouse.TargetFilter = hitPart
+                
+                -- Fire click detector nếu có
+                local clickDetector = hitPart:FindFirstChildOfClass("ClickDetector")
+                if clickDetector then
+                    fireclickdetector(clickDetector)
+                end
+                
+                return true
+            end)
+            
+            return success
+        end
     end
     
-    espBoxes[targetPlayer] = espBox
-    
-    -- Cập nhật health
-    connectionESP = RunService.RenderStepped:Connect(function()
-        if espBox and espBox.Parent then
-            espHealth.Text = "HP: " .. math.floor(humanoid.Health) .. "/" .. math.floor(humanoid.MaxHealth)
-            
-            -- Đổi màu theo health
-            local healthPercent = humanoid.Health / humanoid.MaxHealth
-            if healthPercent > 0.7 then
-                espFrame.BorderColor3 = Color3.fromRGB(100, 255, 100)
-            elseif healthPercent > 0.3 then
-                espFrame.BorderColor3 = Color3.fromRGB(255, 255, 100)
+    return false
+end
+
+-- ================== CHỨC NĂNG AUTO CLICK ==================
+function startAutoClick()
+    connectionClick = RunService.RenderStepped:Connect(function()
+        -- Tìm target mới nếu chưa có hoặc target đã chết
+        if not currentTarget or not currentTarget.Character or 
+           currentTarget.Character:FindFirstChildOfClass("Humanoid").Health <= 0 then
+            currentTarget = findNearestTarget()
+        end
+        
+        if currentTarget then
+            -- Kiểm tra nếu đang nhấn chuột trái
+            if UserInputService:IsMouseButtonPressed(Enum.UserInputType.MouseButton1) then
+                local success = shootAtTarget(currentTarget)
+                
+                -- Update status
+                local distance = 0
+                local localRoot = player.Character and player.Character:FindFirstChild("HumanoidRootPart")
+                local targetRoot = currentTarget.Character and currentTarget.Character:FindFirstChild("HumanoidRootPart")
+                
+                if localRoot and targetRoot then
+                    distance = (localRoot.Position - targetRoot.Position).Magnitude
+                end
+                
+                statusLabel.Text = string.format("🔫: %s (%.1f studs)", currentTarget.Name, distance)
+                
+                -- Thêm delay nhỏ để tránh spam
+                task.wait(0.05)
             else
-                espFrame.BorderColor3 = Color3.fromRGB(255, 50, 50)
+                statusLabel.Text = string.format("TARGET: %s (Hold LMB)", currentTarget.Name)
+            end
+        else
+            statusLabel.Text = "NO TARGET FOUND"
+        end
+    end)
+end
+
+-- ================== ESP SYSTEM FIXED ==================
+function createESPBox(targetPlayer)
+    if not targetPlayer or not targetPlayer.Character then return end
+    
+    -- Xóa ESP cũ nếu có
+    if espBoxes[targetPlayer] then
+        espBoxes[targetPlayer]:Destroy()
+        espBoxes[targetPlayer] = nil
+    end
+    
+    local function updateESP()
+        if not targetPlayer or not targetPlayer.Character then return end
+        
+        local character = targetPlayer.Character
+        local humanoid = character:FindFirstChildOfClass("Humanoid")
+        
+        if not humanoid then return end
+        
+        -- Tạo box mới nếu chưa có
+        if not espBoxes[targetPlayer] or not espBoxes[targetPlayer].Parent then
+            local espBox = Instance.new("BillboardGui")
+            espBox.Name = "ESP_" .. targetPlayer.Name
+            espBox.Size = UDim2.new(4, 0, 6, 0)
+            espBox.AlwaysOnTop = true
+            espBox.ClipsDescendants = true
+            espBox.MaxDistance = 500
+            espBox.Parent = character
+            
+            local espFrame = Instance.new("Frame")
+            espFrame.Size = UDim2.new(1, 0, 1, 0)
+            espFrame.BackgroundTransparency = 0.8
+            espFrame.BorderSizePixel = 2
+            espFrame.BorderColor3 = Color3.fromRGB(255, 50, 50)
+            espFrame.BackgroundColor3 = Color3.fromRGB(255, 50, 50, 0.1)
+            espFrame.Parent = espBox
+            
+            local espName = Instance.new("TextLabel")
+            espName.Size = UDim2.new(1, 0, 0.2, 0)
+            espName.Position = UDim2.new(0, 0, -0.25, 0)
+            espName.BackgroundTransparency = 1
+            espName.TextColor3 = Color3.fromRGB(255, 100, 100)
+            espName.Text = targetPlayer.Name
+            espName.Font = Enum.Font.SourceSansBold
+            espName.TextSize = 14
+            espName.TextStrokeTransparency = 0.5
+            espName.Parent = espBox
+            
+            local espHealth = Instance.new("TextLabel")
+            espHealth.Size = UDim2.new(1, 0, 0.2, 0)
+            espHealth.Position = UDim2.new(0, 0, 1, 0)
+            espHealth.BackgroundTransparency = 1
+            espHealth.TextColor3 = Color3.fromRGB(100, 255, 100)
+            espHealth.Font = Enum.Font.SourceSans
+            espHealth.TextSize = 12
+            espHealth.TextStrokeTransparency = 0.5
+            espHealth.Parent = espBox
+            
+            -- Gắn vào HumanoidRootPart
+            local rootPart = character:FindFirstChild("HumanoidRootPart")
+            if rootPart then
+                espBox.Adornee = rootPart
+            else
+                espBox.Adornee = humanoid
+            end
+            
+            espBoxes[targetPlayer] = espBox
+        end
+        
+        -- Cập nhật thông tin
+        local espBox = espBoxes[targetPlayer]
+        if espBox and espBox.Parent then
+            local healthText = espBox:FindFirstChild("HealthText") or espBox:FindFirstChildWhichIsA("TextLabel", true)
+            if healthText then
+                healthText.Text = "HP: " .. math.floor(humanoid.Health) .. "/" .. math.floor(humanoid.MaxHealth)
+                
+                -- Đổi màu theo health
+                local healthPercent = humanoid.Health / humanoid.MaxHealth
+                local frame = espBox:FindFirstChildWhichIsA("Frame")
+                if frame then
+                    if healthPercent > 0.7 then
+                        frame.BorderColor3 = Color3.fromRGB(100, 255, 100)
+                    elseif healthPercent > 0.3 then
+                        frame.BorderColor3 = Color3.fromRGB(255, 255, 100)
+                    else
+                        frame.BorderColor3 = Color3.fromRGB(255, 50, 50)
+                    end
+                end
+            end
+            
+            -- Hiển thị khoảng cách
+            local localRoot = player.Character and player.Character:FindFirstChild("HumanoidRootPart")
+            local targetRoot = character:FindFirstChild("HumanoidRootPart")
+            
+            if localRoot and targetRoot then
+                local distance = (localRoot.Position - targetRoot.Position).Magnitude
+                local distanceText = espBox:FindFirstChild("DistanceText")
+                if not distanceText then
+                    distanceText = Instance.new("TextLabel")
+                    distanceText.Name = "DistanceText"
+                    distanceText.Size = UDim2.new(1, 0, 0.2, 0)
+                    distanceText.Position = UDim2.new(0, 0, 1.2, 0)
+                    distanceText.BackgroundTransparency = 1
+                    distanceText.TextColor3 = Color3.fromRGB(100, 150, 255)
+                    distanceText.Font = Enum.Font.SourceSans
+                    distanceText.TextSize = 11
+                    distanceText.TextStrokeTransparency = 0.5
+                    distanceText.Parent = espBox
+                end
+                distanceText.Text = string.format("%.1f studs", distance)
+            end
+        end
+    end
+    
+    -- Kết nối sự kiện character thay đổi
+    if playerConnections[targetPlayer] then
+        playerConnections[targetPlayer]:Disconnect()
+    end
+    
+    playerConnections[targetPlayer] = targetPlayer.CharacterAdded:Connect(function(newChar)
+        task.wait(0.5) -- Đợi character load
+        if isESP then
+            createESPBox(targetPlayer)
+        end
+    end)
+    
+    -- Bắt đầu update loop
+    local espLoop
+    espLoop = RunService.RenderStepped:Connect(function()
+        if not isESP or not targetPlayer or not targetPlayer.Parent then
+            espLoop:Disconnect()
+            return
+        end
+        
+        if targetPlayer.Character then
+            updateESP()
+        else
+            -- Xóa ESP nếu không có character
+            if espBoxes[targetPlayer] then
+                espBoxes[targetPlayer]:Destroy()
+                espBoxes[targetPlayer] = nil
             end
         end
     end)
 end
 
-function removeESP()
+function updateAllESP()
+    -- Xóa tất cả ESP cũ
     for targetPlayer, espBox in pairs(espBoxes) do
         if espBox then
             espBox:Destroy()
@@ -194,174 +375,56 @@ function removeESP()
     end
     espBoxes = {}
     
+    -- Ngắt tất cả connections cũ
+    for _, connection in pairs(playerConnections) do
+        connection:Disconnect()
+    end
+    playerConnections = {}
+    
+    -- Tạo ESP mới cho tất cả player
+    for _, otherPlayer in pairs(Players:GetPlayers()) do
+        if otherPlayer ~= player then
+            createESPBox(otherPlayer)
+        end
+    end
+end
+
+function removeAllESP()
+    for targetPlayer, espBox in pairs(espBoxes) do
+        if espBox then
+            espBox:Destroy()
+        end
+    end
+    espBoxes = {}
+    
+    for _, connection in pairs(playerConnections) do
+        connection:Disconnect()
+    end
+    playerConnections = {}
+    
     if connectionESP then
         connectionESP:Disconnect()
         connectionESP = nil
     end
 end
 
-function updateESP()
-    removeESP()
-    
-    for _, otherPlayer in pairs(Players:GetPlayers()) do
-        if otherPlayer ~= player and otherPlayer.Character then
-            createESPBox(otherPlayer)
-        end
-    end
-end
-
--- ================== AIM MODE 1 ==================
--- Quay cả camera và màn hình, tâm hướng thẳng vào player
-function startAIM1()
-    connectionAIM1 = RunService.RenderStepped:Connect(function()
-        local nearestPlayer = findNearestPlayer()
-        if nearestPlayer and nearestPlayer.Character then
-            local targetHead = nearestPlayer.Character:FindFirstChild("Head")
-            local targetRoot = nearestPlayer.Character:FindFirstChild("HumanoidRootPart")
-            
-            if not targetHead and not targetRoot then return end
-            
-            local targetPosition = targetHead and targetHead.Position or targetRoot.Position
-            
-            -- Quay camera
-            if camera then
-                local direction = (targetPosition - camera.CFrame.Position).Unit
-                local newCFrame = CFrame.new(camera.CFrame.Position, camera.CFrame.Position + direction)
-                camera.CFrame = newCFrame
-            end
-            
-            -- Quay character
-            local localCharacter = player.Character
-            local localRoot = localCharacter and localCharacter:FindFirstChild("HumanoidRootPart")
-            
-            if localRoot then
-                local characterDirection = (targetPosition - localRoot.Position).Unit
-                local characterCFrame = CFrame.new(localRoot.Position, localRoot.Position + characterDirection)
-                localRoot.CFrame = characterCFrame
-            end
-            
-            -- Update status
-            local distance = (localRoot.Position - targetPosition).Magnitude
-            statusLabel.Text = string.format("AIM1: %s (%.1f studs)", nearestPlayer.Name, distance)
-        end
-    end)
-end
-
--- ================== AIM MODE 2 ==================
--- Click vào bất cứ đâu cũng bắn vào player gần nhất
-function startAIM2()
-    local mouse = player:GetMouse()
-    
-    -- Override mouse click
-    connectionAIM2 = RunService.RenderStepped:Connect(function()
-        local nearestPlayer = findNearestPlayer()
-        if nearestPlayer and nearestPlayer.Character then
-            local targetHead = nearestPlayer.Character:FindFirstChild("Head")
-            local targetRoot = nearestPlayer.Character:FindFirstChild("HumanoidRootPart")
-            
-            if not targetHead and not targetRoot then return end
-            
-            local targetPosition = targetHead and targetHead.Position or targetRoot.Position
-            
-            -- Kiểm tra nếu đang click chuột
-            if UserInputService:IsMouseButtonPressed(Enum.UserInputType.MouseButton1) then
-                -- Tính toán ray từ camera đến target
-                local camera = Workspace.CurrentCamera
-                local direction = (targetPosition - camera.CFrame.Position).Unit
-                
-                -- Tạo raycast
-                local ray = Ray.new(camera.CFrame.Position, direction * 1000)
-                local hitPart, hitPosition = Workspace:FindPartOnRayWithIgnoreList(ray, {player.Character})
-                
-                if hitPart then
-                    -- Tìm player từ hit part
-                    local hitPlayer = game:GetService("Players"):GetPlayerFromCharacter(hitPart.Parent)
-                    
-                    if hitPlayer == nearestPlayer then
-                        -- Fire hit event (nếu có)
-                        pcall(function()
-                            -- Các game thường có RemoteEvent để bắn
-                            local remotes = game:GetService("ReplicatedStorage"):GetChildren()
-                            for _, remote in pairs(remotes) do
-                                if remote:IsA("RemoteEvent") and 
-                                   (remote.Name:lower():find("hit") or 
-                                    remote.Name:lower():find("damage") or
-                                    remote.Name:lower():find("shoot")) then
-                                    remote:FireServer({
-                                        target = nearestPlayer.Character.Humanoid,
-                                        damage = 10,
-                                        part = hitPart
-                                    })
-                                end
-                            end
-                        end)
-                    end
-                end
-                
-                -- Update status
-                local localCharacter = player.Character
-                local localRoot = localCharacter and localCharacter:FindFirstChild("HumanoidRootPart")
-                if localRoot then
-                    local distance = (localRoot.Position - targetPosition).Magnitude
-                    statusLabel.Text = string.format("AIM2: %s (%.1f studs)", nearestPlayer.Name, distance)
-                end
-            end
-        end
-    end)
-    
-    -- Override mouse position để luôn target vào player
-    local originalMouseTarget
-    originalMouseTarget = hookfunction(mouse.Target, function()
-        local nearestPlayer = findNearestPlayer()
-        if nearestPlayer and nearestPlayer.Character then
-            local targetHead = nearestPlayer.Character:FindFirstChild("Head")
-            return targetHead or nearestPlayer.Character:FindFirstChild("HumanoidRootPart")
-        end
-        return originalMouseTarget()
-    end)
-end
-
 -- ================== TOGGLE FUNCTIONS ==================
-function toggleAIM1()
-    isAIM1 = not isAIM1
+function toggleAutoClick()
+    isAutoClicking = not isAutoClicking
     
-    if isAIM1 then
-        -- Tắt AIM2 nếu đang bật
-        if isAIM2 then toggleAIM2() end
-        
-        aim1Button.BackgroundColor3 = Color3.fromRGB(0, 150, 0)
-        aim1Button.Text = "🎯 AIM MODE 1: ON"
-        startAIM1()
+    if isAutoClicking then
+        autoClickButton.BackgroundColor3 = Color3.fromRGB(0, 150, 0)
+        autoClickButton.Text = "🔫 AUTO CLICK: ON"
+        startAutoClick()
     else
-        aim1Button.BackgroundColor3 = Color3.fromRGB(60, 60, 80)
-        aim1Button.Text = "🎯 AIM MODE 1: OFF"
+        autoClickButton.BackgroundColor3 = Color3.fromRGB(60, 60, 80)
+        autoClickButton.Text = "🔫 AUTO CLICK: OFF"
         
-        if connectionAIM1 then
-            connectionAIM1:Disconnect()
-            connectionAIM1 = nil
+        if connectionClick then
+            connectionClick:Disconnect()
+            connectionClick = nil
         end
-        statusLabel.Text = "READY"
-    end
-end
-
-function toggleAIM2()
-    isAIM2 = not isAIM2
-    
-    if isAIM2 then
-        -- Tắt AIM1 nếu đang bật
-        if isAIM1 then toggleAIM1() end
-        
-        aim2Button.BackgroundColor3 = Color3.fromRGB(150, 0, 0)
-        aim2Button.Text = "🎯 AIM MODE 2: ON"
-        startAIM2()
-    else
-        aim2Button.BackgroundColor3 = Color3.fromRGB(60, 60, 80)
-        aim2Button.Text = "🎯 AIM MODE 2: OFF"
-        
-        if connectionAIM2 then
-            connectionAIM2:Disconnect()
-            connectionAIM2 = nil
-        end
+        currentTarget = nil
         statusLabel.Text = "READY"
     end
 end
@@ -372,52 +435,46 @@ function toggleESP()
     if isESP then
         espButton.BackgroundColor3 = Color3.fromRGB(0, 100, 200)
         espButton.Text = "📡 ESP: ON"
-        updateESP()
+        updateAllESP()
     else
         espButton.BackgroundColor3 = Color3.fromRGB(60, 60, 80)
         espButton.Text = "📡 ESP: OFF"
-        removeESP()
+        removeAllESP()
     end
 end
 
 -- ================== SETUP UI ==================
-aim1Button.MouseButton1Click:Connect(toggleAIM1)
-aim2Button.MouseButton1Click:Connect(toggleAIM2)
+autoClickButton.MouseButton1Click:Connect(toggleAutoClick)
 espButton.MouseButton1Click:Connect(toggleESP)
 
 -- Hiệu ứng hover
 local function setupButtonHover(button)
     button.MouseEnter:Connect(function()
-        if button.BackgroundColor3 ~= Color3.fromRGB(0, 150, 0) and 
-           button.BackgroundColor3 ~= Color3.fromRGB(150, 0, 0) and
-           button.BackgroundColor3 ~= Color3.fromRGB(0, 100, 200) then
+        if button == autoClickButton and not isAutoClicking then
+            button.BackgroundColor3 = Color3.fromRGB(80, 80, 100)
+        elseif button == espButton and not isESP then
             button.BackgroundColor3 = Color3.fromRGB(80, 80, 100)
         end
     end)
     
     button.MouseLeave:Connect(function()
-        if button == aim1Button then
-            button.BackgroundColor3 = isAIM1 and Color3.fromRGB(0, 150, 0) or Color3.fromRGB(60, 60, 80)
-        elseif button == aim2Button then
-            button.BackgroundColor3 = isAIM2 and Color3.fromRGB(150, 0, 0) or Color3.fromRGB(60, 60, 80)
+        if button == autoClickButton then
+            button.BackgroundColor3 = isAutoClicking and Color3.fromRGB(0, 150, 0) or Color3.fromRGB(60, 60, 80)
         elseif button == espButton then
             button.BackgroundColor3 = isESP and Color3.fromRGB(0, 100, 200) or Color3.fromRGB(60, 60, 80)
         end
     end)
 end
 
-setupButtonHover(aim1Button)
-setupButtonHover(aim2Button)
+setupButtonHover(autoClickButton)
 setupButtonHover(espButton)
 
 -- Hotkeys
 UserInputService.InputBegan:Connect(function(input, gameProcessed)
     if not gameProcessed then
         if input.KeyCode == Enum.KeyCode.F1 then
-            toggleAIM1()
+            toggleAutoClick()
         elseif input.KeyCode == Enum.KeyCode.F2 then
-            toggleAIM2()
-        elseif input.KeyCode == Enum.KeyCode.F3 then
             toggleESP()
         end
     end
@@ -427,7 +484,7 @@ end)
 Players.PlayerAdded:Connect(function(newPlayer)
     if isESP then
         task.wait(1) -- Đợi character load
-        updateESP()
+        createESPBox(newPlayer)
     end
 end)
 
@@ -436,18 +493,37 @@ Players.PlayerRemoving:Connect(function(leavingPlayer)
         espBoxes[leavingPlayer]:Destroy()
         espBoxes[leavingPlayer] = nil
     end
+    
+    if playerConnections[leavingPlayer] then
+        playerConnections[leavingPlayer]:Disconnect()
+        playerConnections[leavingPlayer] = nil
+    end
 end)
 
 -- ================== KHỞI ĐỘNG ==================
 print("=========================================")
-print("🔥 AM BOT PRO LOADED 🔥")
+print("🎯 AM BOT FIXED LOADED 🎯")
 print("=========================================")
-print("🎯 AIM MODE 1: Quay cả camera và character")
-print("🎯 AIM MODE 2: Click đâu cũng bắn vào target")
-print("📡 ESP: Hiển thị box và thông tin player")
+print("🔫 AUTO CLICK: Bật lên -> Target player gần nhất")
+print("                 -> Giữ chuột trái để bắn")
+print("                 -> Bắn vào target dù click đâu")
+print("")
+print("📡 ESP: Hiển thị box, tên, HP, khoảng cách")
+print("       Tự động cập nhật khi player hồi sinh")
 print("")
 print("Hotkeys:")
-print("F1: Toggle AIM MODE 1")
-print("F2: Toggle AIM MODE 2")
-print("F3: Toggle ESP")
+print("F1: Toggle Auto Click")
+print("F2: Toggle ESP")
 print("=========================================")
+
+-- Watermark
+local watermark = Instance.new("TextLabel")
+watermark.Size = UDim2.new(0, 200, 0, 20)
+watermark.Position = UDim2.new(1, -210, 0, 10)
+watermark.BackgroundTransparency = 1
+watermark.TextColor3 = Color3.fromRGB(255, 100, 100)
+watermark.Text = "AM BOT FIXED | Click đâu cũng bắn target"
+watermark.Font = Enum.Font.SourceSans
+watermark.TextSize = 12
+watermark.TextStrokeTransparency = 0.5
+watermark.Parent = screenGui
