@@ -1,0 +1,202 @@
+-- 🔑 HỆ THỐNG KEY 24H – NHẬP 1 LẦN, 24H KHÔNG HỎI LẠI
+--============================================================
+
+-- KHAI BÁO SCRIPT CHÍNH TRƯỚC
+local SCRIPT_CHINH = [[
+    -- DÁN SCRIPT CHÍNH CỦA BẠN Ở ĐÂY
+    print("🔥 Script chính đang chạy...")
+    
+    -- Ví dụ script chính (thay bằng script của bạn)
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/ScpGuest666/Random-Roblox-script/refs/heads/main/--============================================================
+-- 🔑 HỆ THỐNG KEY 24H – NHẬP 1 LẦN, 24H KHÔNG HỎI LẠI
+--============================================================
+
+-- KHAI BÁO SCRIPT CHÍNH TRƯỚC
+local SCRIPT_CHINH = [[
+    -- DÁN SCRIPT CHÍNH CỦA BẠN Ở ĐÂY
+    print("🔥 Script chính đang chạy...")
+    
+    -- Ví dụ script chính (thay bằng script của bạn)
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/teoscrvn/T-ng-h-p-/refs/heads/main/laymattien.txt", true))()
+]]
+
+local allowedKeys = {"KEY1", "KEY2", "metvl>:("}   -- 2 key hợp lệ
+local saveFile = "key_24h.txt"         -- file lưu thời gian
+
+local function now()
+    return os.time()
+end
+
+-- Lưu 24 giờ
+local function saveKey()
+    writefile(saveFile, tostring(now() + 24*3600))
+end
+
+-- Kiểm tra file key (ĐÃ SỬA: >= thay vì >)
+local function isKeyStillValid()
+    if not isfile(saveFile) then
+        return false
+    end
+
+    local t = tonumber(readfile(saveFile))
+    return t and t >= now()  -- SỬA: >= để bao gồm thời điểm chính xác 24h
+end
+
+--============================================================
+-- 🟢 NẾU ĐANG TRONG 24H → CHẠY SCRIPT CHÍNH LIỀN
+--============================================================
+
+if isKeyStillValid() then
+    print("✔ Key còn hạn → chạy script chính luôn")
+    loadstring(SCRIPT_CHINH)()
+    return
+end
+
+--============================================================
+-- 🖥 UI NHẬP KEY
+--============================================================
+
+local gui = Instance.new("ScreenGui", game.CoreGui)
+local frame = Instance.new("Frame", gui)
+frame.Size = UDim2.new(0, 300, 0, 180)
+frame.Position = UDim2.new(0.5, -150, 0.5, -90)
+frame.BackgroundColor3 = Color3.fromRGB(35,35,35)
+
+local box = Instance.new("TextBox", frame)
+box.PlaceholderText = "Nhập key..."
+box.Size = UDim2.new(1, -40, 0, 40)
+box.Position = UDim2.new(0, 20, 0, 40)
+box.BackgroundColor3 = Color3.fromRGB(50,50,50)
+box.TextColor3 = Color3.new(1,1,1)
+
+local check = Instance.new("TextButton", frame)
+check.Text = "Xác nhận"
+check.Size = UDim2.new(1, -40, 0, 40)
+check.Position = UDim2.new(0, 20, 0, 100)
+check.BackgroundColor3 = Color3.fromRGB(0,180,80)
+check.TextColor3 = Color3.new(1,1,1)
+
+--============================================================
+-- 🔍 CHECK KEY
+--============================================================
+
+local function isValid(k)
+    for _, v in ipairs(allowedKeys) do
+        if k == v then
+            return true
+        end
+    end
+    return false
+end
+
+check.MouseButton1Click:Connect(function()
+    if isValid(box.Text) then
+        saveKey()
+        gui:Destroy()
+
+        game.StarterGui:SetCore("SendNotification", {
+            Title = "✔ Đúng Key",
+            Text = "Hợp lệ trong 24 giờ",
+            Duration = 3
+        })
+
+        loadstring(SCRIPT_CHINH)()
+    else
+        game.StarterGui:SetCore("SendNotification", {
+            Title = "❌ Sai Key",
+            Text = "Key không đúng",
+            Duration = 3
+        })
+    end
+end)
+]]
+
+local allowedKeys = {"KEY1", "KEY2"}   -- 2 key hợp lệ
+local saveFile = "key_24h.txt"         -- file lưu thời gian
+
+local function now()
+    return os.time()
+end
+
+-- Lưu 24 giờ
+local function saveKey()
+    writefile(saveFile, tostring(now() + 24*3600))
+end
+
+-- Kiểm tra file key (ĐÃ SỬA: >= thay vì >)
+local function isKeyStillValid()
+    if not isfile(saveFile) then
+        return false
+    end
+
+    local t = tonumber(readfile(saveFile))
+    return t and t >= now()  -- SỬA: >= để bao gồm thời điểm chính xác 24h
+end
+
+--============================================================
+-- 🟢 NẾU ĐANG TRONG 24H → CHẠY SCRIPT CHÍNH LIỀN
+--============================================================
+
+if isKeyStillValid() then
+    print("✔ Key còn hạn → chạy script chính luôn")
+    loadstring(SCRIPT_CHINH)()
+    return
+end
+
+--============================================================
+-- 🖥 UI NHẬP KEY
+--============================================================
+
+local gui = Instance.new("ScreenGui", game.CoreGui)
+local frame = Instance.new("Frame", gui)
+frame.Size = UDim2.new(0, 300, 0, 180)
+frame.Position = UDim2.new(0.5, -150, 0.5, -90)
+frame.BackgroundColor3 = Color3.fromRGB(35,35,35)
+
+local box = Instance.new("TextBox", frame)
+box.PlaceholderText = "Nhập key..."
+box.Size = UDim2.new(1, -40, 0, 40)
+box.Position = UDim2.new(0, 20, 0, 40)
+box.BackgroundColor3 = Color3.fromRGB(50,50,50)
+box.TextColor3 = Color3.new(1,1,1)
+
+local check = Instance.new("TextButton", frame)
+check.Text = "Xác nhận"
+check.Size = UDim2.new(1, -40, 0, 40)
+check.Position = UDim2.new(0, 20, 0, 100)
+check.BackgroundColor3 = Color3.fromRGB(0,180,80)
+check.TextColor3 = Color3.new(1,1,1)
+
+--============================================================
+-- 🔍 CHECK KEY
+--============================================================
+
+local function isValid(k)
+    for _, v in ipairs(allowedKeys) do
+        if k == v then
+            return true
+        end
+    end
+    return false
+end
+
+check.MouseButton1Click:Connect(function()
+    if isValid(box.Text) then
+        saveKey()
+        gui:Destroy()
+
+        game.StarterGui:SetCore("SendNotification", {
+            Title = "✔ Đúng Key",
+            Text = "Hợp lệ trong 24 giờ",
+            Duration = 3
+        })
+
+        loadstring(SCRIPT_CHINH)()
+    else
+        game.StarterGui:SetCore("SendNotification", {
+            Title = "❌ Sai Key",
+            Text = "Key không đúng",
+            Duration = 3
+        })
+    end
+end)
