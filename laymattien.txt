@@ -1,0 +1,455 @@
+--============================================================
+-- 🔑 HỆ THỐNG KEY 24H – NHẬP 1 LẦN, 24H KHÔNG HỎI LẠI
+--============================================================
+
+-- KHAI BÁO SCRIPT CHÍNH TRƯỚC
+local SCRIPT_CHINH = [[
+    -- DÁN SCRIPT CHÍNH CỦA BẠN Ở ĐÂY
+    print("🔥 Script chính đang chạy...")
+    
+    -- Ví dụ script chính (thay bằng script của bạn)
+    local CoreGui = game:GetService("StarterGui")
+
+CoreGui:SetCore("SendNotification", {
+    Title = "🍎 Téo scrVN™ 🇻🇳",
+    Text = "Đang khởi động script vui lòng fl kênh không bị bắt xuống hầm🤣",
+    Icon = "rbxassetid://121471149924300",
+    Duration = 6
+})
+-- 🍎 Téo scrVN 🇻🇳 Cinematic Intro
+local CoreGui = game:GetService("CoreGui")
+
+-- Giao diện chính
+local ScreenGui = Instance.new("ScreenGui", CoreGui)
+ScreenGui.IgnoreGuiInset = true
+ScreenGui.ResetOnSpawn = false
+
+-- Lớp làm mờ nền
+local BlurFrame = Instance.new("Frame", ScreenGui)
+BlurFrame.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+BlurFrame.BackgroundTransparency = 0.4 -- Độ mờ nền
+BlurFrame.Size = UDim2.new(1, 0, 1, 0)
+
+-- Hiệu ứng chữ
+local TextLabel = Instance.new("TextLabel", ScreenGui)
+TextLabel.Size = UDim2.new(1, 0, 1, 0)
+TextLabel.BackgroundTransparency = 1
+TextLabel.Text = "🍎 Téo scrVN™ 🇻🇳"
+TextLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+TextLabel.TextStrokeTransparency = 0.2
+TextLabel.TextStrokeColor3 = Color3.fromRGB(0, 170, 255)
+TextLabel.Font = Enum.Font.GothamBlack
+TextLabel.TextScaled = true
+TextLabel.TextTransparency = 1 -- Bắt đầu ẩn
+
+-- Hiệu ứng fade in/out
+local TweenService = game:GetService("TweenService")
+
+local fadeIn = TweenService:Create(TextLabel, TweenInfo.new(1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {TextTransparency = 0})
+local fadeOut = TweenService:Create(TextLabel, TweenInfo.new(1, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {TextTransparency = 1})
+local fadeBg = TweenService:Create(BlurFrame, TweenInfo.new(1, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {BackgroundTransparency = 1})
+
+-- Chạy hiệu ứng
+fadeIn:Play()
+task.wait(2) -- hiển thị chữ trong 2 giây
+fadeOut:Play()
+fadeBg:Play()
+
+-- Xoá sau 3.5s
+task.wait(3.5)
+ScreenGui:Destroy()
+local WindUI =
+loadstring(game:HttpGet("https://raw.githubusercontent.com/teoscrvn/T-ng-h-p-/refs/heads/main/Script%20test%20(1).txt"))()
+
+--🔹 Tạo Window
+local Window = WindUI:CreateWindow({
+    Title = "TÉO HUB",
+    Size = UDim2.fromOffset(580, 340),
+    Theme = "Dark",
+    Transparent = true
+})
+Window:EditOpenButton({
+    Title = "Téo🍎™scrVN🇻🇳",
+    Icon = "monitor", -- hoặc icon khác
+    CornerRadius = UDim.new(0,16),
+    StrokeThickness = 2,
+    Color = ColorSequence.new(
+        Color3.fromHex("FF0F7B"),
+        Color3.fromHex("F89B29")
+    ),
+    Draggable = true,
+})
+--------------------------------------------------------
+-- 1️⃣ TẤT CẢ GAME CHUNG
+--------------------------------------------------------
+local Tabs = {}--------------------------------------------------------
+-- TẠO TAB (KIỂU MỚI)
+--------------------------------------------------------
+local Tabs = {}
+
+Tabs.Main0 = Window:Tab({ Title = "Main🗒️" })
+Tabs.Main1 = Window:Tab({ Title = "BloxFruit⚔️" })
+Tabs.Main2 = Window:Tab({ Title = "StealABrainGod🐘" })
+Tabs.Main3 = Window:Tab({ Title = "99 Đêm Trong Rừng🌲" })
+Tabs.Main4 = Window:Tab({ Title = "GardenTowerDefense🌱" })
+Tabs.Main5 = Window:Tab({ Title = "plan vs brainrot🐊" })
+
+--------------------------------------------------------
+-- TAB MAIN🗒️
+--------------------------------------------------------
+
+Tabs.Main0:Button({
+	Title = "Bảng tin update script và thông tin lặt vặt",
+	Description = "(ngày 16 tháng 12) đã thêm 2 script bloxfruit!",
+	Callback = function()
+		setclipboard("đã là bảng tin thì k có link đâu")
+	end
+})
+
+Tabs.Main0:Button({
+	Title = "Tổng Hợp Game 2❤️",
+	Description = "Ủng hộ đê nhìn gì",
+	Callback = function()
+		setclipboard("tiktok.com/@tonghopgamemoimatacc")
+	end
+})
+
+Tabs.Main0:Button({
+	Title = "Kênh Youtube💬",
+	Description = "ít làm video",
+	Callback = function()
+		setclipboard("https://www.youtube.com/@T%E1%BB%95ngH%E1%BB%A3pgame2-v4i")
+	end
+})
+
+Tabs.Main0:Button({
+	Title = "Discord",
+	Description = "(Coming Soon) ❌",
+	Callback = function()
+		setclipboard("Cố chấp ghê á?")
+	end
+})
+
+--------------------------------------------------------
+-- TAB BLOX FRUIT⚔️ (FULL COND)
+--------------------------------------------------------
+
+local function IsBloxFruit()
+	return game.PlaceId == 2753915549
+		or game.PlaceId == 4442272183
+		or game.PlaceId == 7449423635
+end
+
+Tabs.Main1:Button({
+	Title = "GravityHub",
+	Description = "Script này ngon load nhanh hơn nhiều ròi",
+	Callback = function()
+		if not IsBloxFruit() then return end
+		repeat task.wait() until game:IsLoaded() and game.Players.LocalPlayer
+		loadstring(game:HttpGet(
+			"https://raw.githubusercontent.com/Dev-GravityHub/BloxFruit/refs/heads/main/Main.lua"
+		))()
+	end
+})
+
+Tabs.Main1:Button({
+	Title = "Script TeddyHubFarm",
+	Description = "Giao diện giống Banana ~80%",
+	Callback = function()
+		if not IsBloxFruit() then return end
+		repeat task.wait() until game:IsLoaded() and game.Players.LocalPlayer
+		loadstring(game:HttpGet(
+			"https://raw.githubusercontent.com/Teddyseetink/Haidepzai/refs/heads/main/TeddyHub.lua"
+		))()
+	end
+})
+
+Tabs.Main1:Button({
+	Title = "XeterHub",
+	Description = "Ngon ngang Redz nhá =))",
+	Callback = function()
+		if not IsBloxFruit() then return end
+		repeat task.wait() until game:IsLoaded() and game.Players.LocalPlayer
+		loadstring(game:HttpGet(
+			"https://raw.githubusercontent.com/TlDinhKhoi/Xeter/refs/heads/main/Main.lua"
+		))()
+	end
+})
+
+Tabs.Main1:Button({
+	Title = "RedzHubFake",
+	Description = "Na ná nhưng giống ~80%",
+	Callback = function()
+		if not IsBloxFruit() then return end
+		repeat task.wait() until game:IsLoaded() and game.Players.LocalPlayer
+		loadstring(game:HttpGet(
+			"https://api.luarmor.net/files/v3/loaders/20f318386e3fbf069ee3fa797cfc9f34.lua"
+		))()
+	end
+})
+
+Tabs.Main1:Button({
+	Title = "BlueXHub",
+	Description = "Script săn sea event",
+	Callback = function()
+		if not IsBloxFruit() then return end
+		repeat task.wait() until game:IsLoaded() and game.Players.LocalPlayer
+		loadstring(game:HttpGet(
+			"https://raw.githubusercontent.com/Dev-BlueX/BlueX-Hub/refs/heads/main/Main.lua"
+		))()
+	end
+})
+
+Tabs.Main1:Button({
+	Title = "Ngọc Bổng Hub",
+	Description = "Farm boss elite ngon",
+	Callback = function()
+		if not IsBloxFruit() then return end
+		repeat task.wait() until game:IsLoaded() and game.Players.LocalPlayer
+		getgenv().Team = "Marines"
+		loadstring(game:HttpGet(
+			"https://raw.githubusercontent.com/ngocbonggaming/script/refs/heads/main/NgocBongVn.lua"
+		))()
+	end
+})
+
+Tabs.Main1:Button({
+	Title = "GodHub",
+	Description = "Na ná Redz fake",
+	Callback = function()
+		if not IsBloxFruit() then return end
+		repeat task.wait() until game:IsLoaded() and game.Players.LocalPlayer
+		loadstring(game:HttpGet(
+			"https://raw.githubusercontent.com/shinichi-dz/phucshinsayhi/refs/heads/main/Loader.lua"
+		))()
+	end
+})
+
+--------------------------------------------------------
+-- TAB STEAL A BRAINROT 🐘
+--------------------------------------------------------
+
+Tabs.Main2:Button({
+	Title = "VietNamHub",
+	Description = "Ít chơi thì tự trải nghiệm",
+	Callback = function()
+		repeat task.wait() until game:IsLoaded() and game.Players.LocalPlayer
+		loadstring(game:HttpGet(
+			"https://raw.githubusercontent.com/replit8173/VietnamHub/refs/heads/main/VietnamseHub.lua"
+		))()
+	end
+})
+
+Tabs.Main2:Button({
+	Title = "ChilliHub",
+	Description = "Script ổn định (cần key)",
+	Callback = function()
+		repeat task.wait() until game:IsLoaded()
+		loadstring(game:HttpGet(
+			"https://api.luarmor.net/files/v3/loaders/a3e13a4a85ac4c2da17a6baab051ee1b.lua"
+		))()
+	end
+})
+
+Tabs.Main2:Button({
+	Title = "YouiHub",
+	Description = "Instant Steal V2",
+	Callback = function()
+		repeat task.wait() until game:IsLoaded()
+		loadstring(game:HttpGet(
+			"https://raw.githubusercontent.com/Youifpg/Steal-a-Brianrot/refs/heads/main/Instant%20Steal%20V2.lua"
+		))()
+	end
+})
+
+--------------------------------------------------------
+-- TAB 99 ĐÊM TRONG RỪNG 🌲
+--------------------------------------------------------
+
+Tabs.Main3:Button({
+	Title = "FoxNameHub",
+	Description = "Ổn định, dễ dùng",
+	Callback = function()
+		repeat task.wait() until game:IsLoaded()
+		loadstring(game:HttpGet(
+			"https://raw.githubusercontent.com/caomod2077/Script/refs/heads/main/FoxnameHub.lua"
+		))()
+	end
+})
+
+Tabs.Main3:Button({
+	Title = "RingTaHub",
+	Description = "Cũng ổn",
+	Callback = function()
+		repeat task.wait() until game:IsLoaded()
+		loadstring(game:HttpGet(
+			"https://raw.githubusercontent.com/wefwef127382/99daysloader.github.io/refs/heads/main/ringta.lua"
+		))()
+	end
+})
+
+Tabs.Main3:Button({
+	Title = "GecHub",
+	Description = "Tự trải nghiệm",
+	Callback = function()
+		repeat task.wait() until game:IsLoaded()
+		loadstring(game:HttpGet(
+			"https://raw.githubusercontent.com/GEC0/gec/refs/heads/main/Gec.Loader"
+		))()
+	end
+})
+
+--------------------------------------------------------
+-- TAB GARDEN TOWER DEFENSE 🌱
+--------------------------------------------------------
+
+Tabs.Main4:Button({
+	Title = "ShadowHub",
+	Description = "Script ngon – cần key",
+	Callback = function()
+		repeat task.wait() until game:IsLoaded()
+		loadstring(game:HttpGet(
+			"https://raw.githubusercontent.com/RilShadow10/ShadowHub/master/loader.lua"
+		))()
+	end
+})
+
+Tabs.Main4:Button({
+	Title = "Infinite Yield",
+	Description = "Fly, noclip, admin command",
+	Callback = function()
+		repeat task.wait() until game:IsLoaded()
+		loadstring(game:HttpGet(
+			"https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source"
+		))()
+	end
+})
+
+Tabs.Main4:Button({
+	Title = "NeoxHub",
+	Description = "Anti AFK",
+	Callback = function()
+		repeat task.wait() until game:IsLoaded()
+		loadstring(game:HttpGet(
+			"https://raw.githubusercontent.com/hassanxzayn-lua/Anti-afk/main/antiafkbyhassanxzyn"
+		))()
+	end
+})
+
+--------------------------------------------------------
+-- TAB PLAN VS BRAINROT 🐊
+--------------------------------------------------------
+
+Tabs.Main5:Button({
+	Title = "SpeedHub",
+	Description = "Ổn định, dễ dùng",
+	Callback = function()
+		repeat task.wait() until game:IsLoaded()
+		loadstring(game:HttpGet(
+			"https://raw.githubusercontent.com/AhmadV99/Speed-Hub-X/main/Speed%20Hub%20X.lua",
+			true
+		))()
+	end
+})
+
+Tabs.Main5:Button({
+	Title = "KhanhLyHub",
+	Description = "Ổn định, gọn",
+	Callback = function()
+		repeat task.wait() until game:IsLoaded()
+		loadstring(game:HttpGet(
+			"https://raw.githubusercontent.com/khoavipok/Khanhlytbao/refs/heads/main/Plants%20Vs%20Brainrots"
+		))()
+	end
+})
+]]
+
+local allowedKeys = {"KEY1", "KEY2"}   -- 2 key hợp lệ
+local saveFile = "key_24h.txt"         -- file lưu thời gian
+
+local function now()
+    return os.time()
+end
+
+-- Lưu 24 giờ
+local function saveKey()
+    writefile(saveFile, tostring(now() + 24*3600))
+end
+
+-- Kiểm tra file key (ĐÃ SỬA: >= thay vì >)
+local function isKeyStillValid()
+    if not isfile(saveFile) then
+        return false
+    end
+
+    local t = tonumber(readfile(saveFile))
+    return t and t >= now()  -- SỬA: >= để bao gồm thời điểm chính xác 24h
+end
+
+--============================================================
+-- 🟢 NẾU ĐANG TRONG 24H → CHẠY SCRIPT CHÍNH LIỀN
+--============================================================
+
+if isKeyStillValid() then
+    print("✔ Key còn hạn → chạy script chính luôn")
+    loadstring(SCRIPT_CHINH)()
+    return
+end
+
+--============================================================
+-- 🖥 UI NHẬP KEY
+--============================================================
+
+local gui = Instance.new("ScreenGui", game.CoreGui)
+local frame = Instance.new("Frame", gui)
+frame.Size = UDim2.new(0, 300, 0, 180)
+frame.Position = UDim2.new(0.5, -150, 0.5, -90)
+frame.BackgroundColor3 = Color3.fromRGB(35,35,35)
+
+local box = Instance.new("TextBox", frame)
+box.PlaceholderText = "Nhập key..."
+box.Size = UDim2.new(1, -40, 0, 40)
+box.Position = UDim2.new(0, 20, 0, 40)
+box.BackgroundColor3 = Color3.fromRGB(50,50,50)
+box.TextColor3 = Color3.new(1,1,1)
+
+local check = Instance.new("TextButton", frame)
+check.Text = "Xác nhận"
+check.Size = UDim2.new(1, -40, 0, 40)
+check.Position = UDim2.new(0, 20, 0, 100)
+check.BackgroundColor3 = Color3.fromRGB(0,180,80)
+check.TextColor3 = Color3.new(1,1,1)
+
+--============================================================
+-- 🔍 CHECK KEY
+--============================================================
+
+local function isValid(k)
+    for _, v in ipairs(allowedKeys) do
+        if k == v then
+            return true
+        end
+    end
+    return false
+end
+
+check.MouseButton1Click:Connect(function()
+    if isValid(box.Text) then
+        saveKey()
+        gui:Destroy()
+
+        game.StarterGui:SetCore("SendNotification", {
+            Title = "✔ Đúng Key",
+            Text = "Hợp lệ trong 24 giờ",
+            Duration = 3
+        })
+
+        loadstring(SCRIPT_CHINH)()
+    else
+        game.StarterGui:SetCore("SendNotification", {
+            Title = "❌ Sai Key",
+            Text = "Key không đúng",
+            Duration = 3
+        })
+    end
+end)
