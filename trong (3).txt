@@ -1,0 +1,286 @@
+-- Roblox Account Info Display
+-- Hiển thị thông tin tài khoản ở góc phải màn hình
+
+if not game:IsLoaded() then
+    game.Loaded:Wait()
+end
+
+if not game.Players.LocalPlayer then
+    game.Players:GetPropertyChangedSignal("LocalPlayer"):Wait()
+end
+
+local player = game.Players.LocalPlayer
+local userId = player.UserId
+
+-- Tạo ScreenGui
+local screenGui = Instance.new("ScreenGui")
+screenGui.Name = "AccountInfoGUI"
+screenGui.ResetOnSpawn = false
+screenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+screenGui.Parent = player:WaitForChild("PlayerGui")
+
+-- Tạo Frame chính
+local mainFrame = Instance.new("Frame")
+mainFrame.Name = "MainFrame"
+mainFrame.BackgroundColor3 = Color3.fromRGB(30, 30, 40)
+mainFrame.BackgroundTransparency = 0.3
+mainFrame.BorderSizePixel = 0
+mainFrame.Position = UDim2.new(1, -10, 0, 10) -- Góc phải trên
+mainFrame.Size = UDim2.new(0, 250, 0, 180)
+mainFrame.AnchorPoint = Vector2.new(1, 0)
+mainFrame.Parent = screenGui
+
+-- Thêm bo góc
+local uiCorner = Instance.new("UICorner")
+uiCorner.CornerRadius = UDim.new(0, 8)
+uiCorner.Parent = mainFrame
+
+-- Thêm shadow
+local uiStroke = Instance.new("UIStroke")
+uiStroke.Color = Color3.fromRGB(60, 60, 80)
+uiStroke.Thickness = 2
+uiStroke.Parent = mainFrame
+
+-- Tiêu đề
+local titleLabel = Instance.new("TextLabel")
+titleLabel.Name = "Title"
+titleLabel.Text = "📊 THÔNG TIN TÀI KHOẢN"
+titleLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+titleLabel.TextSize = 16
+titleLabel.Font = Enum.Font.GothamBold
+titleLabel.BackgroundTransparency = 1
+titleLabel.Position = UDim2.new(0, 15, 0, 10)
+titleLabel.Size = UDim2.new(1, -30, 0, 25)
+titleLabel.Parent = mainFrame
+
+-- Đường kẻ phân cách
+local divider = Instance.new("Frame")
+divider.Name = "Divider"
+divider.BackgroundColor3 = Color3.fromRGB(80, 120, 200)
+divider.BorderSizePixel = 0
+divider.Position = UDim2.new(0, 15, 0, 40)
+divider.Size = UDim2.new(1, -30, 0, 2)
+divider.Parent = mainFrame
+
+-- Container cho thông tin
+local infoContainer = Instance.new("Frame")
+infoContainer.Name = "InfoContainer"
+infoContainer.BackgroundTransparency = 1
+infoContainer.Position = UDim2.new(0, 15, 0, 50)
+infoContainer.Size = UDim2.new(1, -30, 1, -60)
+infoContainer.Parent = mainFrame
+
+local layout = Instance.new("UIListLayout")
+layout.Padding = UDim.new(0, 5)
+layout.HorizontalAlignment = Enum.HorizontalAlignment.Left
+layout.VerticalAlignment = Enum.VerticalAlignment.Top
+layout.Parent = infoContainer
+
+-- Hàm tạo dòng thông tin
+local function createInfoRow(text, icon, value)
+    local row = Instance.new("Frame")
+    row.Name = "Row"
+    row.BackgroundTransparency = 1
+    row.Size = UDim2.new(1, 0, 0, 20)
+    
+    local iconLabel = Instance.new("TextLabel")
+    iconLabel.Name = "Icon"
+    iconLabel.Text = icon
+    iconLabel.TextColor3 = Color3.fromRGB(80, 180, 255)
+    iconLabel.TextSize = 14
+    iconLabel.Font = Enum.Font.Gotham
+    iconLabel.BackgroundTransparency = 1
+    iconLabel.Size = UDim2.new(0, 20, 1, 0)
+    iconLabel.Parent = row
+    
+    local textLabel = Instance.new("TextLabel")
+    textLabel.Name = "Text"
+    textLabel.Text = text
+    textLabel.TextColor3 = Color3.fromRGB(200, 200, 200)
+    textLabel.TextSize = 14
+    textLabel.Font = Enum.Font.Gotham
+    textLabel.TextXAlignment = Enum.TextXAlignment.Left
+    textLabel.BackgroundTransparency = 1
+    textLabel.Position = UDim2.new(0, 25, 0, 0)
+    textLabel.Size = UDim2.new(0, 100, 1, 0)
+    textLabel.Parent = row
+    
+    local valueLabel = Instance.new("TextLabel")
+    valueLabel.Name = "Value"
+    valueLabel.Text = value
+    valueLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+    valueLabel.TextSize = 14
+    valueLabel.Font = Enum.Font.GothamBold
+    valueLabel.TextXAlignment = Enum.TextXAlignment.Right
+    valueLabel.BackgroundTransparency = 1
+    valueLabel.Position = UDim2.new(0, 130, 0, 0)
+    valueLabel.Size = UDim2.new(1, -130, 1, 0)
+    valueLabel.Parent = row
+    
+    return row
+end
+
+-- Biến toàn cục để lưu thông tin
+local accountAgeDays = 0
+local playTimeHours = 0
+local displayName = player.DisplayName
+local username = player.Name
+
+-- Lấy thông tin tài khoản từ Roblox API
+local function fetchAccountInfo()
+    local success, result = pcall(function()
+        -- Lấy thông tin ngày tạo tài khoản
+        local ageUrl = "https://users.roblox.com/v1/users/" .. userId
+        local ageResponse = game:HttpGet(ageUrl)
+        local ageData = game:GetService("HttpService"):JSONDecode(ageResponse)
+        
+        -- Tính số ngày từ khi tạo
+        local createdDate = DateTime.fromIsoDate(ageData.created):ToUnixTimestamp()
+        local currentDate = os.time()
+        local daysSinceCreation = math.floor((currentDate - createdDate) / 86400)
+        
+        -- Lấy display name
+        displayName = ageData.displayName
+        
+        return {
+            accountAge = daysSinceCreation,
+            displayName = displayName,
+            username = ageData.name
+        }
+    end)
+    
+    if success then
+        return result
+    else
+        return {
+            accountAge = 0,
+            displayName = displayName,
+            username = username
+        }
+    end
+end
+
+-- Tính thời gian chơi
+local function calculatePlayTime()
+    local startTime = tick()
+    
+    -- Ước tính thời gian chơi dựa trên session
+    while task.wait(60) do -- Cập nhật mỗi phút
+        playTimeHours = math.floor((tick() - startTime) / 3600 * 10) / 10
+        
+        -- Cập nhật UI
+        if screenGui and screenGui.Parent then
+            local valueLabel = screenGui.MainFrame.InfoContainer:FindFirstChild("PlayTimeValue")
+            if valueLabel then
+                valueLabel.Text = playTimeHours .. "h"
+            end
+        end
+    end
+end
+
+-- Khởi tạo UI
+local function initializeUI()
+    -- Xóa các dòng cũ nếu có
+    for _, child in ipairs(infoContainer:GetChildren()) do
+        if child:IsA("Frame") then
+            child:Destroy()
+        end
+    end
+    
+    -- Lấy thông tin tài khoản
+    local accountInfo = fetchAccountInfo()
+    accountAgeDays = accountInfo.accountAge
+    
+    -- Tạo các dòng thông tin
+    local rows = {
+        {text = "Biệt danh:", icon = "👤", value = accountInfo.displayName},
+        {text = "Tên TK:", icon = "🔑", value = accountInfo.username},
+        {text = "User ID:", icon = "🆔", value = tostring(userId)},
+        {text = "Ngày tạo:", icon = "📅", value = accountAgeDays .. " ngày"},
+        {text = "Thời gian chơi:", icon = "⏱️", value = playTimeHours .. "h"}
+    }
+    
+    for _, rowData in ipairs(rows) do
+        local row = createInfoRow(rowData.text, rowData.icon, rowData.value)
+        row.Parent = infoContainer
+        
+        -- Đặt tên cho value label để có thể cập nhật sau
+        if rowData.text == "Thời gian chơi:" then
+            row.Value.Name = "PlayTimeValue"
+        end
+    end
+end
+
+-- Nút đóng
+local closeButton = Instance.new("TextButton")
+closeButton.Name = "CloseButton"
+closeButton.Text = "✕"
+closeButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+closeButton.TextSize = 14
+closeButton.Font = Enum.Font.GothamBold
+closeButton.BackgroundColor3 = Color3.fromRGB(200, 60, 60)
+closeButton.BorderSizePixel = 0
+closeButton.Position = UDim2.new(1, -25, 0, 5)
+closeButton.Size = UDim2.new(0, 20, 0, 20)
+closeButton.AnchorPoint = Vector2.new(1, 0)
+closeButton.Parent = mainFrame
+
+local closeCorner = Instance.new("UICorner")
+closeCorner.CornerRadius = UDim.new(0, 10)
+closeCorner.Parent = closeButton
+
+closeButton.MouseButton1Click:Connect(function()
+    screenGui:Destroy()
+end)
+
+-- Nút ẩn/hiện
+local toggleButton = Instance.new("TextButton")
+toggleButton.Name = "ToggleButton"
+toggleButton.Text = "▼"
+toggleButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+toggleButton.TextSize = 12
+toggleButton.Font = Enum.Font.GothamBold
+toggleButton.BackgroundColor3 = Color3.fromRGB(60, 60, 80)
+toggleButton.BorderSizePixel = 0
+toggleButton.Position = UDim2.new(0, -25, 0, 10)
+toggleButton.Size = UDim2.new(0, 20, 0, 20)
+toggleButton.Parent = mainFrame
+
+local toggleCorner = Instance.new("UICorner")
+toggleCorner.CornerRadius = UDim.new(0, 5)
+toggleCorner.Parent = toggleButton
+
+local isMinimized = false
+toggleButton.MouseButton1Click:Connect(function()
+    if isMinimized then
+        mainFrame.Size = UDim2.new(0, 250, 0, 180)
+        toggleButton.Text = "▼"
+        infoContainer.Visible = true
+        divider.Visible = true
+        titleLabel.Visible = true
+    else
+        mainFrame.Size = UDim2.new(0, 40, 0, 40)
+        toggleButton.Text = "▲"
+        infoContainer.Visible = false
+        divider.Visible = false
+        titleLabel.Visible = false
+    end
+    isMinimized = not isMinimized
+end)
+
+-- Khởi tạo UI
+initializeUI()
+
+-- Bắt đầu tính thời gian chơi
+spawn(calculatePlayTime)
+
+-- Cập nhật thông tin mỗi 5 phút
+while task.wait(300) do
+    if screenGui and screenGui.Parent then
+        initializeUI()
+    else
+        break
+    end
+end
+
+print("[Account Info] Đã tải thành công! Thông tin hiển thị ở góc phải trên màn hình.")
