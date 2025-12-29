@@ -78,6 +78,7 @@ Tabs.Home2 = Window:Tab({Title = "steal branrot"})
 Tabs.Home3 = Window:Tab({Title = "99 đêm"})
 Tabs.Home4 = Window:Tab({Title = "grow gaden"})
 Tabs.Home5 = Window:Tab({Title = "trang mạng xã hội"})
+Tabs.Home6 = Window:Tab({Title = "1 số script do(1 số ng trong nhóm làm) "})
 
 -- Nút chung
 Tabs.Home0:Button({
@@ -100,10 +101,23 @@ Tabs.Home1:Toggle({
     end
 })
 
+
 Tabs.Home1:Toggle({
     Title = "blueX-Hub",
     Callback = function(state)
         loadstring(game:HttpGet("https://raw.githubusercontent.com/Dev-BlueX/BlueX-Hub/refs/heads/main/Main.lua"))()
+    end
+})
+Tabs.Home1:Button({
+    Title = "redhub",
+    Callback = function()
+        loadstring(game:HttpGet("https://api.luarmor.net/files/v3/loaders/20f318386e3fbf069ee3fa797cfc9f34.lua"))()
+    end
+})
+Tabs.Home1:Button({
+    Title = "Gravity-Hub",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/Dev-GravityHub/BloxFruit/refs/heads/main/Main.lua"))()
     end
 })
 
@@ -153,5 +167,18 @@ Tabs.Home3:Button({
     Title = "VoidWare (nokey)",
     Callback = function()
         loadstring(game:HttpGet("https://raw.githubusercontent.com/VapeVoidware/VW-Add/main/nightsintheforest.lua", true))()
+    end
+})
+Tabs.Home3:Button({
+    Title = "hok bt tên =)",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/GEC0/gec/refs/heads/main/Gec.Loader", true))()
+    end
+    
+})
+Tabs.Home6:Button({
+    Title = "Bomdev[Khánh(Script troll)",
+    Callback = function()
+        loadstring(game:HttpGet("https://pastefy.app/zR85Ybcp/raw", true))()
     end
 })
