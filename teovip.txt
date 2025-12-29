@@ -182,3 +182,9 @@ Tabs.Home6:Button({
         loadstring(game:HttpGet("https://pastefy.app/zR85Ybcp/raw", true))()
     end
 })
+Tabs.Home6:Button({
+    Title = "THG2Premium[Thành Đạt(tổng hợp )]",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/thanhdatdang87-lab/C-a-thg/refs/heads/main/ScriptTHG", true))()
+    end
+})
