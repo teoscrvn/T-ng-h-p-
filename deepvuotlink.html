@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Link Vượt - Hệ thống chia sẻ link kiếm tiền</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        /* Giao diện chung */
+        .interface {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            margin-bottom: 30px;
+            display: none;
+        }
+        
+        .interface.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+        
+        .title {
+            font-size: 28px;
+            color: #333;
+            font-weight: 700;
+        }
+        
+        .subtitle {
+            color: #666;
+            font-size: 16px;
+            margin-top: 5px;
+        }
+        
+        .switch-btn {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .switch-btn:hover {
+            background: #45a049;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(76, 175, 80, 0.4);
+        }
+        
+        /* Form styling */
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 600;
+            color: #444;
+            font-size: 16px;
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: border 0.3s ease;
+        }
+        
+        .form-input:focus {
+            border-color: #667eea;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+        
+        .btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 16px 30px;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-block;
+            text-align: center;
+            width: 100%;
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+        }
+        
+        /* Link result */
+        .link-result {
+            background: #f8f9ff;
+            border: 2px dashed #667eea;
+            border-radius: 10px;
+            padding: 25px;
+            margin-top: 30px;
+            text-align: center;
+        }
+        
+        .link-title {
+            color: #667eea;
+            font-size: 18px;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+        
+        .generated-link {
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 15px;
+            font-size: 18px;
+            color: #333;
+            word-break: break-all;
+            margin-bottom: 20px;
+        }
+        
+        .copy-btn {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background 0.3s ease;
+        }
+        
+        .copy-btn:hover {
+            background: #45a049;
+        }
+        
+        /* Giao diện người vượt */
+        .unlock-container {
+            text-align: center;
+        }
+        
+        .creator-title {
+            font-size: 32px;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        
+        .creator-description {
+            color: #666;
+            font-size: 18px;
+            margin-bottom: 40px;
+        }
+        
+        .unlock-btn {
+            background: linear-gradient(135deg, #FF416C 0%, #FF4B2B 100%);
+            color: white;
+            border: none;
+            padding: 20px 40px;
+            font-size: 22px;
+            border-radius: 12px;
+            cursor: pointer;
+            margin: 30px 0;
+            transition: all 0.3s ease;
+            font-weight: 700;
+        }
+        
+        .unlock-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 15px 30px rgba(255, 65, 108, 0.4);
+        }
+        
+        .timer {
+            font-size: 18px;
+            color: #666;
+            margin: 20px 0;
+        }
+        
+        .timer-number {
+            font-weight: 700;
+            color: #FF416C;
+            font-size: 24px;
+        }
+        
+        .ads-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 40px 0;
+        }
+        
+        .ad-slot {
+            background: #f8f8f8;
+            border-radius: 10px;
+            padding: 25px;
+            text-align: center;
+            border: 2px solid #e0e0e0;
+            transition: transform 0.3s ease;
+        }
+        
+        .ad-slot:hover {
+            transform: translateY(-5px);
+        }
+        
+        .ad-label {
+            color: #FF416C;
+            font-weight: 600;
+            margin-bottom: 15px;
+            font-size: 16px;
+        }
+        
+        .ad-content {
+            height: 250px;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #666;
+            font-style: italic;
+        }
+        
+        .final-link {
+            background: linear-gradient(135deg, #4CAF50 0%, #2E7D32 100%);
+            color: white;
+            border: none;
+            padding: 20px 40px;
+            font-size: 22px;
+            border-radius: 12px;
+            cursor: pointer;
+            margin: 30px 0;
+            transition: all 0.3s ease;
+            font-weight: 700;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .final-link:hover {
+            transform: scale(1.05);
+            box-shadow: 0 15px 30px rgba(76, 175, 80, 0.4);
+        }
+        
+        .revenue-info {
+            background: #e8f5e9;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 30px;
+            text-align: center;
+            border-left: 5px solid #4CAF50;
+        }
+        
+        .revenue-title {
+            color: #2E7D32;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Stats */
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            margin: 30px 0;
+            padding: 20px;
+            background: #f8f9ff;
+            border-radius: 15px;
+        }
+        
+        .stat-item {
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 32px;
+            font-weight: 700;
+            color: #667eea;
+            margin-bottom: 5px;
+        }
+        
+        .stat-label {
+            color: #666;
+            font-size: 14px;
+        }
+        
+        /* Instructions */
+        .instructions {
+            background: #fff8e1;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 30px 0;
+            border-left: 5px solid #ffb300;
+        }
+        
+        .instructions h3 {
+            color: #ff8f00;
+            margin-bottom: 15px;
+        }
+        
+        .instructions ol {
+            padding-left: 20px;
+            line-height: 1.8;
+        }
+        
+        .instructions li {
+            margin-bottom: 10px;
+            color: #5d4037;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .interface {
+                padding: 20px;
+            }
+            
+            .title {
+                font-size: 24px;
+            }
+            
+            .switch-btn {
+                padding: 10px 20px;
+                font-size: 14px;
+            }
+            
+            .btn, .unlock-btn, .final-link {
+                padding: 15px 20px;
+                font-size: 18px;
+            }
+            
+            .ads-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .stats {
+                flex-direction: column;
+                gap: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Giao diện người làm việc -->
+        <div id="creatorInterface" class="interface active">
+            <div class="header">
+                <div>
+                    <h1 class="title">🔗 Tạo Link Vượt YouTube</h1>
+                    <p class="subtitle">Tạo link kiếm tiền từ quảng cáo, chia sẻ để người khác vượt link</p>
+                </div>
+                <button class="switch-btn" onclick="switchToUser()">
+                    Chuyển sang giao diện người vượt
+                </button>
+            </div>
+            
+            <div class="stats">
+                <div class="stat-item">
+                    <div class="stat-number" id="totalClicks">0</div>
+                    <div class="stat-label">Lượt click</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" id="totalRevenue">0$</div>
+                    <div class="stat-label">Doanh thu</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" id="conversionRate">0%</div>
+                    <div class="stat-label">Tỷ lệ chuyển đổi</div>
+                </div>
+            </div>
+            
+            <div class="instructions">
+                <h3>📋 Hướng dẫn sử dụng:</h3>
+                <ol>
+                    <li>Nhập thông tin kênh YouTube của bạn</li>
+                    <li>Nhập link đích (file/download bạn muốn chia sẻ)</li>
+                    <li>Nhấn "Tạo Link Vượt" để tạo link chia sẻ</li>
+                    <li>Chia sẻ link với người khác</li>
+                    <li>Kiếm tiền từ quảng cáo khi người khác vượt link</li>
+                </ol>
+            </div>
+            
+            <form id="creatorForm">
+                <div class="form-group">
+                    <label class="form-label">📌 Tiêu đề link (tuỳ chọn):</label>
+                    <input type="text" class="form-input" id="linkTitle" 
+                           placeholder="Ví dụ: Tải file Photoshop miễn phí...">
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">🎬 Kênh YouTube của bạn:</label>
+                    <input type="url" class="form-input" id="youtubeChannel" 
+                           placeholder="https://www.youtube.com/@YourChannel" required>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">🎯 Link đích (file/download):</label>
+                    <input type="url" class="form-input" id="targetLink" 
+                           placeholder="https://drive.google.com/... hoặc https://download.com/..." required>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">💰 Tỷ lệ chia sẻ doanh thu:</label>
+                    <div style="background: #e8f5e9; padding: 15px; border-radius: 10px; margin-top: 10px;">
+                        <p style="color: #2E7D32; font-weight: 600;">
+                            📊 Bạn nhận: 80% doanh thu từ quảng cáo<br>
+                            🏢 Nền tảng nhận: 20% doanh thu từ quảng cáo
+                        </p>
+                    </div>
+                </div>
+                
+                <button type="submit" class="btn">
+                    🚀 Tạo Link Vượt
+                </button>
+            </form>
+            
+            <div id="linkResult" class="link-result" style="display: none;">
+                <div class="link-title">✅ Link vượt đã được tạo thành công!</div>
+                <div class="generated-link" id="generatedLink"></div>
+                <button class="copy-btn" onclick="copyLink()">📋 Copy Link</button>
+                <p style="margin-top: 15px; color: #666; font-size: 14px;">
+                    🔗 Chia sẻ link này với người khác để họ vượt link và bạn kiếm tiền từ quảng cáo
+                </p>
+            </div>
+        </div>
+        
+        <!-- Giao diện người vượt link -->
+        <div id="userInterface" class="interface">
+            <div class="header">
+                <div>
+                    <h1 class="title">🔓 Vượt Link YouTube</h1>
+                    <p class="subtitle">Vượt link để nhận file/download từ người chia sẻ</p>
+                </div>
+                <button class="switch-btn" onclick="switchToCreator()">
+                    Chuyển sang giao diện người tạo link
+                </button>
+            </div>
+            
+            <div class="unlock-container">
+                <h2 class="creator-title" id="displayTitle">Tải file miễn phí</h2>
+                <p class="creator-description" id="displayDescription">
+                    Vui lòng subscribe kênh YouTube và đợi 5 giây để mở khóa link
+                </p>
+                
+                <div class="form-group">
+                    <label class="form-label">🎬 Kênh YouTube cần subscribe:</label>
+                    <div class="generated-link" id="displayYoutubeLink">
+                        Chưa có link YouTube
+                    </div>
+                </div>
+                
+                <button class="unlock-btn" onclick="startUnlockProcess()">
+                    🔓 Bắt đầu vượt link
+                </button>
+                
+                <div id="timerSection" style="display: none;">
+                    <div class="timer">
+                        ⏳ Chờ <span class="timer-number" id="countdown">5</span> giây để mở khóa...
+                    </div>
+                </div>
+                
+                <div class="ads-container" id="adsContainer" style="display: none;">
+                    <div class="ad-slot">
+                        <div class="ad-label">🤑 Quảng cáo 1 - Người tạo link kiếm tiền từ đây</div>
+                        <div class="ad-content">
+                            Quảng cáo đang được hiển thị<br>
+                            (Doanh thu được chia: 80% cho người tạo, 20% cho nền tảng)
+                        </div>
+                    </div>
+                    <div class="ad-slot">
+                        <div class="ad-label">💰 Quảng cáo 2 - Hỗ trợ người tạo link</div>
+                        <div class="ad-content">
+                            Quảng cáo đang được hiển thị<br>
+                            Cảm ơn bạn đã hỗ trợ!
+                        </div>
+                    </div>
+                    <div class="ad-slot">
+                        <div class="ad-label">🎁 Quảng cáo 3 - Kiếm tiền cùng nhau</div>
+                        <div class="ad-content">
+                            Quảng cáo đang được hiển thị<br>
+                            Mỗi click = doanh thu chia sẻ
+                        </div>
+                    </div>
+                </div>
+                
+                <div id="finalLinkSection" style="display: none; margin-top: 40px;">
+                    <h3 style="color: #4CAF50; margin-bottom: 20px; font-size: 24px;">
+                        ✅ Đã mở khóa thành công!
+                    </h3>
+                    <a href="#" class="final-link" id="finalTargetLink" target="_blank">
+                        📥 Nhấn để tải file/download
+                    </a>
+                    
+                    <div class="revenue-info">
+                        <div class="revenue-title">📈 Thông tin doanh thu từ lượt vượt link của bạn:</div>
+                        <p style="color: #666; margin-top: 10px;">
+                            Bạn đã giúp người tạo link kiếm được <strong>$0.05</strong> từ quảng cáo<br>
+                            Nền tảng nhận được <strong>$0.01</strong> để duy trì dịch vụ
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Dữ liệu lưu trữ
+        let currentData = {
+            title: "Tải file miễn phí",
+            youtubeChannel: "",
+            targetLink: "",
+            clicks: 0,
+            revenue: 0,
+            conversions: 0
+        };
+
+        // Chuyển đổi giữa 2 giao diện
+        function switchToUser() {
+            document.getElementById('creatorInterface').classList.remove('active');
+            document.getElementById('userInterface').classList.add('active');
+        }
+
+        function switchToCreator() {
+            document.getElementById('userInterface').classList.remove('active');
+            document.getElementById('creatorInterface').classList.add('active');
+        }
+
+        // Xử lý form tạo link
+        document.getElementById('creatorForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Lấy dữ liệu từ form
+            currentData.title = document.getElementById('linkTitle').value || "Tải file miễn phí";
+            currentData.youtubeChannel = document.getElementById('youtubeChannel').value;
+            currentData.targetLink = document.getElementById('targetLink').value;
+            
+            // Tạo link vượt (giả lập)
+            const baseUrl = window.location.origin;
+            const linkId = 'link_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+            const unlockLink = `${baseUrl}#unlock=${linkId}`;
+            
+            // Hiển thị link
+            document.getElementById('generatedLink').textContent = unlockLink;
+            document.getElementById('linkResult').style.display = 'block';
+            
+            // Lưu vào localStorage
+            localStorage.setItem('unlockData', JSON.stringify(currentData));
+            localStorage.setItem('unlockLink', unlockLink);
+            
+            // Cập nhật stats (giả lập)
+            updateStats();
+            
+            // Cuộn đến link result
+            document.getElementById('linkResult').scrollIntoView({ behavior: 'smooth' });
+        });
+
+        // Copy link
+        function copyLink() {
+            const linkText = document.getElementById('generatedLink').textContent;
+            navigator.clipboard.writeText(linkText).then(() => {
+                alert('✅ Đã copy link vào clipboard!');
+            });
+        }
+
+        // Cập nhật thống kê
+        function updateStats() {
+            // Tăng số lượt click (giả lập)
+            currentData.clicks += Math.floor(Math.random() * 10) + 1;
+            currentData.revenue += (currentData.clicks * 0.05);
+            currentData.conversions += Math.floor(currentData.clicks * 0.3);
+            
+            document.getElementById('totalClicks').textContent = currentData.clicks;
+            document.getElementById('totalRevenue').textContent = currentData.revenue.toFixed(2) + '$';
+            document.getElementById('conversionRate').textContent = 
+                currentData.clicks > 0 ? Math.round((currentData.conversions / currentData.clicks) * 100) + '%' : '0%';
+        }
+
+        // Xử lý vượt link
+        function startUnlockProcess() {
+            // Kiểm tra xem đã tải dữ liệu chưa
+            const savedData = localStorage.getItem('unlockData');
+            if (!savedData) {
+                alert('❌ Chưa có dữ liệu link vượt. Vui lòng tạo link trước.');
+                switchToCreator();
+                return;
+            }
+            
+            const data = JSON.parse(savedData);
+            
+            // Hiển thị thông tin
+            document.getElementById('displayTitle').textContent = data.title;
+            document.getElementById('displayYoutubeLink').innerHTML = 
+                `<a href="${data.youtubeChannel}" target="_blank" style="color: #667eea;">${data.youtubeChannel}</a>`;
+            
+            // Ẩn nút bắt đầu, hiển thị timer
+            document.querySelector('.unlock-btn').style.display = 'none';
+            document.getElementById('timerSection').style.display = 'block';
+            document.getElementById('adsContainer').style.display = 'grid';
+            
+            // Bắt đầu đếm ngược
+            let seconds = 5;
+            const countdownElement = document.getElementById('countdown');
+            const countdownInterval = setInterval(() => {
+                seconds--;
+                countdownElement.textContent = seconds;
+                
+                if (seconds <= 0) {
+                    clearInterval(countdownInterval);
+                    unlockComplete(data);
+                }
+            }, 1000);
+        }
+
+        // Hoàn tất vượt link
+        function unlockComplete(data) {
+            // Hiển thị link đích
+            document.getElementById('finalTargetLink').href = data.targetLink;
+            document.getElementById('finalTargetLink').textContent = `📥 Tải ngay: ${data.targetLink.substring(0, 50)}...`;
+            document.getElementById('finalLinkSection').style.display = 'block';
+            
+            // Ẩn timer
+            document.getElementById('timerSection').style.display = 'none';
+            
+            // Cập nhật thống kê
+            updateStats();
+            
+            // Mở kênh YouTube trong tab mới
+            window.open(data.youtubeChannel, '_blank');
+        }
+
+        // Kiểm tra URL hash khi trang tải
+        window.addEventListener('load', function() {
+            // Kiểm tra xem có phải là link vượt không
+            if (window.location.hash.includes('unlock=')) {
+                switchToUser();
+                
+                // Tải dữ liệu từ localStorage
+                const savedData = localStorage.getItem('unlockData');
+                if (savedData) {
+                    const data = JSON.parse(savedData);
+                    document.getElementById('displayTitle').textContent = data.title;
+                    document.getElementById('displayYoutubeLink').innerHTML = 
+                        `<a href="${data.youtubeChannel}" target="_blank" style="color: #667eea;">${data.youtubeChannel}</a>`;
+                }
+            }
+            
+            // Khởi tạo stats
+            updateStats();
+        });
+
+        // Tạo dữ liệu mẫu khi trang tải
+        window.addEventListener('load', function() {
+            // Khởi tạo dữ liệu mẫu nếu chưa có
+            if (!localStorage.getItem('unlockData')) {
+                const sampleData = {
+                    title: "Tải Photoshop 2024 Full Crack",
+                    youtubeChannel: "https://www.youtube.com/@DesignMaster",
+                    targetLink: "https://drive.google.com/file/d/sample123/view",
+                    clicks: 42,
+                    revenue: 2.10,
+                    conversions: 12
+                };
+                localStorage.setItem('unlockData', JSON.stringify(sampleData));
+                updateStats();
+            }
+        });
+    </script>
+</body>
+</html>
