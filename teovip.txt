@@ -174,8 +174,39 @@ Tabs.Home3:Button({
     Callback = function()
         loadstring(game:HttpGet("https://raw.githubusercontent.com/GEC0/gec/refs/heads/main/Gec.Loader", true))()
     end
+    })
+Tabs.Home3:Button({
+    Title = "FoxNam-Hub/Fram'Candy",
+    Callback = function()
+        getgenv().autoexecuter = true
+loadstring(game:HttpGet("https://raw.githubusercontent.com/caomod2077/Script/refs/heads/main/Candy_Farm_Christmas.lua"))()
+    end
+    })
+    Tabs.Home3:Button({
+    Title = "XEPHEX-HUB",
+    Callback = function()
+        loadstring(game:HttpGet("https://api.junkie-development.de/api/v1/luascripts/public/d649d6814b8489e7abd4f0646c1445019f10c4eefe8d77e7ce84336f33ad4263/download"))()
+    end
+    })
+    Tabs.Home3:Button({
+    Title = "Foxname-Hub",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/caomod2077/Script/refs/heads/main/FoxnameHub.lua"))()
+    end
+    })
     
-})
+    Tabs.Home3:Button({
+    Title = "Voiware 99",
+    Callback = function()
+  loadstring(game:HttpGet("https://raw.githubusercontent.com/VapeVoidware/VW-Add/main/nightsintheforest.lua", true))()
+    end
+    })
+    Tabs.Home3:Button({
+    Title = "Ugly steal",
+    Callback = function()
+        loadstring(game:HttpGet("https://api.luarmor.net/files/v3/loaders/53325754de16c11fbf8bf78101c1c881.lua"))()
+    end
+    })
 Tabs.Home6:Button({
     Title = "Bomdev[Khánh(Script troll)",
     Callback = function()
