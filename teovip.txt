@@ -94,21 +94,21 @@ Tabs.Home0:Button({
     end
 })
 
-Tabs.Home1:Toggle({
+Tabs.Home1:Button({
     Title = "Redhub v5 của trẩu roblox",
     Callback = function(state)
         loadstring(game:HttpGet("https://raw.githubusercontent.com/trungdao2k4/trauroblox/refs/heads/main/traurobloxv5.lua"))()
     end
 })
 
-Tabs.Home1:Toggle({
+Tabs.Home1:Button({
     Title = "script tạo sv VIp ",
     Callback = function(state)
         loadstring(game:HttpGet("https://raw.githubusercontent.com/anuragaming1/Meow_gaming/refs/heads/main/Servervip.lua.txt"))()
     end
 })
 
-Tabs.Home1:Toggle({
+Tabs.Home1:Button({
     Title = "blueX-Hub",
     Callback = function(state)
         loadstring(game:HttpGet("https://raw.githubusercontent.com/Dev-BlueX/BlueX-Hub/refs/heads/main/Main.lua"))()
@@ -211,6 +211,12 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/caomod2077/Script/ref
     Title = "Ugly steal",
     Callback = function()
         loadstring(game:HttpGet("https://api.luarmor.net/files/v3/loaders/53325754de16c11fbf8bf78101c1c881.lua"))()
+    end
+    })
+    Tabs.Home3:Button({
+    Title = "Fram Day vaf kc 🤑",
+    Callback = function()
+        loadstring(game:HttpGet("https://api.junkie-development.de/api/v1/luascripts/public/d649d6814b8489e7abd4f0646c1445019f10c4eefe8d77e7ce84336f33ad4263/download"))()
     end
     })
 Tabs.Home6:Button({
